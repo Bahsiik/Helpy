@@ -3,7 +3,10 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"log"
+	"net/http"
+	"strconv"
 
 	"github.com/go-sql-driver/mysql"
 )
@@ -21,16 +24,8 @@ type Album struct {
 
 func main() {
 
-	//// Gestion de tous les fichiers gohtml
-	//tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
-	//
-	//// Gestion de la page d'accueil
-	//http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-	//	err := tmpl.ExecuteTemplate(w, "index", "")
-	//	if err != nil {
-	//		return
-	//	}
-	//})
+	// Gestion de tous les fichiers gohtml
+	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
@@ -68,17 +63,6 @@ func main() {
 	}
 	fmt.Printf("Album found: %v\n", alb)
 
-	// Ajout d'un album
-	albID, err := addAlbum(Album{
-		Title:  "Ipséité",
-		Artist: "Damso",
-		Price:  1000000,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("ID of added album: %v\n", albID)
-
 	//Suppression d'un album
 	albTitle, err := delAlbum(Album{Title: "Deux Frères"})
 	if err != nil {
@@ -86,11 +70,31 @@ func main() {
 	}
 	fmt.Printf("Name of the deleted album: %v\n", albTitle)
 
-	//erro := http.ListenAndServe(":8080", nil)
-	//if erro != nil {
-	//	return
-	//}
+	// Gestion de la page d'accueil
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		err := tmpl.ExecuteTemplate(w, "index.gohtml", "")
+		if err != nil {
+			return
+		}
+		//name := r.FormValue("userinput")
+		//print(name)
+		prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
+		// Ajout d'un album
+		albID, err := addAlbum(Album{
+			Title:  r.FormValue("titre"),
+			Artist: r.FormValue("artiste"),
+			Price:  float32(prix),
+		})
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("ID of added album: %v\n", albID)
+	})
 
+	erro := http.ListenAndServe(":8080", nil)
+	if erro != nil {
+		return
+	}
 }
 
 // albumsByArtist recherche des albums d'un artiste défini
