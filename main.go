@@ -76,19 +76,22 @@ func main() {
 		if err != nil {
 			return
 		}
-		//name := r.FormValue("userinput")
-		//print(name)
-		prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
-		// Ajout d'un album
-		albID, err := addAlbum(Album{
-			Title:  r.FormValue("titre"),
-			Artist: r.FormValue("artiste"),
-			Price:  float32(prix),
-		})
-		if err != nil {
-			log.Fatal(err)
+		switch r.Method {
+		case "POST":
+			//print(name)
+			prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
+			// Ajout d'un album
+			albID, err := addAlbum(Album{
+				Title:  r.FormValue("titre"),
+				Artist: r.FormValue("artiste"),
+				Price:  float32(prix),
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("ID of added album: %v\n", albID)
 		}
-		fmt.Printf("ID of added album: %v\n", albID)
+
 	})
 
 	erro := http.ListenAndServe(":8080", nil)
