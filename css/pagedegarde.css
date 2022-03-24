@@ -1,0 +1,49 @@
+body {
+    background-color: #22252a;
+}
+
+#Header {
+    display: flex;
+    background-color: #18191b;
+    grid-area: header;
+}
+
+header {
+    padding: 1%;
+    flex-wrap: wrap;
+
+}
+
+.NM {
+    padding: 1%;
+}
+
+#logo {
+    width: 3%;
+    height: 3%;
+    display: flex;
+    align-self: center;
+}
+
+#NomLogo {
+    color: aliceblue;
+}
+
+#Slogan {
+    color: aliceblue;
+}
+.Topics {
+    align-items: flex-end;
+    border-radius: 1%;
+    height:50%;
+    width:30%;
+    background-color: #18191b;
+}
+.container {
+    margin: 1%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+li {
+    padding-bottom: 7%;
+}

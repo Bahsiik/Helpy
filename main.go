@@ -51,6 +51,7 @@ func main() {
 	}
 	fmt.Println("Connected!")
 
+<<<<<<< HEAD
 	////  Recherche des albums d'un artiste défini
 	//albums, err := albumsByArtist("John Coltrane")
 	//if err != nil {
@@ -72,11 +73,36 @@ func main() {
 	//}
 	//fmt.Printf("Name of the deleted album: %v\n", albTitle)
 	//Gestion de la page d'accueil
+=======
+	//  Recherche des albums d'un artiste défini
+	albums, err := albumsByArtist("John Coltrane")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Albums found: %v\n", albums)
+
+	// Recherche d'album via l'ID
+	alb, err := albumByID(1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Album found: %v\n", alb)
+
+	//Suppression d'un album
+	albTitle, err := delAlbum(Album{Title: "Deux Frères"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf(albTitle)
+
+	// Gestion de la page d'accueil
+>>>>>>> a99e4ebe2c23a710356ecda542f591112512f438
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		err := tmpl.ExecuteTemplate(w, "index.gohtml", "")
 		if err != nil {
 			return
 		}
+<<<<<<< HEAD
 		switch r.Method {
 		case "POST":
 			prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
@@ -90,8 +116,22 @@ func main() {
 				log.Fatal(err)
 			}
 			fmt.Printf("ID of added album: %v\n", albID)
+=======
+		//name := r.FormValue("userinput")
+		//print(name)
+		prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
+		// Ajout d'un album
+		//mol
+		albID, err := addAlbum(Album{
+			Title:  r.FormValue("titre"),
+			Artist: r.FormValue("artiste"),
+			Price:  float32(prix),
+		})
+		if err != nil {
+			log.Fatal(err)
+>>>>>>> a99e4ebe2c23a710356ecda542f591112512f438
 		}
-
+		fmt.Printf("ID of added album: %v\n", albID)
 	})
 	erro := http.ListenAndServe(":8080", nil)
 	if erro != nil {
