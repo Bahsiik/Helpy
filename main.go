@@ -33,7 +33,7 @@ func main() {
 		Passwd:               "",
 		Net:                  "tcp",
 		Addr:                 "127.0.0.1:3306",
-		DBName:               "recordings",
+		DBName:               "test",
 		AllowNativePasswords: true,
 	}
 	// Création du handler de la BDD
@@ -68,7 +68,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Name of the deleted album: %v\n", albTitle)
 
 	// Gestion de la page d'accueil
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
