@@ -29,10 +29,10 @@ func main() {
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
-		User:                 "root",
-		Passwd:               "",
+		User:                 "oliv",
+		Passwd:               "oliv",
 		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3306",
+		Addr:                 "10.13.34.197:3306",
 		DBName:               "recordings",
 		AllowNativePasswords: true,
 	}
@@ -40,37 +40,38 @@ func main() {
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
+		println("1")
 		log.Fatal(err)
 	}
 	// Vérification que la connection à la BDD marche
 	pingErr := db.Ping()
 	if pingErr != nil {
+		println("2")
 		log.Fatal(pingErr)
 	}
 	fmt.Println("Connected!")
 
-	//  Recherche des albums d'un artiste défini
-	albums, err := albumsByArtist("John Coltrane")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Albums found: %v\n", albums)
-
-	// Recherche d'album via l'ID
-	alb, err := albumByID(1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Album found: %v\n", alb)
-
-	//Suppression d'un album
-	albTitle, err := delAlbum(Album{Title: "Deux Frères"})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Name of the deleted album: %v\n", albTitle)
-
-	// Gestion de la page d'accueil
+	////  Recherche des albums d'un artiste défini
+	//albums, err := albumsByArtist("John Coltrane")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Printf("Albums found: %v\n", albums)
+	//
+	//// Recherche d'album via l'ID
+	//alb, err := albumByID(1)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Printf("Album found: %v\n", alb)
+	//
+	////Suppression d'un album
+	//albTitle, err := delAlbum(Album{Title: "Deux Frères"})
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Printf("Name of the deleted album: %v\n", albTitle)
+	//Gestion de la page d'accueil
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		err := tmpl.ExecuteTemplate(w, "index.gohtml", "")
 		if err != nil {
@@ -78,7 +79,6 @@ func main() {
 		}
 		switch r.Method {
 		case "POST":
-			//print(name)
 			prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
 			// Ajout d'un album
 			albID, err := addAlbum(Album{
@@ -93,7 +93,6 @@ func main() {
 		}
 
 	})
-
 	erro := http.ListenAndServe(":8080", nil)
 	if erro != nil {
 		return
