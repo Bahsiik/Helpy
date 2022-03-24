@@ -80,6 +80,7 @@ func main() {
 		//print(name)
 		prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
 		// Ajout d'un album
+		//mol
 		albID, err := addAlbum(Album{
 			Title:  r.FormValue("titre"),
 			Artist: r.FormValue("artiste"),
