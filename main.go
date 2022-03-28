@@ -77,6 +77,14 @@ func main() {
 			return
 		}
 		switch r.Method {
+		case "GET":
+			////  Recherche des albums d'un artiste défini
+			albums, err := albumsByArtist("John Coltrane")
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("Albums found: %v\n", albums)
+			tmpl.ExecuteTemplate(w, "index.gohtml", albums)
 		case "POST":
 			// Ajout d'un User
 			albID, err := addAlbum(User{
@@ -86,8 +94,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Printf("ID of added mod: %v\n", albID)
-
+			fmt.Printf("ID of added album: %v\n", albID)
 		}
 	})
 	erro := http.ListenAndServe(":8080", nil)
@@ -141,8 +148,8 @@ func albumByID(id int64) (Album, error) {
 
 // addAlbum Ajout d'un album,
 // Renvoi également l'ID du nouvel album
-func addAlbum(use User) (int64, error) {
 
+func addAlbum(alb Album) (int64, error) {
 	// Création de la requête SQL
 	result, err := db.Exec("INSERT INTO album (Username, Password) VALUES (?, ?)", use.USERNAME, use.PASSWORD)
 	if err != nil {
