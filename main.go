@@ -3,37 +3,35 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"github.com/go-sql-driver/mysql"
 	"html/template"
 	"log"
 	"net/http"
-	"strconv"
-
-	"github.com/go-sql-driver/mysql"
 )
 
 // Ça je ne sais pas trop, mais c'est ce qui nous permet de manip la bdd
 var db *sql.DB
 
 // Album Structure qui permettra d'interagir avec la bdd, reprend les memes attributs
-type Album struct {
-	ID     int64
-	Title  string
-	Artist string
-	Price  float32
+type User struct {
+	USERNAME string
+	PASSWORD string
 }
 
 func main() {
 
 	// Gestion de tous les fichiers gohtml
 	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
+	cssFolder := http.FileServer(http.Dir("css"))
+	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
-		User:                 "oliv",
-		Passwd:               "oliv",
+		User:                 "root",
+		Passwd:               "",
 		Net:                  "tcp",
-		Addr:                 "10.13.34.197:3306",
-		DBName:               "recordings",
+		Addr:                 "127.0.0.1:3306",
+		DBName:               "forum",
 		AllowNativePasswords: true,
 	}
 	// Création du handler de la BDD
@@ -74,23 +72,21 @@ func main() {
 	//Gestion de la page d'accueil
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		err := tmpl.ExecuteTemplate(w, "index.gohtml", "")
+		err := tmpl.ExecuteTemplate(w, "login.gohtml", "")
 		if err != nil {
 			return
 		}
 		switch r.Method {
 		case "POST":
-			prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
-			// Ajout d'un album
-			albID, err := addAlbum(Album{
-				Title:  r.FormValue("titre"),
-				Artist: r.FormValue("artiste"),
-				Price:  float32(prix),
+			// Ajout d'un User
+			albID, err := addAlbum(User{
+				USERNAME: r.FormValue("username"),
+				PASSWORD: r.FormValue("password"),
 			})
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Printf("ID of added album: %v\n", albID)
+			fmt.Printf("ID of added mod: %v\n", albID)
 
 		}
 	})
@@ -101,9 +97,9 @@ func main() {
 }
 
 // albumsByArtist recherche des albums d'un artiste défini
-func albumsByArtist(name string) ([]Album, error) {
+func albumsByArtist(name string) ([]User, error) {
 	// Variable pour contenir les données renvoyées par la fonction
-	var albums []Album
+	var User []User
 
 	// Création de la requête SQL
 	rows, err := db.Query("SELECT * FROM album WHERE artist = ?", name)
@@ -114,16 +110,16 @@ func albumsByArtist(name string) ([]Album, error) {
 	defer rows.Close()
 	// Boucle pour remplir le tableau []Album des données de la recherche
 	for rows.Next() {
-		var alb Album
-		if err := rows.Scan(&alb.ID, &alb.Title, &alb.Artist, &alb.Price); err != nil {
+		var Use User
+		if err := rows.Scan(&Use.USERNAME, &Use.PASSWORD); err != nil {
 			return nil, fmt.Errorf("albumsByArtist %q: %v", name, err)
 		}
-		albums = append(albums, alb)
+		albums = append(User, Use)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, fmt.Errorf("albumsByArtist %q: %v", name, err)
 	}
-	return albums, nil
+	return User, nil
 }
 
 // albumByID recherche d'album via l'ID.
@@ -145,10 +141,10 @@ func albumByID(id int64) (Album, error) {
 
 // addAlbum Ajout d'un album,
 // Renvoi également l'ID du nouvel album
-func addAlbum(alb Album) (int64, error) {
+func addAlbum(use User) (int64, error) {
 
 	// Création de la requête SQL
-	result, err := db.Exec("INSERT INTO album (title, artist, price) VALUES (?, ?, ?)", alb.Title, alb.Artist, alb.Price)
+	result, err := db.Exec("INSERT INTO album (Username, Password) VALUES (?, ?)", use.USERNAME, use.PASSWORD)
 	if err != nil {
 		return 0, fmt.Errorf("addAlbum: %v", err)
 	}
@@ -171,4 +167,16 @@ func delAlbum(alb Album) (string, error) {
 		return "", fmt.Errorf("delAlbum: %v", err)
 	}
 	return albTitle, nil
+}
+func ModAlbum(alb Album) (int64, error) {
+
+	result, err := db.Exec("UPDATE album SET id= ?, title= ?, artist= ?, price =? WHERE id = ?", alb.ID, alb.Title, alb.Artist, alb.Price, alb.ID)
+	if err != nil {
+		return 0, fmt.Errorf("ModAlbum: %v", err)
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("ModAlbum: %v", err)
+	}
+	return id, nil
 }
