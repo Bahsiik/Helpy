@@ -25,7 +25,7 @@ type Album struct {
 func main() {
 
 	// Gestion de tous les fichiers gohtml
-	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
+	tmpl := template.Must(template.ParseGlob("./templates/*.gohtml"))
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
@@ -79,6 +79,14 @@ func main() {
 			return
 		}
 		switch r.Method {
+		case "GET":
+			////  Recherche des albums d'un artiste défini
+			albums, err := albumsByArtist("John Coltrane")
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("Albums found: %v\n", albums)
+			tmpl.ExecuteTemplate(w, "index.gohtml", albums)
 		case "POST":
 			prix, err := strconv.ParseFloat(r.FormValue("prix"), 32)
 			// Ajout d'un album
@@ -91,7 +99,6 @@ func main() {
 				log.Fatal(err)
 			}
 			fmt.Printf("ID of added album: %v\n", albID)
-
 		}
 	})
 	erro := http.ListenAndServe(":8080", nil)
@@ -146,7 +153,6 @@ func albumByID(id int64) (Album, error) {
 // addAlbum Ajout d'un album,
 // Renvoi également l'ID du nouvel album
 func addAlbum(alb Album) (int64, error) {
-
 	// Création de la requête SQL
 	result, err := db.Exec("INSERT INTO album (title, artist, price) VALUES (?, ?, ?)", alb.Title, alb.Artist, alb.Price)
 	if err != nil {
