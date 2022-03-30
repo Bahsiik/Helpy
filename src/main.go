@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/go-sql-driver/mysql"
+	"golang.org/x/crypto/bcrypt"
 	"html/template"
 	"log"
 	"net/http"
@@ -30,16 +31,16 @@ type User struct {
 func main() {
 
 	// Gestion de tous les fichiers gohtml
-	tmpl := template.Must(template.ParseGlob("../templates/login.gohtml"))
+	tmpl := template.Must(template.ParseGlob("./templates/login.gohtml"))
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
-		User:                 "root",
-		Passwd:               "",
+		User:                 "oliv",
+		Passwd:               "oliv",
 		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3306",
+		Addr:                 "10.13.34.197:3306",
 		DBName:               "forum",
 		AllowNativePasswords: true,
 	}
@@ -90,8 +91,9 @@ func main() {
 
 func addUser(use User) (int64, error) {
 	// Création de la requête SQL
-	fmt.Println(use)
-	result, err := db.Exec("INSERT INTO users (Username, Password, Passwordo, email) VALUES (?, ?, ?, ?)", use.Username, use.Password, use.Passwordo, use.Email)
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(use.Password), 8)
+	result, err := db.Exec("INSERT INTO users (Username, Password, Passwordo, email) VALUES (?, ?, ?, ?)", use.Username, hashedPassword, use.Passwordo, use.Email)
 	if err != nil {
 		return 0, fmt.Errorf("addUser: %v", err)
 	}
