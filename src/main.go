@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/go-sql-driver/mysql"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Ça je ne sais pas trop, mais c'est ce qui nous permet de manip la bdd
@@ -30,16 +31,16 @@ type User struct {
 func main() {
 
 	// Gestion de tous les fichiers gohtml
-	tmpl := template.Must(template.ParseGlob("../templates/login.gohtml"))
+	tmpl := template.Must(template.ParseGlob("./templates/login.gohtml"))
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
-		User:                 "root",
-		Passwd:               "",
+		User:                 "oliv",
+		Passwd:               "oliv",
 		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3306",
+		Addr:                 "10.13.34.197:3306",
 		DBName:               "forum",
 		AllowNativePasswords: true,
 	}
@@ -65,7 +66,6 @@ func main() {
 			tmpl.Execute(w, nil)
 			return
 		}
-
 		albID, err := addUser(User{
 			Username: r.FormValue("username"),
 			Password: r.FormValue("password"),
@@ -83,8 +83,8 @@ func main() {
 
 func addUser(use User) (int64, error) {
 	// Création de la requête SQL
-	fmt.Println(use)
-	result, err := db.Exec("INSERT INTO users (Username, Password) VALUES (?, ?)", use.Username, use.Password)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(use.Password), 8)
+	result, err := db.Exec("INSERT INTO users (Username, Password) VALUES (?, ?)", use.Username, hashedPassword)
 	if err != nil {
 		return 0, fmt.Errorf("addUser: %v", err)
 	}
