@@ -19,6 +19,7 @@ type User struct {
 	Username  string `json:"username"`
 	FirstName string `json:"first_name"`
 	Password  string `json:"password"`
+	Passwordo string `json:"passwordo"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Admin     bool   `json:"admin"`
@@ -64,15 +65,22 @@ func main() {
 			tmpl.Execute(w, nil)
 			return
 		}
+		// check if password is equal to passwordo
+		if r.FormValue("password") != r.FormValue("passwordo") {
+			http.ListenAndServe(":8080", nil)
+		} else {
 
-		albID, err := addUser(User{
-			Username: r.FormValue("username"),
-			Password: r.FormValue("password"),
-		})
-		if err != nil {
-			log.Fatal(err)
+			albID, err := addUser(User{
+				Username:  r.FormValue("username"),
+				Password:  r.FormValue("password"),
+				Passwordo: r.FormValue("passwordo"),
+				Email:     r.FormValue("email"),
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("ID of added Users: %v\n", albID)
 		}
-		fmt.Printf("ID of added Users: %v\n", albID)
 	})
 	erro := http.ListenAndServe(":8080", nil)
 	if erro != nil {
@@ -83,7 +91,7 @@ func main() {
 func addUser(use User) (int64, error) {
 	// Création de la requête SQL
 	fmt.Println(use)
-	result, err := db.Exec("INSERT INTO users (Username, Password) VALUES (?, ?)", use.Username, use.Password)
+	result, err := db.Exec("INSERT INTO users (Username, Password, Passwordo, email) VALUES (?, ?, ?, ?)", use.Username, use.Password, use.Passwordo, use.Email)
 	if err != nil {
 		return 0, fmt.Errorf("addUser: %v", err)
 	}
