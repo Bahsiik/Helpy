@@ -31,16 +31,16 @@ type User struct {
 func main() {
 
 	// Gestion de tous les fichiers gohtml
-	tmpl := template.Must(template.ParseGlob("./templates/login.gohtml"))
+	tmpl := template.Must(template.ParseGlob("../templates/login.gohtml"))
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
 	// Paramètres de connexion à la BDD
 	cfg := mysql.Config{
-		User:                 "oliv",
-		Passwd:               "oliv",
+		User:                 "root",
+		Passwd:               "",
 		Net:                  "tcp",
-		Addr:                 "10.13.34.197:3306",
+		Addr:                 "127.0.0.1:3306",
 		DBName:               "forum",
 		AllowNativePasswords: true,
 	}
@@ -68,7 +68,7 @@ func main() {
 		}
 		// check if password is equal to passwordo
 		if r.FormValue("password") != r.FormValue("passwordo") {
-			http.ListenAndServe(":8080", nil)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 		} else {
 
 			albID, err := addUser(User{
