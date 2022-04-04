@@ -3,11 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/go-sql-driver/mysql"
-	"golang.org/x/crypto/bcrypt"
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/go-sql-driver/mysql"
 )
 
 // Ça je ne sais pas trop, mais c'est ce qui nous permet de manip la bdd
@@ -67,10 +67,9 @@ func main() {
 			return
 		}
 		// check if password is equal to passwordo
-		if r.FormValue("password") != r.FormValue("passwordo") {
-			http.ListenAndServe(":8080", nil)
+		if r.FormValue("password") != r.FormValue("passwordo") || r.FormValue("password") == "" || r.FormValue("passwordo") == "" || r.FormValue("username") == "" || r.FormValue("first_name") == "" || r.FormValue("last_name") == "" || r.FormValue("email") == "" {
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 		} else {
-
 			albID, err := addUser(User{
 				Username:  r.FormValue("username"),
 				Password:  r.FormValue("password"),
@@ -87,20 +86,4 @@ func main() {
 	if erro != nil {
 		return
 	}
-}
-
-func addUser(use User) (int64, error) {
-	// Création de la requête SQL
-
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(use.Password), 8)
-	result, err := db.Exec("INSERT INTO users (Username, Password, Passwordo, email) VALUES (?, ?, ?, ?)", use.Username, hashedPassword, use.Passwordo, use.Email)
-	if err != nil {
-		return 0, fmt.Errorf("addUser: %v", err)
-	}
-	// Récupération de l'ID pour le return
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, fmt.Errorf("addUser: %v", err)
-	}
-	return id, nil
 }
