@@ -67,7 +67,7 @@ func main() {
 			return
 		}
 		// check if password is equal to passwordo
-		if r.FormValue("password") != r.FormValue("passwordo") || r.FormValue("password") == "" || r.FormValue("passwordo") == "" || r.FormValue("username") == "" || r.FormValue("first_name") == "" || r.FormValue("last_name") == "" || r.FormValue("email") == "" {
+		if r.FormValue("password") != r.FormValue("passwordo") {
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		} else {
 			albID, err := addUser(User{
