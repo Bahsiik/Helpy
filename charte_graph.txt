@@ -1,0 +1,23 @@
+Color :
+ lightgray : D3D3D3FF
+ darkgrey : A9A9A9FF
+ dimgray : 696969FF
+ white : FFFFFFFF
+ 7c9db2
+ b2e1ff
+ 232323
+ tomato : FF6347FF
+ black : 000000FF
+ ededed
+ 5ec5ea
+ 85d134
+ 3ca55b
+ e5b702
+ f07d1a
+ ff0582
+ cf3cd3
+ 2850b2
+ red : FF0000FF
+
+Police :
+

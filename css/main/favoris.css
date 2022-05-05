@@ -1,0 +1,91 @@
+/*          Favoris         */
+.panel2 {
+    position: absolute;
+    z-index: 2;
+    height: 270px;
+    width: 300px;
+    top: 57.5%;
+    left: 2%;
+    background: #151A3B;
+    overflow: hidden;
+    /*box-shadow: .5rem .5rem 1rem 0 rgba(0, 0, 0, 0.4);*/
+    transition: all .5s ease-in-out;
+    border-radius: 10px;
+}
+.panel2.show-menu {
+    transform: translate3d(150px, 0, 0);
+}
+.panel2 .header {
+    height: 50px;
+    width: 100%;
+    font-family: 'josefin sans', serif;
+}
+
+.panel2 .header .title {
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+.panel2 .notifications {
+    position: relative;
+    height: 85%;
+    overflow-y: scroll;
+}
+.panel2 .notifications .line {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    bottom: -250px;
+    width: 3px;
+    background: #EBEBEB;
+    animation: appear .5s;
+}
+.panel2 .notifications .notification {
+    position: relative;
+    z-index: 2;
+    margin: 20px 20px 25px 43px;
+    transition: all .2s;
+}
+.panel2 .notifications .notification:nth-child(2) {
+    animation: here-am-i 0.5s ease-out 0.4s;
+    animation-fill-mode: both;
+}
+.panel2 .notifications .notification:nth-child(3) {
+    animation: here-am-i 0.5s ease-out 0.6s;
+    animation-fill-mode: both;
+}
+.panel2 .notifications .notification:nth-child(4) {
+    animation: here-am-i 0.5s ease-out 0.8s;
+    animation-fill-mode: both;
+}
+.panel2 .notifications .notification:hover {
+    background: #1d2652;
+    box-shadow: 0 0 0 1.1em #1d2652;
+    cursor: pointer;
+}
+.panel2 .notifications .notification .circle {
+    box-sizing: border-box;
+    position: absolute;
+    height: 11px;
+    width: 11px;
+    background: #fff;
+    border: .18rem solid #643a7a;
+    box-shadow: 0 0 0 3px #fff;
+    border-radius: 6px;
+    top: 0;
+    left: -28px;
+}
+.panel2 .notifications .notification .time {
+    display: block;
+    font-size: .75rem;
+    line-height: 11px;
+    margin-bottom: 2px;
+}
+.panel2 .notifications .notification p {
+    line-height: 20px;
+    margin: 0;
+    font-size: 1.1rem;
+}
+.panel2 .notifications .notification p b {
+    font-weight: 600;
+}
