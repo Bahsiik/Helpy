@@ -1,3 +1,10 @@
+body{
+    margin: 0;
+}
+
+*{
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+}
 /*          HEADER          */
 .header{
     justify-content: center;
@@ -14,7 +21,7 @@
     position: relative;
     top: 40%;
 
-    z-index: 2;
+    z-index: 5;
 
     -webkit-user-select: none;
     user-select: none;
@@ -120,7 +127,7 @@
 {
     position: absolute;
     width: 150px;
-    margin: 150% 0 0 -150%;
+    margin: 150% 0 0 -160%;
     padding: 100% 100% 100% 100%;
     border-radius: 30%;
     background: #ededed;
