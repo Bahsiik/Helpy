@@ -3,18 +3,20 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/go-sql-driver/mysql"
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/go-sql-driver/mysql"
 )
 
 var db *sql.DB
+var tmpl *template.Template
 
 func main() {
 
-	tmpl := template.Must(template.ParseGlob("../templates/*.html"))
-	cssFolder := http.FileServer(http.Dir("../css"))
+	tmpl, _ = template.ParseGlob("templates/*.html")
+	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
 	cfg := mysql.Config{
@@ -40,16 +42,28 @@ func main() {
 	}
 	fmt.Println("Connected!")
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			tmpl.Execute(w, nil)
-			return
-		}
-		CompareForm(w, r)
-		CompareCheck(w, r)
-	})
-	http.HandleFunc("/signin", Signin)
+	http.HandleFunc("/", FirstCookies)
+	//CompareForm(w, r)
+	//CompareCheck(w, r)
 	erro := http.ListenAndServe(":8080", nil)
+	if erro != nil {
+		return
+	}
+}
+
+func FirstCookies(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("Test-cookie")
+	fmt.Println("Cookie:", cookie, "Error:", err)
+	if err != nil {
+		fmt.Println("Cookies not found")
+		cookie = &http.Cookie{
+			Name:     "Test-cookie",
+			Value:    "Test-value",
+			HttpOnly: true,
+		}
+		http.SetCookie(w, cookie)
+	}
+	erro := tmpl.ExecuteTemplate(w, "signup.html", nil)
 	if erro != nil {
 		return
 	}
@@ -72,7 +86,6 @@ func CompareCheck(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintln(w, "You are logged in")
 	http.Redirect(w, r, "/signin", http.StatusSeeOther)
-
 }
 
 func CompareForm(w http.ResponseWriter, r *http.Request) {
