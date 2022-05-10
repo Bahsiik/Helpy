@@ -12,7 +12,7 @@ import (
 // La fonction registerHandler est appelée lorsque l'utilisateur clique sur le lien d'inscription dans la barre de
 // navigation. La fonction exécute ensuite le modèle register.html
 func registerHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*****registerHandler called*****")
+	fmt.Println("**** RegisterHandler ****")
 	err := tmpl.ExecuteTemplate(w, "register.html", nil)
 	if err != nil {
 		return
@@ -23,7 +23,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 // existe déjà dans la base de données, puis il crée un hachage du mot de passe, puis il insère le nom d'utilisateur et le
 // hachage dans la base de données
 func registerAuthHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*****registerAuthHandler running*****")
+	fmt.Println("**** RegisterAuthHandler ****")
 	// récupération des données du formulaire
 	err := r.ParseForm()
 	if err != nil {
@@ -39,7 +39,7 @@ func registerAuthHandler(w http.ResponseWriter, r *http.Request) {
 
 	// vérifier si les mots de passe sont identiques
 	if firstPassword != secondPassword {
-		fmt.Println("*****Passwords don't match*****")
+		fmt.Println("**** Passwords don't match ****")
 		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Les mots de passe ne correspondent pas")
 		if err != nil {
 			return

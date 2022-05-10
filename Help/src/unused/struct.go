@@ -1,4 +1,4 @@
-package main
+package unused
 
 //type Users struct {
 //	ID         int    `json:"id"`

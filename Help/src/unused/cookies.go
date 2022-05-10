@@ -1,4 +1,4 @@
-package main
+package unused
 
 //
 //var sessions = make(map[string]string)
