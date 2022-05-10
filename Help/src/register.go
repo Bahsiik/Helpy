@@ -15,6 +15,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("**** RegisterHandler ****")
 	err := tmpl.ExecuteTemplate(w, "register.html", nil)
 	if err != nil {
+		// DEBUG fmt.Println("err: ", err)
 		return
 	}
 }
@@ -27,36 +28,34 @@ func registerAuthHandler(w http.ResponseWriter, r *http.Request) {
 	// récupération des données du formulaire
 	err := r.ParseForm()
 	if err != nil {
+		// DEBUG fmt.Println("err: ", err)
 		return
 	}
-
 	username := r.FormValue("username")
 	firstPassword := r.FormValue("firstPassword")
 	secondPassword := r.FormValue("secondPassword")
-
 	// vérification des critères de nom d'utilisateur
 	nameAlphaNumeric, nameLength := checkUsername(username)
-
 	// vérifier si les mots de passe sont identiques
 	if firstPassword != secondPassword {
 		fmt.Println("**** Passwords don't match ****")
 		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Les mots de passe ne correspondent pas")
 		if err != nil {
+			// DEBUG fmt.Println("err: ", err)
 			return
 		}
 		return
 	}
-
 	// vérification des critères de mot de passe
 	passwordLowercase, passwordUppercase, passwordNumber, passwordSpecial, passwordLength, passwordNoSpaces := checkPassword(firstPassword)
 	if !passwordLowercase || !passwordUppercase || !passwordNumber || !passwordSpecial || !passwordLength || !passwordNoSpaces || !nameAlphaNumeric || !nameLength {
 		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Veuillez vérifier les critères de nom d'utilisateur ou de votre mot de passe")
 		if err != nil {
+			// DEBUG fmt.Println("err: ", err)
 			return
 		}
 		return
 	}
-
 	// vérifier si le nom d'utilisateur existe déjà dans la base de données
 	stmt := "SELECT Username FROM users WHERE Username = ?"
 	row := db.QueryRow(stmt, username)
@@ -67,39 +66,40 @@ func registerAuthHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("username already exists, err:", err)
 		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Ce nom d'utilisateur existe déjà")
 		if err != nil {
+			// DEBUG fmt.Println("err: ", err)
 			return
 		}
 		return
 	}
-
 	// créer un hash de mot de passe
 	var hash []byte
 	hash, err = bcrypt.GenerateFromPassword([]byte(firstPassword), bcrypt.DefaultCost)
 	// si le hash n'a pas pu être créé, on affiche un message d'erreur
 	if err != nil {
 		fmt.Println("bcrypt err:", err)
-		err := tmpl.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
+		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
 		if err != nil {
+			// DEBUG fmt.Println("err: ", err)
 			return
 		}
 		return
 	}
 	// DEBUG fmt.Println("hash:", hash)
 	// DEBUG fmt.Println("string(hash):", string(hash))
-
 	// insérer le nom d'utilisateur et le hash dans la base de données
 	var insertStmt *sql.Stmt
 	insertStmt, err = db.Prepare("INSERT INTO users (Username, Password) VALUES (?, ?);")
 	// si l'insertion n'a pas pu être effectuée, on affiche un message d'erreur
 	if err != nil {
 		fmt.Println("error preparing statement:", err)
-		err := tmpl.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
+		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
 		if err != nil {
+			// DEBUG fmt.Println("err: ", err)
+
 			return
 		}
 		return
 	}
-
 	defer insertStmt.Close()
 	// DEBUG (si utilisé, remplacer le "_" en dessous par "result") var result sql.Result
 	// effectuer l'insertion
@@ -113,9 +113,10 @@ func registerAuthHandler(w http.ResponseWriter, r *http.Request) {
 	*/
 	// si l'insertion n'a pas pu être effectuée, on affiche un message d'erreur
 	if err != nil {
-		fmt.Println("error inserting new user")
-		err := tmpl.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
+		fmt.Println("error inserting new user:", err)
+		err = tmpl.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
 		if err != nil {
+			// DEBUG fmt.Println("err: ", err)
 			return
 		}
 		return
