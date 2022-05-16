@@ -1,0 +1,36 @@
+.mail{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button{
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer
+}
+.deroulant{
+    list-style: none;
+    position: absolute;
+}
+
+.sous{
+    display: none;
+    box-shadow: 0 1px 2px #CCC;
+    background-color: white;
+    list-style: none;
+    cursor: pointer;
+    width: 100px;
+}
+nav > ul li:hover .sous{
+    display: block;
+}
+a{
+    text-decoration: none;
+}
+.genre{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
