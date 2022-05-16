@@ -41,6 +41,9 @@ func main() {
 	http.HandleFunc("/registerauth", registerAuthHandler)
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/loginauth", loginAuthHandler)
+	http.HandleFunc("/logout", logoutHandler)
+	http.HandleFunc("/index", indexHandler)
+
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
 		// DEBUG fmt.Println("err: ", err)

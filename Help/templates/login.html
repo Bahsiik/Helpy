@@ -11,7 +11,7 @@
     <body>
         <div class="login-wrap">
             <div class="login-html">
-                <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Connexion</label>
+                <input href="/index" id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Connexion</label>
 <!--                <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Créer-->
 <!--                compte</label>-->
                 <div class="login-form">
@@ -31,7 +31,7 @@
                                 <label for="check"><span class="icon"></span> Rester connecter</label>
                             </div>
                             <div class="group">
-                                <a href="/signup"><input type="submit" class="button" value="Se connecter"></a>
+                                <input type="submit" class="button" value="Se connecter">
                             </div>
                             {{if .}}
                             <div class="alert">
@@ -41,6 +41,9 @@
                             <div class="hr"></div>
                             <div class="foot-lnk">
                                 <a href="#forgot">Mot de passe oublié ?</a>
+                            </div>
+                            <div class="foot-lnk">
+                                <a href="/register">Pas de compte ?</a>
                             </div>
                         </form>
                     </div>
