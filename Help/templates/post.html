@@ -30,8 +30,8 @@
                         <a href="../html/param.html">
                             <li>Paramètres</li>
                         </a>
-                        <a href="../templates/login.gohtml">
-                            <li>Log Out</li>
+                        <a href="/logout">
+                            <li>Déconnexion</li>
                         </a>
                     </ul>
                 </div>
@@ -40,7 +40,6 @@
             <p id="slogan">
                 {{if .}}
                 Bonjour, {{.Name}} !
-                <a href="/logout">Déconnexion</a>
                 {{end}}
                 <span>Helpy</span>
                 <br>
