@@ -17,6 +17,9 @@ func main() {
 	tmpl, _ = template.ParseGlob("templates/*.html")
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
+
+	imgFolder := http.FileServer(http.Dir("img"))
+	http.Handle("/img/", http.StripPrefix("/img/", imgFolder))
 	cfg := mysql.Config{
 		User:                 "root",
 		Passwd:               "",
