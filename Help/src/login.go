@@ -14,6 +14,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("**** Login Handler ****")
 	err := tmpl.ExecuteTemplate(w, "login.html", nil)
 	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 }
@@ -56,29 +57,18 @@ func loginAuthHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	} else {
-		cookie := &http.Cookie{
-			Name:    "session",
-			Value:   username,
-			Expires: time.Now().Add(time.Hour * 24 * 7),
-		}
-		// On ajoute le cookie à la réponse
-		http.SetCookie(w, cookie)
-		// On vérifie que le cookie est bien présent dans la requête
-		//if _, err := r.Cookie("session"); err == nil {
-		//	// Si le cookie est présent, on affiche un message de succès
-		//	err = tmpl.ExecuteTemplate(w, "login.html", "Vous êtes connecté")
-		//	if err != nil {
-		//		// DEBUG fmt.Println("err: ", err)
-		//	}
-		//} else {
-		//	// Sinon, on affiche un message d'erreur
-		//	err = tmpl.ExecuteTemplate(w, "login.html", "Veuillez vérifier vos identifiants")
-		//	if err != nil {
-		//		// DEBUG fmt.Println("err: ", err)
-		//
-		//	}
-		//} // Fin du else
-		// redirection vers la page d'accueil
-		http.Redirect(w, r, "/index", http.StatusFound)
+		addSessionCookie(w, r, username)
 	}
+}
+
+func addSessionCookie(w http.ResponseWriter, r *http.Request, username string) {
+	cookie := &http.Cookie{
+		Name:    "session",
+		Value:   username,
+		Expires: time.Now().Add(time.Hour * 24 * 7),
+	}
+	// On ajoute le cookie à la réponse
+	http.SetCookie(w, cookie)
+	// On vérifie que le cookie est bien présent dans la requête
+	http.Redirect(w, r, "/index", http.StatusFound)
 }

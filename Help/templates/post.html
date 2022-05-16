@@ -39,7 +39,7 @@
             <img id="logo" src="../img/Helpy_logo.png" alt="">
             <p id="slogan">
                 {{if .}}
-                Bonjour, {{.}} !
+                Bonjour, {{.Name}} !
                 <a href="/logout">Déconnexion</a>
                 {{end}}
                 <span>Helpy</span>
@@ -191,22 +191,24 @@
         <!--                Post                -->
         <div class="post">
             <div class="message">
-    <span lang="fr">
-      <blockquote>
-          <div class="replace">
-              <div class="profil">
-               <p>PSEUDO</p>
-              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
-            </div>
-          <div class="referencement">
-              <img class="like" src="../img/coeur.png" alt="like">
-              <img class="fav" src="../img/etoile.png" alt="favoris">
-              <a class="share" href=""><img src="../img/partager.png" alt=""></a>
-          </div>
-          </div>
-            <p id="post">Sachez que nous voulons vous offrir une boisson qui,  de l'environnement.</p>
-      </blockquote>
-    </span>
+                {{range $index, $value := .SName}}
+                <span lang="fr">
+                      <blockquote>
+                          <div class="replace">
+                              <div class="profil">
+                               <p>PSEUDO</p>
+                              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
+                            </div>
+                          <div class="referencement">
+                              <img class="like" src="../img/coeur.png" alt="like">
+                              <img class="fav" src="../img/etoile.png" alt="favoris">
+                              <a class="share" href=""><img src="../img/partager.png" alt=""></a>
+                          </div>
+                          </div>
+                            <p id="post">{{$value}}</p>
+                      </blockquote>
+                    </span>
+                {{end}}
             </div>
         </div>
     </body>
