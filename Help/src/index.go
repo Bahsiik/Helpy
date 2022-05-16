@@ -3,14 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 )
 
 type data struct {
-	Name  string
-	ID    []int
-	SName []string
-	Date  []*time.Time
+	Name     string
+	Subjects []Subject
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -31,11 +28,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	d := data{
 		Name: c.Value,
 	}
-	for i := 0; i < len(S); i++ {
-		d.ID = append(d.ID, S[i].ID)
-		d.SName = append(d.SName, S[i].Name)
-		d.Date = append(d.Date, S[i].Date)
-	}
+	// add the subjects to the data struct
+	d.Subjects = S
 	err = tmpl.ExecuteTemplate(w, "post.html", d)
 	if err != nil {
 		return
