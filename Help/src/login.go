@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -13,6 +14,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("**** Login Handler ****")
 	err := tmpl.ExecuteTemplate(w, "login.html", nil)
 	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 }
@@ -55,7 +57,18 @@ func loginAuthHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	} else {
-		// Si le mot de passe correspond, on affiche un message disant que l'utilisateur est connecté
-		fmt.Fprintln(w, "Vous êtes connecté à ", username)
+		addSessionCookie(w, r, username)
 	}
+}
+
+func addSessionCookie(w http.ResponseWriter, r *http.Request, username string) {
+	cookie := &http.Cookie{
+		Name:    "session",
+		Value:   username,
+		Expires: time.Now().Add(time.Hour * 24 * 7),
+	}
+	// On ajoute le cookie à la réponse
+	http.SetCookie(w, cookie)
+	// On vérifie que le cookie est bien présent dans la requête
+	http.Redirect(w, r, "/index", http.StatusFound)
 }

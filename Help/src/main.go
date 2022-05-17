@@ -17,6 +17,9 @@ func main() {
 	tmpl, _ = template.ParseGlob("templates/*.html")
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
+
+	imgFolder := http.FileServer(http.Dir("img"))
+	http.Handle("/img/", http.StripPrefix("/img/", imgFolder))
 	cfg := mysql.Config{
 		User:                 "root",
 		Passwd:               "",
@@ -24,16 +27,15 @@ func main() {
 		Addr:                 "127.0.0.1:3306",
 		DBName:               "forum",
 		AllowNativePasswords: true,
+		ParseTime:            true,
 	}
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
-		println("1")
 		log.Fatal(err)
 	}
 	pingErr := db.Ping()
 	if pingErr != nil {
-		println("2")
 		log.Fatal(pingErr)
 	}
 	fmt.Println("Connected!")
@@ -41,6 +43,10 @@ func main() {
 	http.HandleFunc("/registerauth", registerAuthHandler)
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/loginauth", loginAuthHandler)
+	http.HandleFunc("/logout", logoutHandler)
+	http.HandleFunc("/index", indexHandler)
+	selectSubjects()
+
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
 		// DEBUG fmt.Println("err: ", err)

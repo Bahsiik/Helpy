@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>HELPY</title>
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+        <link rel="stylesheet" href="../css/main/index.css">
+        <link rel="stylesheet" href="../css/main/post.css">
+        <link rel="stylesheet" href="../css/main/faculty.css">
+        <link rel="stylesheet" href="../css/main/favoris.css">
+        <link rel="stylesheet" href="../css/main/footer.css">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/main/notification.css">
+
+        <script type="text/javascript" src="../js/js.js" defer></script>
+    </head>
+    <body>
+        <!--                Header                    -->
+        <div class="header">
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox"/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <a href="../html/profil.html">
+                            <li>Profil</li>
+                        </a>
+                        <a href="../html/param.html">
+                            <li>Paramètres</li>
+                        </a>
+                        <a href="/logout">
+                            <li>Déconnexion</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+            <img id="logo" src="../img/Helpy_logo.png" alt="">
+            <p id="slogan">
+                {{if .}}
+                Bonjour, {{.Name}} !
+                {{end}}
+                <span>Helpy</span>
+                <br>
+                Il n'y a que Helpy qui a la réponse
+            </p>
+            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
+            <p id="icon">
+                <a href=""><img src="../img/567102-icone-plus-supplementaire-gratuit-vectoriel.png" alt=""></a>
+                <a href="html/post.html"><img src="../img/reste-a-la-maison.png" alt=""></a>
+            </p>
+        </div>
+        <!--                Choix filière               -->
+        <div id="right">
+            <div class="faculty">
+                <ul>
+                    <li id="Market">Marketing & Communication</li>
+                    <li id="Audio">Audiovisuel</li>
+                    <li id="Crea">Création & Digital Design</li>
+                    <li id="Archi">Architecture d'intérieur</li>
+                    <li id="Info">Informatique</li>
+                    <li id="Web">Web Management</li>
+                    <li id="Jeux">3D, Animation & Jeux-vidéo</li>
+                    <li id="Digit">2D & Illustration Digitale</li>
+                    <li id="Life">Campus Life</li>
+                    <li id="Admin">Administration</li>
+                </ul>
+            </div>
+
+            <!--                Footer              -->
+            <div class="footer">
+                <ul>
+                    <a href="">
+                        <li>Aide</li>
+                    </a>
+                    <a href="">
+                        <li>Communautés</li>
+                    </a>
+                    <a href="../html/thematique.html">
+                        <li>Thématiques</li>
+                    </a>
+                    <a href="">
+                        <li>A propos</li>
+                    </a>
+                    <a href="../html/equipe.html">
+                        <li>L'équipe</li>
+                    </a>
+                </ul>
+                <p>Helpy Inc © 2022. Tous droits réservés</p>
+            </div>
+        </div>
+
+        <!--                Notifications               -->
+        <div class="frame">
+            <div class="panel">
+                <!--        HeaderNotififications       -->
+                <div class="header flex">
+                    <div class="menu-icon">
+                        <div class="dash-top"></div>
+                        <div class="dash-bottom"></div>
+                        <div class="circle circle-1"></div>
+                    </div>
+                    <span class="title">Notifications</span>
+                </div>
+                <!--            Section notification            -->
+                <div class="notifications clearfix">
+                    <div class="line"></div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">9:24 AM</span>
+                        <p><b>John Walker</b> posted a photo on your wall.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">8:19 AM</span>
+                        <p><b>Alice Parker</b> commented your last post.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">Yesterday</span>
+                        <p><b>Luke Wayne</b> posted a photo on your wall.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">Yesterday</span>
+                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">2 Days ago</span>
+                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">2 Days ago</span>
+                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <span class="time">2 Days ago</span>
+                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--                Favoris             -->
+        <div class="frame">
+            <div class="panel2">
+                <!--        HeaderFavoris       -->
+                <div class="header flex">
+                    <span class="title">Favoris</span>
+                </div>
+                <!--            Section notification            -->
+                <div class="notifications clearfix">
+                    <div class="line"></div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>John Walker</b> posted a photo on your wall.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>Alice Parker</b> commented your last post.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>Luke Wayne</b> commented your last post.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>Mistral Olivier</b> commented your last post.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>Mistral Olivier</b> commented your last post.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>Mistral Olivier</b> commented your last post.</p>
+                    </div>
+                    <div class="notification">
+                        <div class="circle"></div>
+                        <p><b>Mistral Olivier</b> commented your last post.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--                Post                -->
+        <div class="post">
+            <div class="message">
+                {{range $value := .Subjects}}
+                <span lang="fr">
+                      <blockquote>
+                          <div class="replace">
+                              <div class="profil">
+                                {{$value.ID}}
+                              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
+                            </div>
+                          <div class="referencement">
+                              <img class="like" src="../img/coeur.png" alt="like">
+                              <img class="fav" src="../img/etoile.png" alt="favoris">
+                              <a class="share" href=""><img src="../img/partager.png" alt=""></a>
+                          </div>
+                          </div>
+                            <p id="post">{{$value.Name}}</p>
+                      </blockquote>
+                    </span>
+                {{end}}
+            </div>
+        </div>
+    </body>
+</html>
