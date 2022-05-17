@@ -1,21 +1,29 @@
 /*          Filière         */
 .faculty{
-    float: right;
-    margin-right: 2%;
+    float: left;
     width: 350px;
     text-align: center;
+    margin: 2em;
 }
-.faculty li{
+
+#formFaculty{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.faculty input{
+    width: 290px;
     border-radius: 10px;
-    list-style: none;
-    padding-top: 2.9%;
-    height: 30px;
+    height: 5vh;
+    font-size: 1.1em;
     background: #151A3B;
     color: #b2a3a3;
     margin-bottom: 1%;
     transition: all 0.3s;
+    border: none;
 }
-.faculty li:hover {
+.faculty input:hover {
     cursor: pointer;
     color: white;
     transform: translateX(-5%);
