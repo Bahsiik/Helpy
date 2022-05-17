@@ -45,6 +45,12 @@ function pseudo() {
     document.querySelector('.pseudo2').style.display = 'none';
     document.querySelector('#change').style.color = 'black';
 }
+// function pseudo() {
+//     document.getElementById('avatar').innerHTML = document.getElementById('p_seudo').value;
+//     document.querySelector('#change_avatar').innerHTML = 'Changer';
+//     // document.querySelector('.avatar2').style.display = 'none';
+//     document.querySelector('#change_avatar').style.color = 'black';
+// }
 document.querySelectorAll('.modif_email').forEach(item => {
     item.addEventListener('click', event => {
         if (document.querySelector('#change').innerHTML === 'Changer'){
@@ -55,6 +61,19 @@ document.querySelectorAll('.modif_email').forEach(item => {
             document.querySelector('#change').innerHTML = 'Changer';
             document.querySelector('.mail2').style.display = 'none';
             document.querySelector('#change').style.color = 'black';
+        }
+    })
+})
+document.querySelectorAll('.modif_avatar').forEach(item => {
+    item.addEventListener('click', event => {
+        if (document.querySelector('#change_avatar').innerHTML === 'Changer'){
+            document.querySelector('#change_avatar').innerHTML = 'Annuler';
+            document.querySelector('#change_avatar').style.color = 'red';
+            // document.querySelector('.avatar2').style.display = 'block';
+        } else {
+            document.querySelector('#change_avatar').innerHTML = 'Changer';
+            // document.querySelector('.avatar2').style.display = 'none';
+            document.querySelector('#change_avatar').style.color = 'black';
         }
     })
 })
