@@ -15,26 +15,48 @@ function search_topics() {
 
 document.querySelectorAll('.like').forEach(item => {
     item.addEventListener('click', event => {
-        if (item.src === "http://localhost:63342/Helpy/image/coeur(1).png") {  // to change
-            item.src = "../img/coeur.png"
-            item.nextElementSibling.innerHTML = parseInt(item.nextElementSibling.innerHTML) - 1
-            return
+        if (item.src === "http://localhost:63342/Helpy/Dany/image/coeur(1).png") {  // to change
+            item.src = "http://localhost:63342/Helpy/Dany/image/coeur.png"
+        } else {
+            item.src = "http://localhost:63342/Helpy/Dany/image/coeur(1).png"
         }
-        item.src = "../img/coeur(1).png"
-        // item.nextElementSibling.nextElementSibling.src = "../img/etoile.png"
-        item.nextElementSibling.innerHTML = parseInt(item.nextElementSibling.innerHTML) + 1
     })
 })
 
 document.querySelectorAll('.fav').forEach(item => {
     item.addEventListener('click', event => {
-        if (item.src == "http://localhost:63342/Helpy/image/etoile(1).png") { // to change
-            item.src = "../img/etoile.png"
-            item.previousElementSibling.innerHTML = parseInt(item.previousElementSibling.innerHTML) + 1
+        if (item.src == "http://localhost:63342/Helpy/Dany/image/etoile(1).png") { // to change
+            item.src = "http://localhost:63342/Helpy/Dany/image/etoile.png"
             return
         }
-        item.src = "../img/etoile(1).png"
-            // item.previousElementSibling.previousElementSibling.src = "../images/coeur.png"
-        item.previousElementSibling.innerHTML = parseInt(item.previousElementSibling.innerHTML) - 1
+        item.src = "http://localhost:63342/Helpy/Dany/image/etoile(1).png"
+    })
+})
+
+function mail() {
+    document.getElementById('e-mail').innerHTML = document.getElementById('mail').value;
+}
+
+document.querySelectorAll('.modif_email').forEach(item => {
+    item.addEventListener('click', event => {
+        document.querySelector('.mail2').style.display = 'block';
+    })
+})
+document.querySelectorAll('#close').forEach(item => {
+    item.addEventListener('click', event => {
+        document.querySelector('.mail2').style.display = 'none';
+    })
+})
+document.querySelectorAll('.aria').forEach(item => {
+    item.addEventListener('click', event => {
+        if (item.ariaChecked == 'false') {
+            document.querySelector('.aria').ariaChecked = 'true';
+            document.querySelector('.round').style.marginLeft = '20px';
+            document.querySelector('.aria').style.backgroundColor = 'black'
+        } else {
+            document.querySelector('.aria').ariaChecked = 'false';
+            document.querySelector('.aria').style.backgroundColor = 'white'
+            document.querySelector('.round').style.marginLeft = '';
+        }
     })
 })

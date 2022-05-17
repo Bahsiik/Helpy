@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" sizes="5x5" href="../../image/beemo.ico">
     <link rel="stylesheet" href="../../css/param/account.css">
     <link rel="stylesheet" href="../../css/header.css">
+    <script type="text/javascript" src="../../js/js.js" defer></script>
 </head>
 <body>
 <!--                Header                    -->
@@ -35,16 +36,28 @@
         <a href="../post.html"><img src="../../image/reste-a-la-maison.png" alt=""></a>
     </p>
 </div>
+<div class="choix_param">
+    <a href="../param/account.html"><span>Compte</span></a>
+    <a href="../param/notifications.html"><span>Notifications</span></a>
+    <a href="../param/profil.html"><span>Profil</span></a>
+</div>
+<div class="trait"></div>
+<div class="trait2"></div>
 <h3>Paramètres du compte</h3>
 <h5>PRÉFÉRENCES DU COMPTE</h5>
-
+<div class="trait"></div>
 <div class="mail">
     <div>
         <h4>Adresse mail</h4>
-        <p>blabla@ynov.com</p>
+        <p id="e-mail">blabla@ynov.com</p>
+        <div class="mail2">
+            <p>Saisissez la nouvelle adresse</p>
+            <input type="text" id="mail"  value="">
+            <button id="close" onclick="mail()">VALIDER</button>
+        </div>
     </div>
     <button class="modif_email">
-        Changer
+        <span>Changer</span>
     </button>
 </div>
 <div class="genre">
@@ -52,15 +65,19 @@
     <nav>
         <ul>
             <li id="genre" class="deroulant">
-                SELECTIONNER
-                <ul class="sous">
-                    <li><a href="">HOMME</a></li>
-                    <li><a href="">FEMME</a></li>
-                    <li><a href="">AUTRE</a></li>
-                </ul>
+                <select id="choix" onchange="">
+                    <option value="selectionner">SELECTIONNER</option>
+                    <option value="homme">HOMME</option>
+                    <option value="femme">FEMME</option>
+<!--                    <option value="autre">AUTRE</option>-->
+                </select>
             </li>
         </ul>
     </nav>
 </div>
+<button class="delete">
+    🗑 DELETE ACCOUNT
+</button>
+
 </body>
 </html>
