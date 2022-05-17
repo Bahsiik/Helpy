@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:ital,wght@1,300&family=Roboto:wght@300;400;700&family=Teko:wght@300&display=swap');
+
+a{
+    text-decoration: none;
+}
+
+.choix_param{
+    margin-top: 5%;
+    display:flex;
+    justify-content: space-evenly;
+    margin-bottom: 1.2%;
+}
+.choix_param span {
+    font-family: 'Teko', sans-serif;
+    color: black;
+    font-size: 1.5em;
+}
+.trait{
+    margin-top: -1.2%;
+    margin-left: 22%;
+    width: 56%;
+    height: 1px;
+    background-color: #4c4c52;
+    margin-bottom: 7.5%;
+}
+.trait2{
+    position: absolute;
+    height: 4px;
+    background-color: skyblue;
+    width: 45px;
+    margin-left: 75.1%;
+    margin-top: -7.7%;
+}
+h3{
+    margin-top: -3.5%;
+
+    margin-left: 22%;
+}
+h5{
+    margin-left: 22%;
+    color: darkgrey;
+}
+
