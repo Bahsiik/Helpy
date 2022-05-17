@@ -45,8 +45,10 @@ func main() {
 	http.HandleFunc("/loginauth", loginAuthHandler)
 	http.HandleFunc("/logout", logoutHandler)
 	http.HandleFunc("/index", indexHandler)
+	http.HandleFunc("/subjectByTopic", selectSubjectTopicHandler)
 	//http.HandleFunc("/addpost", addPostHandler)
-	selectSubjects()
+	//selectAllSubjects()
+	selectSubjectByTopic(1)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

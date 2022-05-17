@@ -10,6 +10,7 @@ import (
 type Session struct {
 	Token  string
 	UserID int
+	Date   *time.Time
 }
 
 func generateSessionId() string {
@@ -25,10 +26,12 @@ func addSessionCookie(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("username")
 	sessionId := generateSessionId()
 	userId := getUserId(username)
+	date := time.Now()
 	// create a new session
 	session := Session{
 		Token:  sessionId,
 		UserID: userId,
+		Date:   &date,
 	}
 	// save the session in the database
 	saveSession(session)
