@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -57,18 +56,6 @@ func loginAuthHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	} else {
-		addSessionCookie(w, r, username)
+		addSessionCookie(w, r)
 	}
-}
-
-func addSessionCookie(w http.ResponseWriter, r *http.Request, username string) {
-	cookie := &http.Cookie{
-		Name:    "session",
-		Value:   username,
-		Expires: time.Now().Add(time.Hour * 24 * 7),
-	}
-	// On ajoute le cookie à la réponse
-	http.SetCookie(w, cookie)
-	// On vérifie que le cookie est bien présent dans la requête
-	http.Redirect(w, r, "/index", http.StatusFound)
 }
