@@ -38,12 +38,13 @@
             </nav>
             <img id="logo" src="../img/Helpy_logo.png" alt="">
             <p id="slogan">
-                {{if .}}
-                Bonjour, {{.Name}} !
-                {{end}}
                 <span>Helpy</span>
                 <br>
-                Il n'y a que Helpy qui a la réponse
+                Il n'y a que Helpy qui a la réponse.
+                {{if .}}
+                <br>
+                Bonjour, {{.Name}} !
+                {{end}}
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
             <p id="icon">
@@ -55,16 +56,16 @@
         <div id="right">
             <div class="faculty">
                 <form action="/subjectByTopic" method="post">
-                    <input name="topicID" type="submit" value="1">
-                    <input name="topicID" type="submit" value="2">
-                    <input name="topicID" type="submit" value="3">
-                    <input name="topicID" type="submit" value="4">
-                    <input name="topicID" type="submit" value="5">
-                    <input name="topicID" type="submit" value="6">
-                    <input name="topicID" type="submit" value="7">
-                    <input name="topicID" type="submit" value="8">
-                    <input name="topicID" type="submit" value="9">
-                    <input name="topicID" type="submit" value="10">
+                    <input name="topicID" type="submit" value="Marketing & Communication">
+                    <input name="topicID" type="submit" value="Audiovisuel">
+                    <input name="topicID" type="submit" value="Création & Digital Design">
+                    <input name="topicID" type="submit" value="Architecture d'intérieur">
+                    <input name="topicID" type="submit" value="Informatique">
+                    <input name="topicID" type="submit" value="Web Management">
+                    <input name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
+                    <input name="topicID" type="submit" value="2D & Illustration Digitale">
+                    <input name="topicID" type="submit" value="Campus Life">
+                    <input name="topicID" type="submit" value="Administration">
                     <ul>
                         <li id="Market">Marketing & Communication</li>
                         <li id="Audio">Audiovisuel</li>

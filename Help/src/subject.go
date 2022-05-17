@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"database/sql"
 	"log"
 	"net/http"
 	"time"
@@ -17,8 +17,6 @@ type Subject struct {
 	UserName  string
 }
 
-// It selects all the subjects from the database, and then for each subject it selects the topic name and the user name
-// from the topics and users tables respectively
 func selectAllSubjects() []Subject {
 	stmt, err := db.Prepare("SELECT Subject_id, Subject_name, creation_date, Topic_id, User_id FROM subjects")
 	if err != nil {
@@ -26,61 +24,8 @@ func selectAllSubjects() []Subject {
 	}
 	defer stmt.Close()
 	rows, err := stmt.Query()
-	var subjects []Subject
-	for rows.Next() {
-		var subject Subject
-		err := rows.Scan(&subject.ID, &subject.Name, &subject.Date, &subject.TopicID, &subject.UserID)
-		if err != nil {
-			log.Fatal(err)
-		}
-		subjects = append(subjects, subject)
-	}
-
-	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-	}
-	for i := range subjects {
-		stmt, err := db.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer stmt.Close()
-		rows, err := stmt.Query(subjects[i].TopicID)
-		if err != nil {
-			log.Fatal(err)
-		}
-		for rows.Next() {
-			err := rows.Scan(&subjects[i].TopicName)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-		err = rows.Err()
-		if err != nil {
-			log.Fatal(err)
-		}
-		// inner join with users to get the user name
-		stmt, err = db.Prepare("SELECT Username FROM users WHERE User_id = ?")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer stmt.Close()
-		rows, err = stmt.Query(subjects[i].UserID)
-		if err != nil {
-			log.Fatal(err)
-		}
-		for rows.Next() {
-			err := rows.Scan(&subjects[i].UserName)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-		err = rows.Err()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
+	subjects := getSubjects(rows, err)
+	getSubjectAttributs(subjects)
 	return subjects
 }
 
@@ -109,13 +54,19 @@ func selectAllSubjects() []Subject {
 //	}
 //}
 
-func selectSubjectByTopic(topicID int) []Subject {
+func selectSubjectByTopic(topicID string) []Subject {
 	stmt, err := db.Prepare("SELECT Subject_id, Subject_name, creation_date, Topic_id, User_id FROM subjects WHERE Topic_id = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
 	rows, err := stmt.Query(topicID)
+	subjects := getSubjects(rows, err)
+	getSubjectAttributs(subjects)
+	return subjects
+}
+
+func getSubjects(rows *sql.Rows, err error) []Subject {
 	var subjects []Subject
 	for rows.Next() {
 		var subject Subject
@@ -129,6 +80,10 @@ func selectSubjectByTopic(topicID int) []Subject {
 	if err != nil {
 		log.Fatal(err)
 	}
+	return subjects
+}
+
+func getSubjectAttributs(subjects []Subject) {
 	for i := range subjects {
 		stmt, err := db.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")
 		if err != nil {
@@ -170,99 +125,48 @@ func selectSubjectByTopic(topicID int) []Subject {
 			log.Fatal(err)
 		}
 	}
-	fmt.Println("SELECTED Subjects:")
-	for _, subject := range subjects {
-		fmt.Println("ID:", subject.ID, ", NAME:", subject.Name, ", DATE:", subject.Date, ", TOPIC ID:", subject.TopicID, ", USER ID:", subject.UserID)
-	}
-	return subjects
 }
 
 func selectSubjectTopicHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		r.ParseForm()
-		topicID := r.FormValue("topicID")
-		if topicID == "" {
-			fmt.Fprintf(w, "Please fill in all fields")
-			return
-		}
-		stmt, err := db.Prepare("SELECT Subject_id, Subject_name, creation_date, Topic_id, User_id FROM subjects WHERE Topic_id = ?")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer stmt.Close()
-		rows, err := stmt.Query(topicID)
-		var subjects []Subject
-		for rows.Next() {
-			var subject Subject
-			err := rows.Scan(&subject.ID, &subject.Name, &subject.Date, &subject.TopicID, &subject.UserID)
-			if err != nil {
-				log.Fatal(err)
-			}
-			subjects = append(subjects, subject)
-		}
-		err = rows.Err()
-		if err != nil {
-			log.Fatal(err)
-		}
-		for i := range subjects {
-			stmt, err := db.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")
-			if err != nil {
-				log.Fatal(err)
-			}
-			defer stmt.Close()
-			rows, err := stmt.Query(subjects[i].TopicID)
-			if err != nil {
-				log.Fatal(err)
-			}
-			for rows.Next() {
-				err := rows.Scan(&subjects[i].TopicName)
-				if err != nil {
-					log.Fatal(err)
-				}
-			}
-			err = rows.Err()
-			if err != nil {
-				log.Fatal(err)
-			}
-			// inner join with users to get the user name
-			stmt, err = db.Prepare("SELECT Username FROM users WHERE User_id = ?")
-			if err != nil {
-				log.Fatal(err)
-			}
-			defer stmt.Close()
-			rows, err = stmt.Query(subjects[i].UserID)
-			if err != nil {
-				log.Fatal(err)
-			}
-			for rows.Next() {
-				err := rows.Scan(&subjects[i].UserName)
-				if err != nil {
-					log.Fatal(err)
-				}
-			}
-			err = rows.Err()
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-		fmt.Println("SELECTED Subjects:")
-		for _, subject := range subjects {
-			fmt.Println("ID:", subject.ID, ", NAME:", subject.Name, ", DATE:", subject.Date, ", TOPIC ID:", subject.TopicID, ", USER ID:", subject.UserID)
-		}
-		// get cookie
-		c, err := r.Cookie("session")
-		if err != nil {
-			fmt.Println("No c found")
-		}
-		userID := getUserIdFromSession(c.Value)
-		username := getUsernameFromID(userID)
-		d := data{
-			Name:     username,
-			Subjects: subjects,
-		}
-		err = tmpl.ExecuteTemplate(w, "post.html", d)
-		if err != nil {
-			return
-		}
+	r.ParseForm()
+	topicID := r.FormValue("topicID")
+	topicID = translateTopicID(topicID)
+	subjects := selectSubjectByTopic(topicID)
+	c, err := r.Cookie("session")
+	userID := getUserIdFromSession(c.Value)
+	username := getUsernameFromID(userID)
+	d := data{
+		Name:     username,
+		Subjects: subjects,
 	}
+	err = tmpl.ExecuteTemplate(w, "post.html", d)
+	if err != nil {
+		return
+	}
+}
+
+func translateTopicID(topicID string) string {
+	switch topicID {
+	case "Marketing & Communication":
+		return "1"
+	case "Audiovisuel":
+		return "2"
+	case "Création & Digital Design":
+		return "3"
+	case "Développement Web":
+		return "4"
+	case "Informatique":
+		return "5"
+	case "Web Management":
+		return "6"
+	case "3D, Animation & Jeux-vidéo":
+		return "7"
+	case "2D & Illustration Digitale":
+		return "8"
+	case "Campus Life":
+		return "9"
+	case "Administration":
+		return "10"
+	}
+	return ""
 }

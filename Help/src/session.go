@@ -43,8 +43,6 @@ func addSessionCookie(w http.ResponseWriter, r *http.Request) {
 	}
 	// On ajoute le cookie à la réponse
 	http.SetCookie(w, cookie)
-	// On vérifie que le cookie est bien présent dans la requête
-	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
 // Get the user id from the database from the username  (if the user exists)

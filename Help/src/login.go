@@ -48,7 +48,6 @@ func loginAuthHandler(w http.ResponseWriter, r *http.Request) {
 	err = bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	// Si le mot de passe ne correspond pas, on affiche un message d'erreur
 	if err != nil {
-		// DEBUG fmt.Println("Erreur lors de la vérification du mot de passe de l'utilisateur: ", err)
 		err = tmpl.ExecuteTemplate(w, "login.html", "Veuillez vérifier vos identifiants")
 		if err != nil {
 			// DEBUG fmt.Println("err: ", err)
@@ -57,5 +56,6 @@ func loginAuthHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	} else {
 		addSessionCookie(w, r)
+		http.Redirect(w, r, "/index", http.StatusFound)
 	}
 }
