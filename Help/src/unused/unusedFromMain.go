@@ -1,14 +1,5 @@
 package unused
 
-//func generateSessionId() string {
-//	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-//	b := make([]rune, 32)
-//	for i := range b {
-//		b[i] = letters[rand.Intn(len(letters))]
-//	}
-//	return string(b)
-//}
-
 //func FirstCookies(w http.ResponseWriter, r *http.Request) {
 //	cookie, err := r.Cookie("Test-cookie")
 //	fmt.Println("Cookie:", cookie, "Error:", err)

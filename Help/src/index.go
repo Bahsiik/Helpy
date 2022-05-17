@@ -25,8 +25,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	S := selectSubjects()
 	// create a new data struct
 	// mix the data of S and c.Value
+	userID := getUserIdFromSession(c.Value)
+	username := getUsernameFromID(userID)
 	d := data{
-		Name: c.Value,
+		Name: username,
 	}
 	// add the subjects to the data struct
 	d.Subjects = S

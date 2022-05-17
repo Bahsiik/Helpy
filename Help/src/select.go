@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 )
 
@@ -85,4 +86,29 @@ func selectSubjects() []Subject {
 		fmt.Println("ID:", subject.ID, ", NAME:", subject.Name, ", DATE:", subject.Date, ", TOPIC ID:", subject.TopicID, ", USER ID:", subject.UserID, ", TOPIC NAME:", subject.TopicName, ", USER NAME:", subject.UserName)
 	}
 	return subjects
+}
+
+func addSubjectHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		r.ParseForm()
+		subjectName := r.FormValue("subjectName")
+		topicID := r.FormValue("topicID")
+		userID := r.FormValue("userID")
+		if subjectName == "" || topicID == "" || userID == "" {
+			fmt.Fprintf(w, "Please fill in all fields")
+			return
+		}
+		stmt, err := db.Prepare("INSERT INTO subjects (Subject_name, Topic_id, User_id) VALUES (?, ?, ?)")
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer stmt.Close()
+		_, err = stmt.Exec(subjectName, topicID, userID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Fprintf(w, "Subject added")
+	} else {
+		fmt.Fprintf(w, "Please use POST")
+	}
 }
