@@ -6,6 +6,8 @@
     <link rel="icon" type="image/png" sizes="5x5" href="../../image/beemo.ico">
     <link rel="stylesheet" href="../../css/param/profil.css">
     <link rel="stylesheet" href="../../css/header.css">
+    <script type="text/javascript" src="../../js/js.js" defer></script>
+
 </head>
 <body>
 <!--                Header                    -->
@@ -43,8 +45,30 @@
 <div class="trait"></div>
 <div class="trait2"></div>
 <h3>Paramètres du profil</h3>
-<h5>PRÉFÉRENCES DU COMPTE</h5>
+<h5>INFORMATIONS DU PROFIL</h5>
 <div class="trait"></div>
-
+<h4 id="p">Nom d'affichage (facultatif)</h4>
+<div class="pseudo">
+    <div>
+        <h4>Pseudo</h4>
+        <p id="pseudo">ZIZI</p>
+        <div class="pseudo2">
+            <p>Saisissez le nouveau pseudo</p>
+            <input type="text" id="p_seudo"  value="">
+            <button id="close" onclick="pseudo()">VALIDER</button>
+        </div>
+    </div>
+    <button class="modif_pseudo">
+        <span id="change">Changer</span>
+    </button>
+</div>
+<h4>Avatar</h4>
+<div class="avatar">
+    <img id="avatar" src="../../image/profil.jpg" alt="">
+    <button class="modif_avatar">
+        <span id="change_avatar">Changer</span>
+    </button>
+</div>
+</button>
 </body>
 </html>
