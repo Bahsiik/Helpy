@@ -11,8 +11,7 @@
         <link rel="stylesheet" href="../css/main/footer.css">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main/notification.css">
-
-        <script type="text/javascript" src="../js/js.js" defer></script>
+        <script defer type="text/javascript" src="../js/js.js" ></script>
     </head>
     <body>
         <!--                Header                    -->
@@ -30,43 +29,43 @@
                         <a href="../html/param.html">
                             <li>Paramètres</li>
                         </a>
-                        <a href="../templates/login.gohtml">
-                            <li>Log Out</li>
+                        <a href="/logout">
+                            <li>Déconnexion</li>
                         </a>
                     </ul>
                 </div>
             </nav>
             <img id="logo" src="../img/Helpy_logo.png" alt="">
             <p id="slogan">
-                {{if .}}
-                Bonjour, {{.}} !
-                <a href="/logout">Déconnexion</a>
-                {{end}}
                 <span>Helpy</span>
                 <br>
-                Il n'y a que Helpy qui a la réponse
+                Il n'y a que Helpy qui a la réponse.
+                {{if .}}
+                Bonjour, {{.Name}} !
+                {{end}}
+
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
             <p id="icon">
-                <a href="post.html"><img src="../img/addpost.png" /></a>
+                <a href="create.html"><img src="../img/addpost.png" /></a>
                 <a href="post.html"><img src="../img/reste-a-la-maison.png" alt=""></a>
             </p>
         </div>
         <!--                Choix filière               -->
         <div id="right">
             <div class="faculty">
-                <ul>
-                    <li id="Market">Marketing & Communication</li>
-                    <li id="Audio">Audiovisuel</li>
-                    <li id="Crea">Création & Digital Design</li>
-                    <li id="Archi">Architecture d'intérieur</li>
-                    <li id="Info">Informatique</li>
-                    <li id="Web">Web Management</li>
-                    <li id="Jeux">3D, Animation & Jeux-vidéo</li>
-                    <li id="Digit">2D & Illustration Digitale</li>
-                    <li id="Life">Campus Life</li>
-                    <li id="Admin">Administration</li>
-                </ul>
+                <form id="formFaculty" action="/subjectByTopic" method="post">
+                    <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
+                    <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
+                    <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
+                    <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
+                    <input id="Info" name="topicID" type="submit" value="Informatique">
+                    <input id="Web" name="topicID" type="submit" value="Web Management">
+                    <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
+                    <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
+                    <input id="Life" name="topicID" type="submit" value="Campus Life">
+                    <input id="Admin" name="topicID" type="submit" value="Administration">
+                </form>
             </div>
 
             <!--                Footer              -->
@@ -191,22 +190,25 @@
         <!--                Post                -->
         <div class="post">
             <div class="message">
-    <span lang="fr">
-      <blockquote>
-          <div class="replace">
-              <div class="profil">
-               <p>PSEUDO</p>
-              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
-            </div>
-          <div class="referencement">
-              <img class="like" src="../img/coeur.png" alt="like">
-              <img class="fav" src="../img/etoile.png" alt="favoris">
-              <a class="share" href=""><img src="../img/partager.png" alt=""></a>
-          </div>
-          </div>
-            <p id="post">Sachez que nous voulons vous offrir une boisson qui,  de l'environnement.</p>
-      </blockquote>
-    </span>
+                {{range $value := .Subjects}}
+                <span lang="fr">
+                      <blockquote>
+                          <div class="replace">
+                              <div class="profil">
+                                {{$value.UserName}}
+                              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
+                            </div>
+                          <div class="referencement">
+                              <img class="like" src="../img/coeur.png" alt="like">
+                              <img class="fav" src="../img/etoile.png" alt="favoris">
+                              <a class="share" href=""><img src="../img/partager.png" alt=""></a>
+                          </div>
+                              {{$value.TopicName}}
+                          </div>
+                            <p id="post">{{$value.Name}}</p>
+                      </blockquote>
+                    </span>
+                {{end}}
             </div>
         </div>
     </body>
