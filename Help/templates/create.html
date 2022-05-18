@@ -1,109 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HELPY</title>
-    <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-    <link rel="stylesheet" href="../css/create.css">
-    <link rel="stylesheet" href="../css/main/index.css">
-    <link rel="stylesheet" href="../css/main/post.css">
-    <link rel="stylesheet" href="../css/main/faculty.css">
-    <link rel="stylesheet" href="../css/main/favoris.css">
-    <link rel="stylesheet" href="../css/main/footer.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/main/notification.css">
+    <head>
+        <meta charset="UTF-8">
+        <title>HELPY</title>
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+        <link rel="stylesheet" href="../css/create.css">
+        <link rel="stylesheet" href="../css/main/index.css">
+        <link rel="stylesheet" href="../css/main/post.css">
+        <link rel="stylesheet" href="../css/main/faculty.css">
+        <link rel="stylesheet" href="../css/main/favoris.css">
+        <link rel="stylesheet" href="../css/main/footer.css">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/main/notification.css">
 
-    <script type="text/javascript" src="../js/js.js" defer></script>
-</head>
-<body>
-<!--                Header                    -->
-<div class="header">
-    <nav role="navigation">
-        <div id="menuToggle">
-            <input type="checkbox"/>
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
-                <a href="../html/profil.html">
-                    <li>Profil</li>
+        <script type="text/javascript" src="../js/js.js" defer></script>
+    </head>
+    <body>
+        <!--                Header                    -->
+        <div class="header">
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox"/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <a href="../html/profil.html">
+                            <li>Profil</li>
+                        </a>
+                        <a href="../html/param.html">
+                            <li>Paramètres</li>
+                        </a>
+                        <a href="/logout">
+                            <li>Log Out</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+            <img id="logo" src="../img/Helpy_logo.png" alt="">
+            <p id="slogan">
+                {{if .}}
+                Bonjour, {{.}} !
+                <a href="/logout">Déconnexion</a>
+                {{end}}
+                <span>Helpy</span>
+                <br>
+                Il n'y a que Helpy qui a la réponse
+            </p>
+            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
+            <p id="icon">
+                <a href="/addPost"><img src="../img/addpost.png"/></a>
+                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
+            </p>
+        </div>
+        <span id="tit">Créer une annonce</span>
+        <form action="/addPost" method="post">
+            <div id="create">
+                <span id="titre">Titre</span>
+                <span id="sous-titre">Soyez précis et imaginez que vous posez une question à une autre personne</span>
+                <textarea name="title" id="title" placeholder="Titre de l'annonce"></textarea>
+                <span id="titre">Description</span>
+                <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
+                <textarea name="description" id="description" placeholder="Description de l'annonce"></textarea>
+                <button id="boutonimage" type="addimage">ajouter une image</button>
+                <span id="titre">Tags</span>
+                <span id="sous-titre">Incluez jusqu'a 5 tags pour decrire de quoi la question parle</span>
+                <textarea name="tags" id="tags" placeholder="Tags"></textarea>
+                <span id="titre">Catégories</span>
+                <span id="sous-titre">Séléctioner une category</span>
+                <select name="category" id="category">
+                    <option value="">Choisissez une catégorie</option>
+                    <option value="1">Marketing & Communication</option>
+                    <option value="2">Audiovisuel</option>
+                    <option value="3">Création & Digital Design</option>
+                    <option value="4">Architecture data'intérieur</option>
+                    <option value="5">Informatique</option>
+                    <option value="6">Web Management</option>
+                    <option value="7">3D, Animation & Jeux-vidéo</option>
+                    <option value="8">2D & Illustration Digitale</option>
+                    <option value="9">Campus Life</option>
+                    <option value="10">Administration</option>
+                </select>
+                <button id="submit" type="submit">Créer</button>
+            </div>
+        </form>
+        <div class="footer">
+            <ul>
+                <a href="https://www.ynov.com">
+                    <li>Ynov</li>
                 </a>
-                <a href="../html/param.html">
-                    <li>Paramètres</li>
+                <a href="../html/thematique.html">
+                    <li>Thématiques</li>
                 </a>
-                <a href="/logout">
-                    <li>Log Out</li>
+                <a href="/about">
+                    <li>A propos</li>
+                </a>
+                <a href="/team">
+                    <li>L'équipe</li>
                 </a>
             </ul>
+            <p>Helpy Inc © 2022. Tous droits réservés</p>
         </div>
-    </nav>
-    <img id="logo" src="../img/Helpy_logo.png" alt="">
-    <p id="slogan">
-        {{if .}}
-            Bonjour, {{.}} !
-            <a href="/logout">Déconnexion</a>
-        {{end}}
-        <span>Helpy</span>
-        <br>
-        Il n'y a que Helpy qui a la réponse
-    </p>
-    <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
-    <p id="icon">
-        <a href="/addPost"><img src="../img/addpost.png" /></a>
-        <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
-    </p>
-</div>
-<span  id="tit">Créer une annonce</span>
-<form action="/addPost" method="post">
-    <div id="create">
-        <span id="titre">Titre</span>
-        <span id="sous-titre">Soyez précis et imaginez que vous posez une question à une autre personne</span>
-        <textarea name="title" id="title"  placeholder="Titre de l'annonce"></textarea>
-               <span id="titre">Description</span>
-        <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
-        <textarea name="description" id="description"  placeholder="Description de l'annonce"></textarea>
-        <button id="boutonimage" type="addimage">ajouter une image</button>
-        <span id="titre">Tags</span>
-        <span id="sous-titre">Incluez jusqu'a 5 tags pour decrire de quoi la question parle</span>
-        <textarea name="tags" id="tags"  placeholder="Tags"></textarea>
-        <span id="titre">Catégories</span>
-        <span id="sous-titre">Séléctioner une category</span>
-        <select name="category" id="category">
-            <option value="">Choisissez une catégorie</option>
-            <option value="1">Marketing & Communication</option>
-            <option value="2">Audiovisuel</option>
-            <option value="3">Création & Digital Design</option>
-            <option value="4">Architecture data'intérieur</option>
-            <option value="5">Informatique</option>
-            <option value="6">Web Management</option>
-            <option value="7">3D, Animation & Jeux-vidéo</option>
-            <option value="8">2D & Illustration Digitale</option>
-            <option value="9">Campus Life</option>
-            <option value="10">Administration</option>
-        </select>
-        <button id="submit" type="submit">Créer</button>
-    </div>
-</form>
-    <div class="footer">
-        <ul>
-            <a href="">
-                <li>Aide</li>
-            </a>
-            <a href="">
-                <li>Communautés</li>
-            </a>
-            <a href="../html/thematique.html">
-                <li>Thématiques</li>
-            </a>
-            <a href="">
-                <li>A propos</li>
-            </a>
-            <a href="../html/equipe.html">
-                <li>L'équipe</li>
-            </a>
-        </ul>
-        <p>Helpy Inc © 2022. Tous droits réservés</p>
-    </div>
-</div>
-</body>
+    </body>
 </html>

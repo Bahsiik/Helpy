@@ -140,7 +140,7 @@ func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 		Name:     username,
 		Subjects: postList,
 	}
-	err = tmpl.ExecuteTemplate(w, "post.html", data)
+	err = tmpl.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
 		return
 	}
@@ -154,7 +154,7 @@ func translateTopicID(topicID string) string {
 		return "2"
 	case "Création & Digital Design":
 		return "3"
-	case "Développement Web":
+	case "Architecture d'intérieur":
 		return "4"
 	case "Informatique":
 		return "5"

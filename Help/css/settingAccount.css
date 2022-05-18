@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:ital,wght@1,300&family=Roboto:wght@300;400;700&family=Teko:wght@300&display=swap');
+
+.choix_param{
+    margin-top: 5%;
+    display:flex;
+    justify-content: space-evenly;
+    margin-bottom: 1.2%;
+
+}
+.choix_param span {
+    font-family: 'Teko', sans-serif;
+    color: black;
+    font-size: 1.5em;
+}
+.trait{
+    margin-top: -1.2%;
+    margin-left: 22%;
+    width: 56%;
+    height: 1px;
+    background-color: #4c4c52;
+    margin-bottom: 4%;
+}
+.trait2{
+    position: absolute;
+    height: 4px;
+    background-color: skyblue;
+    width: 60px;
+    margin-left: 22%;
+    margin-top: -4.2%;
+}
+h3{
+    margin-left: 22%;
+}
+
+h5{
+    margin-left: 22%;
+    color: darkgrey;
+}
+.mail{
+    display: flex;
+    width: 56%;
+    margin-left: 22%;
+    justify-content: space-between;
+    align-items: center;
+}
+.mail p{
+    color: blue;
+}
+.mail2{
+    display: none;
+    position: absolute;
+    margin-top: -5.7%;
+    margin-left: 22.5%;
+    text-align: center;
+}
+#mail{
+    border-radius: 50px;
+    text-align: center;
+}
+button{
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 50px;
+    border: 1px solid rgba(22, 76, 167, 0.6)
+}
+#close{
+    font-family: 'Teko', sans-serif;
+    font-size: 1.2em;
+}
+.modif_email{
+    background-image: linear-gradient(135deg, #008aff, #86d472);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: block;
+    height: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    padding: 4px;
+    position: relative;
+    text-decoration: none;
+    width: 7em;
+    z-index: 2;
+}
+.modif_email:hover{
+    color: #fff;
+}
+.modif_email span{
+    align-items: center;
+    background: #fff;
+    color: #18191b;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    transition: background 0.5s ease;
+    width: 100%;
+}
+.modif_email:hover span{
+    background: transparent;
+    color: white;
+}
+.deroulant{
+    list-style: none;
+    position: absolute;
+}
+.deroulant #choix{
+    text-align: center;
+}
+.sous{
+    display: none;
+    box-shadow: 0 1px 2px #CCC;
+    background-color: white;
+    list-style: none;
+    cursor: pointer;
+    width: 100px;
+}
+nav > ul li:hover .sous{
+    display: block;
+}
+a{
+    text-decoration: none;
+}
+.genre{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 86%;
+    margin-left: 3.2%;
+}
+.delete{
+    margin-top: 8%;
+    margin-left: 46%;
+    color: red;
+    font-family: 'Teko', sans-serif;
+font-size: 1.5em;
+}

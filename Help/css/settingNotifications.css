@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:ital,wght@1,300&family=Roboto:wght@300;400;700&family=Teko:wght@300&display=swap');
+
+a{
+    text-decoration: none;
+}
+
+.choix_param{
+    margin-top: 5%;
+    display:flex;
+    justify-content: space-evenly;
+    margin-bottom: 1.2%;
+}
+.choix_param span {
+    font-family: 'Teko', sans-serif;
+    color: black;
+    font-size: 1.5em;
+}
+
+.trait{
+    margin-top: -1.2%;
+    margin-left: 22%;
+    width: 56%;
+    height: 1px;
+    background-color: #4c4c52;
+    margin-bottom: 7.5%;
+}
+.param_notif{
+    margin-top: -3.5%;
+}
+.trait2{
+    position: absolute;
+    height: 4px;
+    background-color: skyblue;
+    width: 90px;
+    margin-left: 47.5%;
+    margin-top: -7.7%;
+}
+h3{
+    margin-top: -3.5%;
+    margin-left: 22%;
+}
+h5{
+    margin-left: 22%;
+    color: darkgrey;
+}
+.option{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 56%;
+    margin-left: 22%;
+}
+.check{
+    display: flex;
+}
+.aria{
+    width: 40px;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    transition: background 0.5s ease;
+}
+.aria1{
+    width: 40px;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    transition: background 0.5s ease;
+}
+.aria2{
+    width: 40px;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    transition: background 0.5s ease;
+}
+.aria3{
+    width: 40px;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    transition: background 0.5s ease;
+}
+.round img{
+    margin-top: 3px;
+    margin-left: -8px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+.round img:hover{
+    cursor: pointer;
+}
+.round1 img{
+    margin-top: 3px;
+    margin-left: -8px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+.round1 img:hover{
+    cursor: pointer;
+}
+.round2 img{
+    margin-top: 3px;
+    margin-left: -8px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+.round2 img:hover{
+    cursor: pointer;
+}
+.round3 img{
+    margin-top: 3px;
+    margin-left: -8px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+.round3 img:hover{
+    cursor: pointer;
+}

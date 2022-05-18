@@ -23,7 +23,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		Name:     username,
 		Subjects: S,
 	}
-	err = tmpl.ExecuteTemplate(w, "post.html", d)
+	err = tmpl.ExecuteTemplate(w, "index.html", d)
 	if err != nil {
 		return
 	}
