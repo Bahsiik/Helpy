@@ -31,7 +31,7 @@
                 <a href="../html/param.html">
                     <li>Paramètres</li>
                 </a>
-                <a href="../templates/login.gohtml">
+                <a href="/logout">
                     <li>Log Out</li>
                 </a>
             </ul>
@@ -49,12 +49,12 @@
     </p>
     <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
     <p id="icon">
-        <a href="post.html"><img src="../img/addpost.png" /></a>
-        <a href="post.html"><img src="../img/reste-a-la-maison.png" alt=""></a>
+        <a href="/addPost"><img src="../img/addpost.png" /></a>
+        <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
     </p>
 </div>
 <span  id="tit">Créer une annonce</span>
-<form action="/create" method="post">
+<form action="/addPost" method="post">
     <div id="create">
         <span id="titre">Titre</span>
         <span id="sous-titre">Soyez précis et imaginez que vous posez une question à une autre personne</span>
@@ -73,7 +73,7 @@
             <option value="1">Marketing & Communication</option>
             <option value="2">Audiovisuel</option>
             <option value="3">Création & Digital Design</option>
-            <option value="4">Architecture d'intérieur</option>
+            <option value="4">Architecture data'intérieur</option>
             <option value="5">Informatique</option>
             <option value="6">Web Management</option>
             <option value="7">3D, Animation & Jeux-vidéo</option>

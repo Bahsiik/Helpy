@@ -7,7 +7,7 @@ import (
 
 type data struct {
 	Name     string
-	Subjects []Subject
+	Subjects []Post
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -16,7 +16,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("No c found")
 	}
-	S := selectAllSubjects()
+	S := selectAllPost()
 	userID := getUserIdFromSession(c.Value)
 	username := getUsernameFromID(userID)
 	d := data{

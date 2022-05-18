@@ -2,12 +2,13 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
 )
 
-type Subject struct {
+type Post struct {
 	ID        int
 	Name      string
 	Date      *time.Time
@@ -17,16 +18,16 @@ type Subject struct {
 	UserName  string
 }
 
-func selectAllSubjects() []Subject {
-	stmt, err := db.Prepare("SELECT Subject_id, Subject_name, creation_date, Topic_id, User_id FROM subjects")
+func selectAllPost() []Post {
+	stmt, err := db.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
 	rows, err := stmt.Query()
-	subjects := getSubjects(rows, err)
-	getSubjectAttributs(subjects)
-	return subjects
+	postList := getPost(rows, err)
+	getPostAttributs(postList)
+	return postList
 }
 
 //func addSubjectHandler(w http.ResponseWriter, r *http.Request) {
@@ -48,54 +49,54 @@ func selectAllSubjects() []Subject {
 //		if err != nil {
 //			log.Fatal(err)
 //		}
-//		fmt.Fprintf(w, "Subject added")
+//		fmt.Fprintf(w, "Post added")
 //	} else {
 //		fmt.Fprintf(w, "Please use POST")
 //	}
 //}
 
-func selectSubjectByTopic(topicID string) []Subject {
-	stmt, err := db.Prepare("SELECT Subject_id, Subject_name, creation_date, Topic_id, User_id FROM subjects WHERE Topic_id = ?")
+func selectPostByTopic(topicID string) []Post {
+	stmt, err := db.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post WHERE Topic_id = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
 	rows, err := stmt.Query(topicID)
-	subjects := getSubjects(rows, err)
-	getSubjectAttributs(subjects)
-	return subjects
+	postList := getPost(rows, err)
+	getPostAttributs(postList)
+	return postList
 }
 
-func getSubjects(rows *sql.Rows, err error) []Subject {
-	var subjects []Subject
+func getPost(rows *sql.Rows, err error) []Post {
+	var postList []Post
 	for rows.Next() {
-		var subject Subject
-		err := rows.Scan(&subject.ID, &subject.Name, &subject.Date, &subject.TopicID, &subject.UserID)
+		var post Post
+		err := rows.Scan(&post.ID, &post.Name, &post.Date, &post.TopicID, &post.UserID)
 		if err != nil {
 			log.Fatal(err)
 		}
-		subjects = append(subjects, subject)
+		postList = append(postList, post)
 	}
 	err = rows.Err()
 	if err != nil {
 		log.Fatal(err)
 	}
-	return subjects
+	return postList
 }
 
-func getSubjectAttributs(subjects []Subject) {
-	for i := range subjects {
+func getPostAttributs(postList []Post) {
+	for i := range postList {
 		stmt, err := db.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer stmt.Close()
-		rows, err := stmt.Query(subjects[i].TopicID)
+		rows, err := stmt.Query(postList[i].TopicID)
 		if err != nil {
 			log.Fatal(err)
 		}
 		for rows.Next() {
-			err := rows.Scan(&subjects[i].TopicName)
+			err := rows.Scan(&postList[i].TopicName)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -110,12 +111,12 @@ func getSubjectAttributs(subjects []Subject) {
 			log.Fatal(err)
 		}
 		defer stmt.Close()
-		rows, err = stmt.Query(subjects[i].UserID)
+		rows, err = stmt.Query(postList[i].UserID)
 		if err != nil {
 			log.Fatal(err)
 		}
 		for rows.Next() {
-			err := rows.Scan(&subjects[i].UserName)
+			err := rows.Scan(&postList[i].UserName)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -127,19 +128,19 @@ func getSubjectAttributs(subjects []Subject) {
 	}
 }
 
-func selectSubjectTopicHandler(w http.ResponseWriter, r *http.Request) {
+func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	topicID := r.FormValue("topicID")
 	topicID = translateTopicID(topicID)
-	subjects := selectSubjectByTopic(topicID)
-	c, err := r.Cookie("session")
-	userID := getUserIdFromSession(c.Value)
+	postList := selectPostByTopic(topicID)
+	cookie, err := r.Cookie("session")
+	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
-	d := data{
+	data := data{
 		Name:     username,
-		Subjects: subjects,
+		Subjects: postList,
 	}
-	err = tmpl.ExecuteTemplate(w, "post.html", d)
+	err = tmpl.ExecuteTemplate(w, "post.html", data)
 	if err != nil {
 		return
 	}
@@ -169,4 +170,42 @@ func translateTopicID(topicID string) string {
 		return "10"
 	}
 	return ""
+}
+
+func postHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** postHandler ***")
+	err := tmpl.ExecuteTemplate(w, "create.html", nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func addPostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** addPostHandler ***")
+	r.ParseForm()
+	title := r.FormValue("title")
+	topicID := r.FormValue("category")
+	description := r.FormValue("description")
+	// get the user id from the session
+	cookie, _ := r.Cookie("session")
+	userID := getUserIdFromSession(cookie.Value)
+	fmt.Println("*** addPostHandler ***")
+	fmt.Println("Titre du nouveau : ", title)
+	fmt.Println("ID du topic : ", topicID)
+	fmt.Println("ID du user :", userID)
+	addPost(title, description, topicID, userID)
+	http.Redirect(w, r, "/index", http.StatusFound)
+}
+
+func addPost(title string, description string, topicID string, userID int) {
+	stmt, err := db.Prepare("INSERT INTO post (Title, Content, Topic_id, User_id) VALUES (?, ?, ?, ?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(title, description, topicID, userID)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
