@@ -7,7 +7,8 @@ import (
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** aboutHandler ***")
-	err := tmpl.ExecuteTemplate(w, "about.html", nil)
+	cookie := checkCookie(w, r)
+	err := tmpl.ExecuteTemplate(w, "about.html", cookie)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -16,7 +17,8 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 func teamHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** teamHandler ***")
-	err := tmpl.ExecuteTemplate(w, "team.html", nil)
+	cookie := checkCookie(w, r)
+	err := tmpl.ExecuteTemplate(w, "team.html", cookie)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -25,7 +27,8 @@ func teamHandler(w http.ResponseWriter, r *http.Request) {
 
 func settingProfileHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** settingProfileHandler ***")
-	err := tmpl.ExecuteTemplate(w, "settingProfile.html", nil)
+	cookie := checkCookie(w, r)
+	err := tmpl.ExecuteTemplate(w, "settingProfile.html", cookie)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -34,7 +37,8 @@ func settingProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 func settingNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** settingNotificationsHandler ***")
-	err := tmpl.ExecuteTemplate(w, "settingNotifications.html", nil)
+	cookie := checkCookie(w, r)
+	err := tmpl.ExecuteTemplate(w, "settingNotifications.html", cookie)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -43,7 +47,8 @@ func settingNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 
 func settingAccountHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** settingAccountHandler ***")
-	err := tmpl.ExecuteTemplate(w, "settingAccount.html", nil)
+	cookie := checkCookie(w, r)
+	err := tmpl.ExecuteTemplate(w, "settingAccount.html", cookie)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -52,7 +57,8 @@ func settingAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 func profileHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** profileHandler ***")
-	err := tmpl.ExecuteTemplate(w, "profile.html", nil)
+	cookie := checkCookie(w, r)
+	err := tmpl.ExecuteTemplate(w, "profile.html", cookie)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

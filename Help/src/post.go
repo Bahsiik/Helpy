@@ -110,18 +110,18 @@ func getPostAttributs(postList []Post) {
 }
 
 func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
+	cookie := checkCookie(w, r)
+	userID := getUserIdFromSession(cookie.Value)
+	username := getUsernameFromID(userID)
 	r.ParseForm()
 	topicID := r.FormValue("topicID")
 	topicID = translateTopicID(topicID)
 	postList := selectPostByTopic(topicID)
-	cookie, err := r.Cookie("session")
-	userID := getUserIdFromSession(cookie.Value)
-	username := getUsernameFromID(userID)
 	data := data{
 		Name:  username,
 		Posts: postList,
 	}
-	err = tmpl.ExecuteTemplate(w, "index.html", data)
+	err := tmpl.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
 		return
 	}
@@ -156,11 +156,7 @@ func translateTopicID(topicID string) string {
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** postHandler ***")
 	// get the cookie
-	cookie, err := r.Cookie("session")
-	if err != nil {
-		http.Redirect(w, r, "/login", http.StatusFound)
-		return
-	}
+	cookie := checkCookie(w, r)
 	// get the user id from the cookie
 	userID := getUserIdFromSession(cookie.Value)
 	// get the username from the user id
@@ -168,7 +164,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	d := data{
 		Name: username,
 	}
-	err = tmpl.ExecuteTemplate(w, "create.html", d)
+	err := tmpl.ExecuteTemplate(w, "create.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -177,41 +173,53 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 func addPostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** addPostHandler ***")
-	cookie, _ := r.Cookie("session")
+	cookie := checkCookie(w, r)
 	userID := getUserIdFromSession(cookie.Value)
-	var postError PostError
-	var checkError bool
 	r.ParseForm()
 	title := r.FormValue("title")
-	if title == "" {
-		postError.Title = "Veuillez entrer un titre"
-		checkError = true
-	}
 	topicID := r.FormValue("category")
-	if topicID == "" {
-		postError.Topic = "Veuillez choisir une catégorie"
-		checkError = true
-	}
 	description := r.FormValue("description")
-	if description == "" {
-		postError.Content = "Veuillez entrer une description"
-		checkError = true
-	}
+	postError, checkError := checkPostError(title, description, topicID)
 	if checkError == true {
-		d := data{
-			Name:         getUsernameFromID(userID),
-			AddPostError: postError,
-		}
-		fmt.Println("data : ", d)
-		err := tmpl.ExecuteTemplate(w, "create.html", d)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		if postErrorRedirect(w, userID, postError) {
 			return
 		}
 	} else {
 		addPost(title, description, topicID, userID)
 		http.Redirect(w, r, "/index", http.StatusFound)
 	}
+}
+
+func postErrorRedirect(w http.ResponseWriter, userID int, postError PostError) bool {
+	d := data{
+		Name:         getUsernameFromID(userID),
+		AddPostError: postError,
+	}
+	fmt.Println("data : ", d)
+	err := tmpl.ExecuteTemplate(w, "create.html", d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return true
+	}
+	return false
+}
+
+func checkPostError(title string, description string, topicID string) (PostError, bool) {
+	var postError PostError
+	var checkError bool
+	if title == "" {
+		postError.Title = "Veuillez entrer un titre"
+		checkError = true
+	}
+	if description == "" {
+		postError.Content = "Veuillez entrer une description"
+		checkError = true
+	}
+	if topicID == "" {
+		postError.Topic = "Veuillez choisir une catégorie"
+		checkError = true
+	}
+	return postError, checkError
 }
 
 func addPost(title string, description string, topicID string, userID int) {
