@@ -152,6 +152,10 @@ body{
     max-width: 125px;
     max-height: 65px;
     margin: 1.2% 2% 0 2%;
+    transition: 2s;
+}
+.header #logo:hover{
+    transform: rotate(360deg);
 }
 .header #slogan{
     font-size: 0.9em;
