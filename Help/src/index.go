@@ -6,8 +6,9 @@ import (
 )
 
 type data struct {
-	Name     string
-	Subjects []Post
+	Name         string
+	Posts        []Post
+	AddPostError PostError
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -20,8 +21,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(c.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name:     username,
-		Subjects: S,
+		Name:  username,
+		Posts: S,
 	}
 	err = tmpl.ExecuteTemplate(w, "index.html", d)
 	if err != nil {

@@ -39,13 +39,13 @@
             </nav>
             <img id="logo" src="../img/Helpy_logo.png" alt="">
             <p id="slogan">
-                {{if .}}
-                Bonjour, {{.}} !
-                <a href="/logout">Déconnexion</a>
-                {{end}}
                 <span>Helpy</span>
                 <br>
-                Il n'y a que Helpy qui a la réponse
+                Il n'y a que Helpy qui a la réponse.
+                <br>
+                {{if .}}
+                Bonjour, {{.Name}} !
+                {{end}}
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
             <p id="icon">
@@ -59,9 +59,19 @@
                 <span id="titre">Titre</span>
                 <span id="sous-titre">Soyez précis et imaginez que vous posez une question à une autre personne</span>
                 <textarea name="title" id="title" placeholder="Titre de l'annonce"></textarea>
+                {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Title}}
+                </div>
+                {{end}}
                 <span id="titre">Description</span>
                 <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
                 <textarea name="description" id="description" placeholder="Description de l'annonce"></textarea>
+                {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Content}}
+                </div>
+                {{end}}
                 <button id="boutonimage" type="addimage">ajouter une image</button>
                 <span id="titre">Tags</span>
                 <span id="sous-titre">Incluez jusqu'a 5 tags pour decrire de quoi la question parle</span>
@@ -81,6 +91,11 @@
                     <option value="9">Campus Life</option>
                     <option value="10">Administration</option>
                 </select>
+                {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Topic}}
+                </div>
+                {{end}}
                 <button id="submit" type="submit">Créer</button>
             </div>
         </form>

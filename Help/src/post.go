@@ -18,6 +18,12 @@ type Post struct {
 	UserName  string
 }
 
+type PostError struct {
+	Title   string
+	Content string
+	Topic   string
+}
+
 func selectAllPost() []Post {
 	stmt, err := db.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post")
 	if err != nil {
@@ -29,31 +35,6 @@ func selectAllPost() []Post {
 	getPostAttributs(postList)
 	return postList
 }
-
-//func addSubjectHandler(w http.ResponseWriter, r *http.Request) {
-//	if r.Method == "POST" {
-//		r.ParseForm()
-//		subjectName := r.FormValue("subjectName")
-//		topicID := r.FormValue("topicID")
-//		userID := r.FormValue("userID")
-//		if subjectName == "" || topicID == "" || userID == "" {
-//			fmt.Fprintf(w, "Please fill in all fields")
-//			return
-//		}
-//		stmt, err := db.Prepare("INSERT INTO subjects (Subject_name, Topic_id, User_id) VALUES (?, ?, ?)")
-//		if err != nil {
-//			log.Fatal(err)
-//		}
-//		defer stmt.Close()
-//		_, err = stmt.Exec(subjectName, topicID, userID)
-//		if err != nil {
-//			log.Fatal(err)
-//		}
-//		fmt.Fprintf(w, "Post added")
-//	} else {
-//		fmt.Fprintf(w, "Please use POST")
-//	}
-//}
 
 func selectPostByTopic(topicID string) []Post {
 	stmt, err := db.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post WHERE Topic_id = ?")
@@ -137,8 +118,8 @@ func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	data := data{
-		Name:     username,
-		Subjects: postList,
+		Name:  username,
+		Posts: postList,
 	}
 	err = tmpl.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
@@ -174,7 +155,20 @@ func translateTopicID(topicID string) string {
 
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** postHandler ***")
-	err := tmpl.ExecuteTemplate(w, "create.html", nil)
+	// get the cookie
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
+	}
+	// get the user id from the cookie
+	userID := getUserIdFromSession(cookie.Value)
+	// get the username from the user id
+	username := getUsernameFromID(userID)
+	d := data{
+		Name: username,
+	}
+	err = tmpl.ExecuteTemplate(w, "create.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -183,19 +177,41 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 
 func addPostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** addPostHandler ***")
-	r.ParseForm()
-	title := r.FormValue("title")
-	topicID := r.FormValue("category")
-	description := r.FormValue("description")
-	// get the user id from the session
 	cookie, _ := r.Cookie("session")
 	userID := getUserIdFromSession(cookie.Value)
-	fmt.Println("*** addPostHandler ***")
-	fmt.Println("Titre du nouveau : ", title)
-	fmt.Println("ID du topic : ", topicID)
-	fmt.Println("ID du user :", userID)
-	addPost(title, description, topicID, userID)
-	http.Redirect(w, r, "/index", http.StatusFound)
+	var postError PostError
+	var checkError bool
+	r.ParseForm()
+	title := r.FormValue("title")
+	if title == "" {
+		postError.Title = "Veuillez entrer un titre"
+		checkError = true
+	}
+	topicID := r.FormValue("category")
+	if topicID == "" {
+		postError.Topic = "Veuillez choisir une catégorie"
+		checkError = true
+	}
+	description := r.FormValue("description")
+	if description == "" {
+		postError.Content = "Veuillez entrer une description"
+		checkError = true
+	}
+	if checkError == true {
+		d := data{
+			Name:         getUsernameFromID(userID),
+			AddPostError: postError,
+		}
+		fmt.Println("data : ", d)
+		err := tmpl.ExecuteTemplate(w, "create.html", d)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	} else {
+		addPost(title, description, topicID, userID)
+		http.Redirect(w, r, "/index", http.StatusFound)
+	}
 }
 
 func addPost(title string, description string, topicID string, userID int) {

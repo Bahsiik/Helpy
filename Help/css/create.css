@@ -139,3 +139,7 @@
     border-radius: 5px;
     border: 1px solid #0c0d0e;
 }
+
+.alert {
+    color: rgb(255, 0, 0);
+}
