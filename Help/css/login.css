@@ -184,5 +184,10 @@ a {
 }
 
 .alert {
-    color: red;
+    color: rgb(255, 0, 0);
 }
+button {
+  background-color: rgba(85, 85, 85, 0);
+  border: none;
+}
+

@@ -32,3 +32,18 @@ document.querySelectorAll('.fav').forEach(item => {
         }
     })
 })
+
+//function that add a picture in the textarea
+function add_picture(event) {
+    let input = document.getElementById('boutonimage')
+    let textarea = document.getElementById('description')
+    textarea.value += '![alt text](/' + input.value + ')'
+    input.value = localStorage.getItem('image')
+}
+
+input.addEventListener(onclick(), function () {
+    localStorage.setItem('image', input.value)
+})
+
+
+
