@@ -45,12 +45,12 @@ function pseudo() {
     document.querySelector('.pseudo2').style.display = 'none';
     document.querySelector('#change').style.color = 'black';
 }
-// function pseudo() {
-//     document.getElementById('avatar').innerHTML = document.getElementById('p_seudo').value;
-//     document.querySelector('#change_avatar').innerHTML = 'Changer';
-//     // document.querySelector('.avatar2').style.display = 'none';
-//     document.querySelector('#change_avatar').style.color = 'black';
-// }
+function avatar() {
+    document.getElementById('avatar').innerHTML = document.getElementById('p_seudo').value;
+    document.querySelector('#change_avatar').innerHTML = 'Changer';
+    document.querySelector('.container').style.display = 'none';
+    document.querySelector('#change_avatar').style.color = 'black';
+}
 document.querySelectorAll('.modif_email').forEach(item => {
     item.addEventListener('click', event => {
         if (document.querySelector('#change').innerHTML === 'Changer'){
@@ -64,19 +64,7 @@ document.querySelectorAll('.modif_email').forEach(item => {
         }
     })
 })
-document.querySelectorAll('.modif_avatar').forEach(item => {
-    item.addEventListener('click', event => {
-        if (document.querySelector('#change_avatar').innerHTML === 'Changer'){
-            document.querySelector('#change_avatar').innerHTML = 'Annuler';
-            document.querySelector('#change_avatar').style.color = 'red';
-            // document.querySelector('.avatar2').style.display = 'block';
-        } else {
-            document.querySelector('#change_avatar').innerHTML = 'Changer';
-            // document.querySelector('.avatar2').style.display = 'none';
-            document.querySelector('#change_avatar').style.color = 'black';
-        }
-    })
-})
+
 document.querySelectorAll('.modif_pseudo').forEach(item => {
     item.addEventListener('click', event => {
         if (document.querySelector('#change').innerHTML === 'Changer'){
@@ -87,6 +75,19 @@ document.querySelectorAll('.modif_pseudo').forEach(item => {
             document.querySelector('#change').innerHTML = 'Changer';
             document.querySelector('.pseudo2').style.display = 'none';
             document.querySelector('#change').style.color = 'black';
+        }
+    })
+})
+document.querySelectorAll('.modif_avatar').forEach(item => {
+    item.addEventListener('click', event => {
+        if (document.querySelector('#change_avatar').innerHTML === 'Changer'){
+            document.querySelector('#change_avatar').innerHTML = 'Annuler';
+            document.querySelector('#change_avatar').style.color = 'red';
+            document.querySelector('.container').style.display = 'block';
+        } else {
+            document.querySelector('#change_avatar').innerHTML = 'Changer';
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('#change_avatar').style.color = 'black';
         }
     })
 })
@@ -140,5 +141,29 @@ document.querySelectorAll('.aria3').forEach(item => {
             document.querySelector('.aria3').style.backgroundColor = 'white'
             document.querySelector('.round3').style.marginLeft = '';
         }
+    })
+})
+
+document.querySelectorAll('.avatar_pic').forEach(item => {
+    item.addEventListener('click', event => {
+        if (item.id==='blue'){
+            document.querySelector('#avatar').src = '../../image/profil.jpg'
+        } else if (item.id === 'black') {
+            document.querySelector('#avatar').src = '../../image/profil_black.jpg'
+
+        } else if (item.id === 'green') {
+            document.querySelector('#avatar').src = '../../image/profil_green.jpg'
+
+        } else if (item.id === 'pink') {
+            document.querySelector('#avatar').src = '../../image/profil_pink.jpg'
+
+        } else if (item.id === 'red') {
+            document.querySelector('#avatar').src = '../../image/profil_red.jpg'
+
+        } else if (item.id === 'yellow') {
+            document.querySelector('#avatar').src = '../../image/profil_yellow.jpg'
+
+        }
+
     })
 })
