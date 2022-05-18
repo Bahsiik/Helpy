@@ -38,3 +38,18 @@ document.querySelectorAll('.fav').forEach(item => {
         item.previousElementSibling.innerHTML = parseInt(item.previousElementSibling.innerHTML) - 1
     })
 })
+
+//function that add a picture in the textarea
+function add_picture(event) {
+    let input = document.getElementById('boutonimage')
+    let textarea = document.getElementById('description')
+    textarea.value += '![alt text](/' + input.value + ')'
+    input.value = localStorage.getItem('image')
+}
+
+input.addEventListener(onclick(), function () {
+    localStorage.setItem('image', input.value)
+})
+
+
+
