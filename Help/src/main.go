@@ -45,7 +45,15 @@ func main() {
 	http.HandleFunc("/loginauth", loginAuthHandler)
 	http.HandleFunc("/logout", logoutHandler)
 	http.HandleFunc("/index", indexHandler)
-	http.HandleFunc("/subjectByTopic", selectSubjectTopicHandler)
+	http.HandleFunc("/subjectByTopic", selectPostTopicHandler)
+	http.HandleFunc("/post", postHandler)
+	http.HandleFunc("/addPost", addPostHandler)
+	http.HandleFunc("/team", teamHandler)
+	http.HandleFunc("/about", aboutHandler)
+	http.HandleFunc("/profile", profileHandler)
+	http.HandleFunc("/settingProfile", settingProfileHandler)
+	http.HandleFunc("/settingAccount", settingAccountHandler)
+	http.HandleFunc("/settingNotifications", settingNotificationsHandler)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

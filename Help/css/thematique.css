@@ -1,0 +1,44 @@
+.theme {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding:75px 20px 0 20px;
+}
+.theme img {
+    z-index: 2;
+    width: 300px;
+    height: 200px;
+    /*margin: 20px;*/
+    margin: 0;
+    padding: 20px;
+    transition: all .3s;
+}
+
+.theme img:hover{
+    transform: scale(110%);
+}
+.theme .pic p {
+    z-index: -1;
+    position: absolute;
+    font-size: 23px;
+    font-weight: bold;
+    transition: .3s linear;
+    color: white;
+    /*box-shadow: 2px 1px #18191b;*/
+}
+a{
+    text-decoration: none;
+    max-height: 230px;
+}
+.pic{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.theme :hover p{
+    z-index: 2;
+    text-shadow: 0 0 10px black,
+    0 0 20px black,
+    0 0 40px black;
+    display: block;
+}

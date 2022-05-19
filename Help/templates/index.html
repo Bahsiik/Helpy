@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../css/main/footer.css">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main/notification.css">
-        <script defer type="text/javascript" src="../js/js.js" ></script>
+        <script defer type="text/javascript" src="../js/js.js"></script>
     </head>
     <body>
         <!--                Header                    -->
@@ -23,10 +23,10 @@
                     <span></span>
                     <span></span>
                     <ul id="menu">
-                        <a href="../html/profil.html">
+                        <a href="/profile">
                             <li>Profil</li>
                         </a>
-                        <a href="../html/param.html">
+                        <a href="/settingAccount">
                             <li>Paramètres</li>
                         </a>
                         <a href="/logout">
@@ -40,15 +40,16 @@
                 <span>Helpy</span>
                 <br>
                 Il n'y a que Helpy qui a la réponse.
+                <br>
                 {{if .}}
-                Bonjour, {{.Name}} !
+                {{.Name}}
                 {{end}}
 
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
             <p id="icon">
-                <a href="create.html"><img src="../img/addpost.png" /></a>
-                <a href="post.html"><img src="../img/reste-a-la-maison.png" alt=""></a>
+                <a href="/post"><img src="../img/addpost.png"/></a>
+                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
             </p>
         </div>
         <!--                Choix filière               -->
@@ -71,19 +72,16 @@
             <!--                Footer              -->
             <div class="footer">
                 <ul>
-                    <a href="">
-                        <li>Aide</li>
-                    </a>
-                    <a href="">
-                        <li>Communautés</li>
+                    <a href="https://www.ynov.com">
+                        <li>Ynov</li>
                     </a>
                     <a href="../html/thematique.html">
                         <li>Thématiques</li>
                     </a>
-                    <a href="">
+                    <a href="/about">
                         <li>A propos</li>
                     </a>
-                    <a href="../html/equipe.html">
+                    <a href="/team">
                         <li>L'équipe</li>
                     </a>
                 </ul>
@@ -190,7 +188,7 @@
         <!--                Post                -->
         <div class="post">
             <div class="message">
-                {{range $value := .Subjects}}
+                {{range $value := .Posts}}
                 <span lang="fr">
                       <blockquote>
                           <div class="replace">

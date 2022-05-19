@@ -13,7 +13,7 @@ package unused
 //	Profil_pic string `json:"profil_pic"`
 //}
 //
-//type Subjects struct {
+//type Posts struct {
 //	ID          int    `json:"id"`
 //	Title       string `json:"title"`
 //	Description string `json:"description"`
