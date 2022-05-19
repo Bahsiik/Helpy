@@ -20,6 +20,10 @@ func main() {
 
 	imgFolder := http.FileServer(http.Dir("img"))
 	http.Handle("/img/", http.StripPrefix("/img/", imgFolder))
+
+	//handle js
+	jsFolder := http.FileServer(http.Dir("js"))
+	http.Handle("/js/", http.StripPrefix("/js/", jsFolder))
 	cfg := mysql.Config{
 		User:                 "root",
 		Passwd:               "",
@@ -44,7 +48,8 @@ func main() {
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/loginauth", loginAuthHandler)
 	http.HandleFunc("/logout", logoutHandler)
-	http.HandleFunc("/index", indexHandler)
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/home", homeHandler)
 	http.HandleFunc("/subjectByTopic", selectPostTopicHandler)
 	http.HandleFunc("/post", postHandler)
 	http.HandleFunc("/addPost", addPostHandler)

@@ -64,18 +64,6 @@
                     {{.AddPostError.Title}}
                 </div>
                 {{end}}
-                <span id="titre">Description</span>
-                <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
-                <textarea name="description" id="description" placeholder="Description de l'annonce"></textarea>
-                {{if .AddPostError}}
-                <div class="alert">
-                    {{.AddPostError.Content}}
-                </div>
-                {{end}}
-                <button id="boutonimage" type="addimage">ajouter une image</button>
-                <span id="titre">Tags</span>
-                <span id="sous-titre">Incluez jusqu'a 5 tags pour decrire de quoi la question parle</span>
-                <textarea name="tags" id="tags" placeholder="Tags"></textarea>
                 <span id="titre">Catégories</span>
                 <span id="sous-titre">Séléctioner une category</span>
                 <select name="category" id="category">
@@ -96,6 +84,19 @@
                     {{.AddPostError.Topic}}
                 </div>
                 {{end}}
+                <span id="titre">Description</span>
+                <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
+                <textarea name="description" id="description" placeholder="Description de l'annonce"></textarea>
+                {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Content}}
+                </div>
+                {{end}}
+<!--                <button id="boutonimage" type="addimage">ajouter une image</button>-->
+<!--                <span id="titre">Tags</span>-->
+<!--                <span id="sous-titre">Incluez jusqu'a 5 tags pour decrire de quoi la question parle</span>-->
+<!--                <textarea name="tags" id="tags" placeholder="Tags"></textarea>-->
+
                 <button id="submit" type="submit">Créer</button>
             </div>
         </form>

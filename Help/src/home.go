@@ -11,8 +11,8 @@ type data struct {
 	AddPostError PostError
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("**** indexHandler ****")
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("**** homeHandler ****")
 	cookie := checkCookie(w, r)
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
@@ -21,10 +21,16 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		Name:  username,
 		Posts: S,
 	}
-	err := tmpl.ExecuteTemplate(w, "index.html", d)
+	err := tmpl.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
 	}
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("**** indexHandler ****")
+	// redirect to home
+	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
 
 func checkCookie(w http.ResponseWriter, r *http.Request) *http.Cookie {
@@ -32,7 +38,7 @@ func checkCookie(w http.ResponseWriter, r *http.Request) *http.Cookie {
 	if err != nil {
 		fmt.Println("No cookie found")
 		// redirect to login
-		err := tmpl.ExecuteTemplate(w, "login.html", "Vous devez vous connec")
+		err := tmpl.ExecuteTemplate(w, "login.html", "Vous devez vous connecter pour accéder à cette page")
 		if err != nil {
 			fmt.Println("Error executing template")
 			http.Error(w, err.Error(), http.StatusInternalServerError)

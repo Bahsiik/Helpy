@@ -121,7 +121,7 @@ func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 		Name:  username,
 		Posts: postList,
 	}
-	err := tmpl.ExecuteTemplate(w, "index.html", data)
+	err := tmpl.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
 		return
 	}
