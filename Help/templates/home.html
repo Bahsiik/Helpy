@@ -42,7 +42,7 @@
                 Il n'y a que Helpy qui a la réponse.
                 <br>
                 {{if .}}
-                {{.Name}}
+                {{.Username}}
                 {{end}}
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
@@ -198,11 +198,15 @@
                           <div class="referencement">
                               <img class="like" src="../img/coeur.png" alt="like">
                               <img class="fav" src="../img/etoile.png" alt="favoris">
-                              <a class="share" href=""><img src="../img/partager.png" alt=""></a>
+                              <form action="/postFeed" method="post">
+                                  <div id="submitForm">
+                                    <input type="submit" name="PostID" value="{{$value.ID}}"/>
+                                  </div>
+                              </form>
                           </div>
                               {{$value.TopicName}}
                           </div>
-                            <p id="post">{{$value.Name}}</p>
+                            <p id="post">{{$value.Title}}</p>
                       </blockquote>
                     </span>
                 {{end}}

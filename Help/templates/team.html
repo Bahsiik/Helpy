@@ -34,6 +34,10 @@
                 <span>Helpy</span>
                 <br>
                 Il n'y a que Helpy qui a la réponse
+                <br>
+                {{if .}}
+                Bonjour, {{.Username}} !
+                {{end}}
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
             <p id="icon">

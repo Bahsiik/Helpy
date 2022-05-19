@@ -11,7 +11,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "about.html", d)
 	if err != nil {
@@ -26,7 +26,7 @@ func teamHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "team.html", d)
 	if err != nil {
@@ -41,7 +41,7 @@ func settingProfileHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "settingProfile.html", d)
 	if err != nil {
@@ -56,7 +56,7 @@ func settingNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "settingNotifications.html", d)
 	if err != nil {
@@ -71,7 +71,7 @@ func settingAccountHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "settingAccount.html", d)
 	if err != nil {
@@ -86,7 +86,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 	userID := getUserIdFromSession(cookie.Value)
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "profile.html", d)
 	if err != nil {

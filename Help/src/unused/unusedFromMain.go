@@ -6,7 +6,7 @@ package unused
 //	if err != nil {
 //		fmt.Println("Cookies not found")
 //		cookie = &http.Cookie{
-//			Name:     "Test-cookie",
+//			Title:     "Test-cookie",
 //			Value:    "Test-value",
 //			HttpOnly: true,
 //		}

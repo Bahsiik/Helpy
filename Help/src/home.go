@@ -6,9 +6,11 @@ import (
 )
 
 type data struct {
-	Name         string
+	Username     string
+	FirstPost    Post
 	Posts        []Post
 	AddPostError PostError
+	Replies      []Reply
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
@@ -18,8 +20,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	username := getUsernameFromID(userID)
 	S := selectAllPost()
 	d := data{
-		Name:  username,
-		Posts: S,
+		Username: username,
+		Posts:    S,
 	}
 	err := tmpl.ExecuteTemplate(w, "home.html", d)
 	if err != nil {

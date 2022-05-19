@@ -59,6 +59,7 @@ func main() {
 	http.HandleFunc("/settingProfile", settingProfileHandler)
 	http.HandleFunc("/settingAccount", settingAccountHandler)
 	http.HandleFunc("/settingNotifications", settingNotificationsHandler)
+	http.HandleFunc("/postFeed", postFeedHandler)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

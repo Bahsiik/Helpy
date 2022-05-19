@@ -12,7 +12,7 @@ package unused
 //	sessionID := generateSessionID()
 //	sessions[sessionID] = username
 //	cookie := &http.Cookie{
-//		Name:     "sessionID",
+//		Title:     "sessionID",
 //		Value:    sessionID,
 //		Path:     "/",
 //		HttpOnly: true,

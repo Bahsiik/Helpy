@@ -24,5 +24,5 @@ package main
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-//	fmt.Printf("Name of the deleted album: %v\n", albTitle)
+//	fmt.Printf("Title of the deleted album: %v\n", albTitle)
 //}

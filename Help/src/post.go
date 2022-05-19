@@ -10,8 +10,10 @@ import (
 
 type Post struct {
 	ID        int
-	Name      string
+	Title     string
+	Content   string
 	Date      *time.Time
+	ReplyNbr  int
 	TopicID   int
 	TopicName string
 	UserID    int
@@ -52,7 +54,7 @@ func getPost(rows *sql.Rows, err error) []Post {
 	var postList []Post
 	for rows.Next() {
 		var post Post
-		err := rows.Scan(&post.ID, &post.Name, &post.Date, &post.TopicID, &post.UserID)
+		err := rows.Scan(&post.ID, &post.Title, &post.Date, &post.TopicID, &post.UserID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -118,8 +120,8 @@ func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	topicID = translateTopicID(topicID)
 	postList := selectPostByTopic(topicID)
 	data := data{
-		Name:  username,
-		Posts: postList,
+		Username: username,
+		Posts:    postList,
 	}
 	err := tmpl.ExecuteTemplate(w, "home.html", data)
 	if err != nil {
@@ -162,7 +164,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	// get the username from the user id
 	username := getUsernameFromID(userID)
 	d := data{
-		Name: username,
+		Username: username,
 	}
 	err := tmpl.ExecuteTemplate(w, "create.html", d)
 	if err != nil {
@@ -192,7 +194,7 @@ func addPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func postErrorRedirect(w http.ResponseWriter, userID int, postError PostError) bool {
 	d := data{
-		Name:         getUsernameFromID(userID),
+		Username:     getUsernameFromID(userID),
 		AddPostError: postError,
 	}
 	fmt.Println("data : ", d)
