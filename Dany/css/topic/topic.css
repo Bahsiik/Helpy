@@ -1,0 +1,23 @@
+
+blockquote{
+    width: 50%;
+}
+
+.message{
+    margin: -37.5% 10% 15% -10%;
+}
+.replace{
+    margin-left: -26%;
+}
+.title_topic{
+    position: absolute;
+    color: black;
+    font-size: 1.5em;
+    margin-top: -37%;
+    margin-left: 42%;
+}
+body{
+    background: #4c4c52;
+
+}
+
