@@ -90,10 +90,10 @@
         <!--<div class="topic">-->
         <h5 class="title_topic">{{.FirstPost.Title}}</h5>
 
-<div class="topic">
-    <!--                Post                -->
-    <div class="post">
-        <div class="message">
+        <div class="topic">
+            <!--                Post                -->
+            <div class="post">
+                <div class="message">
                 <span lang="fr">
                     <blockquote>
                         <div class="replace">
@@ -107,11 +107,13 @@
                             </div>
                         </div>
                         <p id="post">{{.FirstPost.Content}}</p>
+                        <form action="/reply" method="post">
+                                <button name="Topic" value="{{.FirstPost.ID}}" type="submit">Répondre</button>
+                          </form>
                     </blockquote>
                 </span>
-
-            {{range $value := .Replies}}
-            <span lang="fr">
+                    {{range $value := .Replies}}
+                    <span lang="fr">
                       <blockquote>
                           <div class="replace">
                               <div class="profil">
@@ -126,9 +128,9 @@
                             <p id="post">{{$value.Message}}</p>
                       </blockquote>
                     </span>
-            {{end}}
+                    {{end}}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     </body>
 </html>

@@ -25,6 +25,15 @@ func GetUsernameFromSession(w http.ResponseWriter, r *http.Request) Data {
 	return d
 }
 
+func GetUserIDFromSession(w http.ResponseWriter, r *http.Request) Data {
+	cookie := CheckCookie(w, r)
+	userID := SelectUserIDFromSessionID(cookie.Value)
+	d := Data{
+		UserID: userID,
+	}
+	return d
+}
+
 func CheckCookie(w http.ResponseWriter, r *http.Request) *http.Cookie {
 	cookie, err := r.Cookie("session")
 	if err != nil {

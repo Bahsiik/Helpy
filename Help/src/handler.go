@@ -159,7 +159,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUsernameFromSession(w, r)
 	S := SelectAllPost()
 	d.Posts = S
-	fmt.Println("d: ", d)
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -204,6 +203,8 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		AddPost(title, description, topicID, userID)
+		postID := SelectPostIDByTitle(title)
+		AddFirstReply(description, userID, postID)
 		http.Redirect(w, r, "/index", http.StatusFound)
 	}
 }
@@ -223,12 +224,44 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	postID := SelectPostIDByName(PostName)
 	replies := SelectRepliesByPostName(postID)
 	d.Replies = replies
-	fmt.Println("replies: ", replies)
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func ReplyHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** replyHandler ***")
+	d := GetUsernameFromSession(w, r)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	value := r.FormValue("Topic")
+	PostID := SelectPostIDFromStringID(value)
+	Username := SelectUsernameFromPostID(PostID)
+	FirstReplyID := SelectFirstReplyIDByPostID(value)
+	Content := SelectContentFromReplyID(FirstReplyID)
+	d.FirstPost.UserName = Username
+	d.FirstPost.Content = Content
+	err = TMPL.ExecuteTemplate(w, "reply.html", d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** addReplyToPostHandler ***")
+	d := GetUsernameFromSession(w, r)
+	d = GetUserIDFromSession(w, r)
+	d.Username = SelectUsernameFromID(d.UserID)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
 func AboutHandler(w http.ResponseWriter, r *http.Request) {

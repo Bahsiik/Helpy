@@ -53,50 +53,34 @@
                 <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
             </p>
         </div>
-        <span id="tit">Créer une annonce</span>
-        <form action="/addPost" method="post">
+        <span id="tit">Répondre à :</span>
+        <span lang="fr">
+                      <blockquote>
+                          <div class="replace">
+                              <div class="profil">
+                                {{.FirstPost.UserName}}
+                                <a href="">
+                                    <img src="../img/profil.jpg" alt="profil">
+                                </a>
+                              </div>
+                              <div class="referencement">
+                                  <img class="like" src="../img/coeur.png" alt="like">
+                                  <img class="fav" src="../img/etoile.png" alt="favoris">
+                              </div>
+                          </div>
+                          {{.FirstPost.Content}}
+                      </blockquote>
+                    </span>
+        <form action="/addReply" method="post">
             <div id="create">
-                <span id="titre">Titre</span>
-                <span id="sous-titre">Soyez précis et imaginez que vous posez une question à une autre personne</span>
-                <textarea name="title" id="title" placeholder="Titre de l'annonce"></textarea>
-                {{if .AddPostError}}
-                <div class="alert">
-                    {{.AddPostError.Title}}
-                </div>
-                {{end}}
-                <span id="titre">Catégories</span>
-                <span id="sous-titre">Séléctioner une category</span>
-                <select name="category" id="category">
-                    <option PostID="">Choisissez une catégorie</option>
-                    <option PostID="1">Marketing & Communication</option>
-                    <option PostID="2">Audiovisuel</option>
-                    <option PostID="3">Création & Digital Design</option>
-                    <option PostID="4">Architecture data'intérieur</option>
-                    <option PostID="5">Informatique</option>
-                    <option PostID="6">Web Management</option>
-                    <option PostID="7">3D, Animation & Jeux-vidéo</option>
-                    <option PostID="8">2D & Illustration Digitale</option>
-                    <option PostID="9">Campus Life</option>
-                    <option PostID="10">Administration</option>
-                </select>
-                {{if .AddPostError}}
-                <div class="alert">
-                    {{.AddPostError.Topic}}
-                </div>
-                {{end}}
-                <span id="titre">Description</span>
-                <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
-                <textarea name="description" id="description" placeholder="Description de l'annonce"></textarea>
-                {{if .AddPostError}}
-                <div class="alert">
-                    {{.AddPostError.Content}}
-                </div>
-                {{end}}
-<!--                <button id="boutonimage" type="addimage">ajouter une image</button>-->
-<!--                <span id="titre">Tags</span>-->
-<!--                <span id="sous-titre">Incluez jusqu'a 5 tags pour decrire de quoi la question parle</span>-->
-<!--                <textarea name="tags" id="tags" placeholder="Tags"></textarea>-->
-
+                <span id="titre">Réponse</span>
+                <span id="sous-titre">Choisissez bien vos mots avant de répondre, afin de faciliter la compréhension des autres utilisateurs.</span>
+                <textarea name="content" id="description" placeholder="Écrivez votre réponse ici."></textarea>
+                <!--                {{if .AddPostError}}-->
+                <!--                <div class="alert">-->
+                <!--                    {{.AddPostError.Content}}-->
+                <!--                </div>-->
+                <!--                {{end}}-->
                 <button id="submit" type="submit">Créer</button>
             </div>
         </form>

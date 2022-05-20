@@ -143,7 +143,7 @@ func SelectReplyFromPostID(postID string) []Reply {
 	defer rows.Close()
 	for rows.Next() {
 		var r Reply
-		rows.Scan(&r.ID, &r.Message, &r.ReplyDate, &r.ReplyNbr, &r.PostID, &r.ReplyToID, &r.UserID)
+		rows.Scan(&r.ID, &r.Message, &r.ReplyDate, &r.PostID, &r.ReplyToID, &r.UserID)
 
 		if err != nil {
 			fmt.Println(err)
@@ -154,6 +154,7 @@ func SelectReplyFromPostID(postID string) []Reply {
 	return reply
 }
 
+// SelectPostIDByName It takes a post name as a string, and returns the post ID as a string
 func SelectPostIDByName(postName string) string {
 	fmt.Println("*** SelectPostIDByName ***")
 	var postID string
@@ -173,6 +174,7 @@ func SelectPostIDByName(postName string) string {
 	return postID
 }
 
+// SelectRepliesByPostName It takes a post name as a string, and returns a slice of replies
 func SelectRepliesByPostName(postName string) []Reply {
 	fmt.Println("*** SelectRepliesByPostName ***")
 	var reply []Reply
@@ -184,7 +186,7 @@ func SelectRepliesByPostName(postName string) []Reply {
 	defer rows.Close()
 	for rows.Next() {
 		var r Reply
-		rows.Scan(&r.ID, &r.Message, &r.ReplyDate, &r.ReplyNbr, &r.PostID, &r.ReplyToID, &r.UserID)
+		rows.Scan(&r.ID, &r.Message, &r.ReplyDate, &r.PostID, &r.ReplyToID, &r.UserID)
 
 		if err != nil {
 			fmt.Println(err)
@@ -193,5 +195,86 @@ func SelectRepliesByPostName(postName string) []Reply {
 		r.UserName = SelectUsernameFromID(r.UserID)
 		reply = append(reply, r)
 	}
+	if len(reply) == 0 {
+		return reply
+	}
+	reply = reply[1:]
 	return reply
+}
+
+func SelectFirstReplyIDByPostID(postID string) int {
+	fmt.Println("*** SelectFirstReplyIDByPostID ***")
+	var replyID int
+	rows, err := DB.Query("SELECT Reply_id FROM replies WHERE Post_id = ? ORDER BY Reply_id ASC LIMIT 1", postID)
+	if err != nil {
+		fmt.Println(err)
+		return replyID
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&replyID)
+		if err != nil {
+			fmt.Println(err)
+			return replyID
+		}
+	}
+	return replyID
+}
+
+func SelectPostIDFromStringID(postID string) int {
+	fmt.Println("*** SelectPostIDFromStringID ***")
+	var postID2 int
+	rows, err := DB.Query("SELECT Post_id FROM replies WHERE Post_id = ?", postID)
+	if err != nil {
+		fmt.Println(err)
+		return postID2
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&postID2)
+		if err != nil {
+			fmt.Println(err)
+			return postID2
+		}
+	}
+	return postID2
+}
+
+func SelectUsernameFromPostID(postID int) string {
+	fmt.Println("*** SelectUsernameFromPostID ***")
+	var username string
+	// inner join to get username
+	rows, err := DB.Query("SELECT username FROM users INNER JOIN post ON users.User_id = post.user_id WHERE post.Post_id = ?", postID)
+	if err != nil {
+		fmt.Println(err)
+		return username
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&username)
+		if err != nil {
+			fmt.Println(err)
+			return username
+		}
+	}
+	return username
+}
+
+func SelectContentFromReplyID(replyID int) string {
+	fmt.Println("*** SelectContentFromReplyID ***")
+	var content string
+	rows, err := DB.Query("SELECT Content FROM replies WHERE Reply_id = ?", replyID)
+	if err != nil {
+		fmt.Println(err)
+		return content
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&content)
+		if err != nil {
+			fmt.Println(err)
+			return content
+		}
+	}
+	return content
 }

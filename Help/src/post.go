@@ -21,6 +21,7 @@ func AddPost(title string, description string, topicID string, userID int) {
 	}
 }
 
+// It takes a pointer to a sql.Rows object and an error, and returns a slice of Post objects
 func getPost(rows *sql.Rows, err error) []Post {
 	var postList []Post
 	for rows.Next() {
@@ -38,6 +39,16 @@ func getPost(rows *sql.Rows, err error) []Post {
 	return postList
 }
 
+func SelectPostIDByTitle(title string) int {
+	var postID int
+	err := DB.QueryRow("SELECT Post_id FROM post WHERE Title = ?", title).Scan(&postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return postID
+}
+
+// It takes a list of posts and for each post it gets the topic name and the user name and adds them to the post
 func getPostAttributs(postList []Post) {
 	for i := range postList {
 		stmt, err := DB.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")

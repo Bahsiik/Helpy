@@ -3,11 +3,14 @@ package main
 import "time"
 
 type Data struct {
+	UserID       int
 	Username     string
 	FirstPost    Post
 	Posts        []Post
+	PostID       int
 	AddPostError PostError
 	Replies      []Reply
+	ReplyID      int
 }
 
 type Session struct {
