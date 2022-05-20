@@ -42,4 +42,5 @@ type Reply struct {
 	PostID    int
 	ReplyToID int
 	UserID    int
+	UserName  string
 }
