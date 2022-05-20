@@ -23,8 +23,19 @@ func AddReply(content string, userID int, postID int, replyID int) {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
-
 	_, err = stmt.Exec(content, userID, postID, replyID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func AddReplyNumberToPost(postID int) {
+	stmt, err := DB.Prepare("UPDATE post SET reply_number = reply_number + 1 WHERE Post_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(postID)
 	if err != nil {
 		log.Fatal(err)
 	}

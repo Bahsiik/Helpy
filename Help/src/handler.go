@@ -159,6 +159,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUsernameFromSession(w, r)
 	S := SelectAllPost()
 	d.Posts = S
+	// loop through posts and transform date
+	for i := 0; i < len(d.Posts); i++ {
+		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+	}
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -291,6 +295,7 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 	replyContent := r.FormValue("content")
 	postID := SelectPostIDByReplyID(value)
 	AddReply(replyContent, d.UserID, postID, replyID)
+	AddReplyNumberToPost(postID)
 	http.Redirect(w, r, "/index", http.StatusFound)
 }
 

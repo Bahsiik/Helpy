@@ -24,7 +24,8 @@ type Post struct {
 	ID        int
 	Title     string
 	Content   string
-	Date      *time.Time
+	RawDate   *time.Time
+	Date      string
 	ReplyNbr  int
 	TopicID   int
 	TopicName string
