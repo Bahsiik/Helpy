@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 	"unicode"
 )
 
@@ -83,4 +84,8 @@ func CheckPassword(password string) (bool, bool, bool, bool, bool, bool) {
 		passwordLength = true
 	}
 	return passwordLowercase, passwordUppercase, passwordNumber, passwordSpecial, passwordLength, passwordNoSpaces
+}
+
+func TranslateDate(date *time.Time) string {
+	return date.Format("02/01/2006 15:04:05")
 }

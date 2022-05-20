@@ -26,7 +26,7 @@ func getPost(rows *sql.Rows, err error) []Post {
 	var postList []Post
 	for rows.Next() {
 		var post Post
-		err := rows.Scan(&post.ID, &post.Title, &post.Date, &post.TopicID, &post.UserID)
+		err := rows.Scan(&post.ID, &post.Title, &post.RawDate, &post.ReplyNbr, &post.TopicID, &post.UserID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -37,15 +37,6 @@ func getPost(rows *sql.Rows, err error) []Post {
 		log.Fatal(err)
 	}
 	return postList
-}
-
-func SelectPostIDByTitle(title string) int {
-	var postID int
-	err := DB.QueryRow("SELECT Post_id FROM post WHERE Title = ?", title).Scan(&postID)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return postID
 }
 
 // It takes a list of posts and for each post it gets the topic name and the user name and adds them to the post

@@ -76,11 +76,11 @@
                 <span id="titre">Réponse</span>
                 <span id="sous-titre">Choisissez bien vos mots avant de répondre, afin de faciliter la compréhension des autres utilisateurs.</span>
                 <textarea name="content" id="description" placeholder="Écrivez votre réponse ici."></textarea>
-                <!--                {{if .AddPostError}}-->
-                <!--                <div class="alert">-->
-                <!--                    {{.AddPostError.Content}}-->
-                <!--                </div>-->
-                <!--                {{end}}-->
+                {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Content}}
+                </div>
+                {{end}}
                 <button id="submit" name="ReplyID" value="{{.ReplyID}}" type="submit">Créer</button>
             </div>
         </form>

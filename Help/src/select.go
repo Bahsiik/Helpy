@@ -62,7 +62,7 @@ func SelectUsernameFromID(userID int) string {
 // SelectAllPost We prepare a query to select all the posts from the database, then we execute the query and get the rows. We then call
 // the getPost function to get the postList and then we call the getPostAttributs function to get the post attributs
 func SelectAllPost() []Post {
-	stmt, err := DB.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post")
+	stmt, err := DB.Prepare("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,7 +75,7 @@ func SelectAllPost() []Post {
 
 // SelectPostByTopic It selects all the posts from the database that have the same topic ID as the one passed in the function
 func SelectPostByTopic(topicID string) []Post {
-	stmt, err := DB.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post WHERE Topic_id = ?")
+	stmt, err := DB.Prepare("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post WHERE Topic_id = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -334,4 +334,13 @@ func SelectUsernameFromReplyID(replyID int) string {
 		}
 	}
 	return username
+}
+
+func SelectPostIDByTitle(title string) int {
+	var postID int
+	err := DB.QueryRow("SELECT Post_id FROM post WHERE Title = ?", title).Scan(&postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return postID
 }

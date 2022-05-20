@@ -10,6 +10,7 @@ type Data struct {
 	PostID       int
 	AddPostError PostError
 	Replies      []Reply
+	Reply        Reply
 	ReplyID      int
 	Type         ReplyType
 }
@@ -24,7 +25,8 @@ type Post struct {
 	ID        int
 	Title     string
 	Content   string
-	Date      *time.Time
+	RawDate   *time.Time
+	Date      string
 	ReplyNbr  int
 	TopicID   int
 	TopicName string
