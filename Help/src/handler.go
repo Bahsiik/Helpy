@@ -195,6 +195,7 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	title := r.FormValue("title")
 	topicID := r.FormValue("category")
+	topicID = TranslateTopicID(topicID)
 	description := r.FormValue("description")
 	postError, checkError := CheckPostError(title, description, topicID)
 	if checkError == true {
