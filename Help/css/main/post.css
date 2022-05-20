@@ -41,6 +41,9 @@ blockquote::after {
     margin-left: -44%;
     margin-right: 20%;
 }
+.date{
+    font-size: 0.5em;
+}
 .profil{
     max-width: 110px;
     font-size: 0.8em;
@@ -89,3 +92,5 @@ blockquote img:hover{
     outline: inherit;
     background: url("../../img/partager.png");
 }
+
+
