@@ -20,9 +20,7 @@ body{
     display: block;
     position: relative;
     top: 40%;
-
     z-index: 5;
-
     -webkit-user-select: none;
     user-select: none;
 }
@@ -68,14 +66,10 @@ body{
     height: 4px;
     margin-bottom: 5px;
     position: relative;
-
     background: black;
     border-radius: 3px;
-
     z-index: 1;
-
     transform-origin: 4px 0px;
-
     transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
     background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
     opacity 0.55s ease;
@@ -129,7 +123,7 @@ body{
     width: 150px;
     margin: 150% 0 0 -160%;
     padding: 100% 100% 100% 100%;
-    border-radius: 30%;
+    border-radius: 0% 30% 30% 0%;
     background: #ededed;
     list-style-type: none;
     -webkit-font-smoothing: antialiased;
@@ -158,6 +152,10 @@ body{
     max-width: 125px;
     max-height: 65px;
     margin: 1.2% 2% 0 2%;
+    transition: 2s;
+}
+.header #logo:hover{
+    transform: rotate(360deg);
 }
 .header #slogan{
     font-size: 0.9em;

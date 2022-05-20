@@ -5,6 +5,7 @@
     margin-right: 1.5%;
     width: 300px;
     text-align: start;
+    background-color: darkgrey;
 }
 .footer ul li{
     list-style: none;
@@ -13,4 +14,8 @@
 }
 .footer ul li:hover{
     color: white;
+}
+
+a{
+    text-decoration: none;
 }

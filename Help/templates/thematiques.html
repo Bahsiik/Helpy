@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/thematique.css">
+    <title>Thématiques</title>
+</head>
+<body>
+<!--                Header                    -->
+<div class="header">
+    <nav role="navigation">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+                <a href="/profil"><li>Profil</li></a>
+                <a href="/settingAccount"><li>Paramètres</li></a>
+                <a href="/logout"><li>Log Out</li></a>
+            </ul>
+        </div>
+    </nav>
+    <img id="logo" src="../img/Helpy_logo.png" alt="">
+    <p id="slogan">
+        <span>Helpy</span>
+        <br>
+        Il n'y a que Helpy qui a la réponse
+        <br>
+        {{if .}}
+        {{.Username}}
+        {{end}}
+    </p>
+    <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
+    <p id="icon">
+        <a href="/post"><img src="../img/addpost.png"/></a>
+        <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
+    </p>
+</div>
+<!------------ THEME ------------>
+<div class="theme">
+    <a class="pic" href="">
+        <img src="../img/Theme/marketing.jpg" alt="">
+        <p>
+            Marketing & Communication
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/audiovisuel.jpg" alt="">
+        <p>
+            Audiovisuel
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/crea.jpeg" alt="">
+        <p>
+            Créa & Digital Design
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/archi.jpg" alt="">
+        <p>
+            Architecture data'intérieur
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/informatique.jpg" alt="">
+        <p>
+            Informatique
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/website-management.jpg" alt="">
+        <p>
+            Web Management
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/3D.jpg" alt="">
+        <p>
+            3D, Animation & Jeux-vidéo
+        </p>
+    </a>
+    <a class="pic" href="">
+        <img src="../img/Theme/2D.jpg" alt="">
+        <p>
+            2D & Illustration Digitale
+        </p>
+    </a>
+</div>
+</body>
+</html>

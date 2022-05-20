@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <link rel="icon" type="image/png" sizes="5x5" href="../image/beemo.ico">
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
         <link rel="stylesheet" href="../css/profile.css">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main/footer.css">
@@ -18,15 +18,9 @@
                     <span></span>
                     <span></span>
                     <ul id="menu">
-                        <a href="/profile">
-                            <li>Profil</li>
-                        </a>
-                        <a href="/settingAccount">
-                            <li>Paramètres</li>
-                        </a>
-                        <a href="/logout">
-                            <li>Log Out</li>
-                        </a>
+                        <a href="/profile"><li>Profil</li></a>
+                        <a href="/settingAccount"><li>Paramètres</li></a>
+                        <a href="/logout"><li>Log Out</li></a>
                     </ul>
                 </div>
             </nav>
@@ -42,27 +36,72 @@
             </p>
             <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
             <p id="icon">
-                <a href="/addPost"><img src="../img/addpost.png" alt=""></a>
+                <a href="/post"><img src="../img/addpost.png" alt=""></a>
                 <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
             </p>
         </div>
-        <!--        Footer      -->
-        <div class="footer">
-            <ul>
-                <a href="https://www.ynov.com">
-                    <li>Ynov</li>
-                </a>
-                <a href="../html/thematique.html">
-                    <li>Thématiques</li>
-                </a>
-                <a href="/about">
-                    <li>A propos</li>
-                </a>
-                <a href="/team">
-                    <li>L'équipe</li>
-                </a>
-            </ul>
-            <p>Helpy Inc © 2022. Tous droits réservés</p>
+
+
+        <div class="choix_profil">
+            <a href="/profile"><span>VUE D'ENSEMBLE</span></a>
+            <a href="/profilePub"><span>PUBLICATIONS</span></a>
+            <a href="/profileCom"><span>COMMENTAIRES</span></a>
+            <a href="/profileFav"><span>FAVORIS</span></a>
+            <a href="/profileLike"><span>LIKE</span></a>
+        </div>
+        <div class="sous_ligne"></div>
+
+        <div class="recap">
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+            <div class="title">
+                <p class="thematique">{THEME}</p>
+                <p class="titre_topic">{TITRE TOPIC}</p>
+            </div>
+        </div>
+
+        <div class="right">
+            <!--        Pseudo      -->
+            <div class="pseudo_profil">
+                <img src="../img/profil.jpg" alt="profil">
+                <p>{PSEUDO}</p>
+            </div>
+            <!--        Footer      -->
+            <div class="footer">
+                <ul>
+                    <a href="https://www.ynov.com"><li>Ynov</li></a>
+                    <a href="/thematiques"><li>Thématiques</li></a>
+                    <a href="/about"><li>A propos</li></a>
+                    <a href="/team"><li>L'équipe</li></a>
+                </ul>
+                <p>Helpy Inc © 2022. Tous droits réservés</p>
+            </div>
         </div>
     </body>
 </html>
