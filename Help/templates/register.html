@@ -6,6 +6,7 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="../css/register.css">
+        <script type="text/javascript" src="../js/js.js" defer></script>
         <title>Login</title>
     </head>
     <body>
@@ -47,8 +48,13 @@
                             </div>
                             <div class="group">
                                 <label for="pass" class="label">Mot de passe </label>
-                                <input id="pass" type="firstPassword" class="input" data-type="password"
+                                <input onmouseenter="password()" onmouseleave="leave_password()" id="pass" type="firstPassword" class="input" data-type="password"
                                        name="firstPassword">
+                            </div>
+                            <div class="message_group">
+                                <p>
+                                    Le mot de passe doit contenir au moins : une minuscule, une majuscule, un chiffre, un caractère spécial et minimum 12 caractères
+                                </p>
                             </div>
                             <div class="group">
                                 <label for="pass" class="label">Confirmer le Mot de passe</label>
