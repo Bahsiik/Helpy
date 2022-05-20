@@ -10,6 +10,7 @@ type Data struct {
 	PostID       int
 	AddPostError PostError
 	Replies      []Reply
+	Reply        Reply
 	ReplyID      int
 	Type         ReplyType
 }

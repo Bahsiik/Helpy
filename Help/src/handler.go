@@ -159,7 +159,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUsernameFromSession(w, r)
 	S := SelectAllPost()
 	d.Posts = S
-	// loop through posts and transform date
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 	}
@@ -274,6 +273,10 @@ func ReplyToReplyHandler(w http.ResponseWriter, r *http.Request) {
 	d.FirstPost.UserName = Username
 	d.FirstPost.Content = ReplyContent
 	d.ReplyID = ReplyID
+	fmt.Println("D values:")
+	fmt.Println(d.FirstPost.UserName)
+	fmt.Println(d.FirstPost.Content)
+	fmt.Println(d.ReplyID)
 	err = TMPL.ExecuteTemplate(w, "reply.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -291,12 +294,19 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("ReplyID")
-	replyID := SelectReplyIDFromStringID(value)
-	replyContent := r.FormValue("content")
+	d.ReplyID = SelectReplyIDFromStringID(value)
 	postID := SelectPostIDByReplyID(value)
-	AddReply(replyContent, d.UserID, postID, replyID)
-	AddReplyNumberToPost(postID)
-	http.Redirect(w, r, "/index", http.StatusFound)
+	d.FirstPost.UserName = SelectUsernameFromPostID(postID)
+	d.FirstPost.Content = SelectContentFromReplyID(d.ReplyID)
+	replyContent := r.FormValue("content")
+	postError, checkError := CheckReplyError(replyContent)
+	if postError == true {
+		ReplyErrorRedirect(w, d, checkError)
+	} else {
+		AddReply(replyContent, d.UserID, postID, d.ReplyID)
+		AddReplyNumberToPost(postID)
+		http.Redirect(w, r, "/index", http.StatusFound)
+	}
 }
 
 func AboutHandler(w http.ResponseWriter, r *http.Request) {

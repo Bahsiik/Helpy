@@ -335,3 +335,12 @@ func SelectUsernameFromReplyID(replyID int) string {
 	}
 	return username
 }
+
+func SelectPostIDByTitle(title string) int {
+	var postID int
+	err := DB.QueryRow("SELECT Post_id FROM post WHERE Title = ?", title).Scan(&postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return postID
+}

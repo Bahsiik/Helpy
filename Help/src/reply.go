@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 )
 
 func AddFirstReply(content string, userID int, postID int) {
@@ -38,5 +39,26 @@ func AddReplyNumberToPost(postID int) {
 	_, err = stmt.Exec(postID)
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func CheckReplyError(content string) (bool, PostError) {
+	var ReplyError PostError
+	if content == "" {
+		ReplyError.Content = "Vous n'avez rien écrit"
+		return true, ReplyError
+	}
+	if len(content) > 1000 {
+		ReplyError.Content = "Votre réponse est trop longue"
+		return true, ReplyError
+	}
+	return false, ReplyError
+}
+
+func ReplyErrorRedirect(w http.ResponseWriter, d Data, ReplyError PostError) {
+	d.AddPostError = ReplyError
+	err := TMPL.ExecuteTemplate(w, "reply.html", d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
