@@ -13,6 +13,9 @@ function search_topics() {
     }
 }
 
+
+
+
 document.querySelectorAll('.like').forEach(item => {
     item.addEventListener('click', event => {
         if (item.src === "http://localhost:63342/Helpy/Dany/image/coeur(1).png") {  // to change
@@ -32,7 +35,18 @@ document.querySelectorAll('.fav').forEach(item => {
         item.src = "http://localhost:63342/Helpy/Dany/image/etoile(1).png"
     })
 })
-
+function nam(){
+    document.querySelector('#message_name').style.display = 'block';
+}
+function leave_nam(){
+    document.querySelector('#message_name').style.display = 'none';
+}
+function password(){
+    document.querySelector('#message_group').style.display = 'block';
+}
+function leave_password() {
+    document.querySelector('#message_group').style.display = 'none';
+}
 function mail() {
     document.getElementById('e-mail').innerHTML = document.getElementById('mail').value;
     document.querySelector('#change').innerHTML = 'Changer';
