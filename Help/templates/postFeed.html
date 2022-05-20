@@ -105,6 +105,7 @@
                                 <img class="like" src="../img/coeur.png" alt="like">
                                 <img class="fav" src="../img/etoile.png" alt="favoris">
                             </div>
+                            {{.FirstPost.Date}}
                         </div>
                         <p id="post">{{.FirstPost.Content}}</p>
                         <form action="/replyToPost" method="post">
@@ -125,6 +126,7 @@
                               <img class="like" src="../img/coeur.png" alt="like">
                               <img class="fav" src="../img/etoile.png" alt="favoris">
                           </div>
+                              {{$value.ReplyDate}}
                           </div>
                             <p id="post">{{$value.Message}}</p>
                           <form action="/replyToReply" method="post">

@@ -41,14 +41,15 @@ type PostError struct {
 }
 
 type Reply struct {
-	ID        int
-	Message   string
-	ReplyDate *time.Time
-	ReplyNbr  int
-	PostID    int
-	ReplyToID int
-	UserID    int
-	UserName  string
+	ID           int
+	Message      string
+	ReplyRawDate *time.Time
+	ReplyDate    string
+	ReplyNbr     int
+	PostID       int
+	ReplyToID    int
+	UserID       int
+	UserName     string
 }
 
 type ReplyType struct {

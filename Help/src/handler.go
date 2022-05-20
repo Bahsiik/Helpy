@@ -175,6 +175,9 @@ func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	topicID = TranslateTopicID(topicID)
 	postList := SelectPostByTopic(topicID)
 	d = Data{Posts: postList}
+	for i := 0; i < len(d.Posts); i++ {
+		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+	}
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -224,10 +227,14 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	post := SelectPostByName(PostName)
 	userName := SelectUsernameFromID(post.UserID)
 	post.UserName = userName
+	post.Date = TranslateDate(post.RawDate)
 	d.FirstPost = post
 	postID := SelectPostIDByName(PostName)
 	replies := SelectRepliesByPostName(postID)
 	d.Replies = replies
+	for i := 0; i < len(d.Replies); i++ {
+		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
+	}
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
