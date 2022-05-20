@@ -158,7 +158,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("**** homeHandler ****")
 	d := GetUsernameFromSession(w, r)
 	S := SelectAllPost()
-	d = Data{Posts: S}
+	d.Posts = S
+	fmt.Println("d: ", d)
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -191,7 +192,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** addPostHandler ***")
 	cookie := CheckCookie(w, r)
-	userID := SelectUserIdFromSessionID(cookie.Value)
+	userID := SelectUserIDFromSessionID(cookie.Value)
 	r.ParseForm()
 	title := r.FormValue("title")
 	topicID := r.FormValue("category")
@@ -209,28 +210,18 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** postFeedHandler ***")
-	cookie := CheckCookie(w, r)
-	userID := SelectUserIdFromSessionID(cookie.Value)
-	username := SelectUsernameFromID(userID)
-
+	d := GetUsernameFromSession(w, r)
 	err := r.ParseForm()
 	if err != nil {
 		return
 	}
-	ID := r.FormValue("PostID")
-	replies := SelectReplyFromPostID(ID)
-	fmt.Println("Reply list :")
-	for _, reply := range replies {
-		fmt.Println(reply)
-	}
-	post := SelectPostByID(ID)
+	PostName := r.FormValue("PostName")
+	post := SelectPostByName(PostName)
 	userName := SelectUsernameFromID(post.UserID)
 	post.UserName = userName
-	d := Data{
-		Username:  username,
-		FirstPost: post,
-		Replies:   replies,
-	}
+	d.FirstPost = post
+	replies := SelectRepliesByPostName(PostName)
+	d.Replies = replies
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

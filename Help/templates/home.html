@@ -198,15 +198,15 @@
                           <div class="referencement">
                               <img class="like" src="../img/coeur.png" alt="like">
                               <img class="fav" src="../img/etoile.png" alt="favoris">
-                              <form action="/postFeed" method="post">
-                                  <div id="submitForm">
-                                    <input type="submit" name="PostID" value="{{$value.ID}}"/>
-                                  </div>
-                              </form>
+
                           </div>
                               {{$value.TopicName}}
                           </div>
-                            <p id="post">{{$value.Title}}</p>
+                          <form action="/postFeed" method="post">
+                              <div id="submitForm">
+                                <input id="post" type="submit" name="PostName" value="{{$value.Title}}"/>
+                              </div>
+                          </form>
                       </blockquote>
                     </span>
                 {{end}}

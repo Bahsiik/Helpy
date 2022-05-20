@@ -18,7 +18,7 @@ func generateSessionId() string {
 func AddSessionCookie(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("username")
 	sessionId := generateSessionId()
-	userId := SelectUserIdFromUsername(username)
+	userId := SelectUserIDFromUsername(username)
 	date := time.Now()
 	session := Session{
 		Token:  sessionId,
