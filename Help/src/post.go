@@ -5,49 +5,20 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 )
 
-type Post struct {
-	ID        int
-	Title     string
-	Content   string
-	Date      *time.Time
-	ReplyNbr  int
-	TopicID   int
-	TopicName string
-	UserID    int
-	UserName  string
-}
+var DB *sql.DB
 
-type PostError struct {
-	Title   string
-	Content string
-	Topic   string
-}
-
-func selectAllPost() []Post {
-	stmt, err := db.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post")
+func AddPost(title string, description string, topicID string, userID int) {
+	stmt, err := DB.Prepare("INSERT INTO post (Title, Content, Topic_id, User_id) VALUES (?, ?, ?, ?)")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close()
-	rows, err := stmt.Query()
-	postList := getPost(rows, err)
-	getPostAttributs(postList)
-	return postList
-}
-
-func selectPostByTopic(topicID string) []Post {
-	stmt, err := db.Prepare("SELECT Post_id, Title, creation_date, Topic_id, User_id FROM post WHERE Topic_id = ?")
+	_, err = stmt.Exec(title, description, topicID, userID)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer stmt.Close()
-	rows, err := stmt.Query(topicID)
-	postList := getPost(rows, err)
-	getPostAttributs(postList)
-	return postList
 }
 
 func getPost(rows *sql.Rows, err error) []Post {
@@ -69,7 +40,7 @@ func getPost(rows *sql.Rows, err error) []Post {
 
 func getPostAttributs(postList []Post) {
 	for i := range postList {
-		stmt, err := db.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")
+		stmt, err := DB.Prepare("SELECT Topic_name FROM topics WHERE Topic_id = ?")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -89,7 +60,7 @@ func getPostAttributs(postList []Post) {
 			log.Fatal(err)
 		}
 		// inner join with users to get the user name
-		stmt, err = db.Prepare("SELECT Username FROM users WHERE User_id = ?")
+		stmt, err = DB.Prepare("SELECT Username FROM users WHERE User_id = ?")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -111,25 +82,7 @@ func getPostAttributs(postList []Post) {
 	}
 }
 
-func selectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
-	cookie := checkCookie(w, r)
-	userID := getUserIdFromSession(cookie.Value)
-	username := getUsernameFromID(userID)
-	r.ParseForm()
-	topicID := r.FormValue("topicID")
-	topicID = translateTopicID(topicID)
-	postList := selectPostByTopic(topicID)
-	data := data{
-		Username: username,
-		Posts:    postList,
-	}
-	err := tmpl.ExecuteTemplate(w, "home.html", data)
-	if err != nil {
-		return
-	}
-}
-
-func translateTopicID(topicID string) string {
+func TranslateTopicID(topicID string) string {
 	switch topicID {
 	case "Marketing & Communication":
 		return "1"
@@ -155,50 +108,13 @@ func translateTopicID(topicID string) string {
 	return ""
 }
 
-func postHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*** postHandler ***")
-	// get the cookie
-	cookie := checkCookie(w, r)
-	// get the user id from the cookie
-	userID := getUserIdFromSession(cookie.Value)
-	// get the username from the user id
-	username := getUsernameFromID(userID)
-	d := data{
-		Username: username,
-	}
-	err := tmpl.ExecuteTemplate(w, "create.html", d)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-}
-
-func addPostHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*** addPostHandler ***")
-	cookie := checkCookie(w, r)
-	userID := getUserIdFromSession(cookie.Value)
-	r.ParseForm()
-	title := r.FormValue("title")
-	topicID := r.FormValue("category")
-	description := r.FormValue("description")
-	postError, checkError := checkPostError(title, description, topicID)
-	if checkError == true {
-		if postErrorRedirect(w, userID, postError) {
-			return
-		}
-	} else {
-		addPost(title, description, topicID, userID)
-		http.Redirect(w, r, "/index", http.StatusFound)
-	}
-}
-
-func postErrorRedirect(w http.ResponseWriter, userID int, postError PostError) bool {
-	d := data{
-		Username:     getUsernameFromID(userID),
+func PostErrorRedirect(w http.ResponseWriter, userID int, postError PostError) bool {
+	d := Data{
+		Username:     SelectUsernameFromID(userID),
 		AddPostError: postError,
 	}
-	fmt.Println("data : ", d)
-	err := tmpl.ExecuteTemplate(w, "create.html", d)
+	fmt.Println("Data : ", d)
+	err := TMPL.ExecuteTemplate(w, "create.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return true
@@ -206,7 +122,7 @@ func postErrorRedirect(w http.ResponseWriter, userID int, postError PostError) b
 	return false
 }
 
-func checkPostError(title string, description string, topicID string) (PostError, bool) {
+func CheckPostError(title string, description string, topicID string) (PostError, bool) {
 	var postError PostError
 	var checkError bool
 	if title == "" {
@@ -222,16 +138,4 @@ func checkPostError(title string, description string, topicID string) (PostError
 		checkError = true
 	}
 	return postError, checkError
-}
-
-func addPost(title string, description string, topicID string, userID int) {
-	stmt, err := db.Prepare("INSERT INTO post (Title, Content, Topic_id, User_id) VALUES (?, ?, ?, ?)")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer stmt.Close()
-	_, err = stmt.Exec(title, description, topicID, userID)
-	if err != nil {
-		log.Fatal(err)
-	}
 }
