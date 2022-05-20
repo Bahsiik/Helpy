@@ -10,11 +10,8 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
-var tmpl *template.Template
-
 func main() {
-	tmpl, _ = template.ParseGlob("templates/*.html")
+	TMPL, _ = template.ParseGlob("templates/*.html")
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
@@ -34,32 +31,32 @@ func main() {
 		ParseTime:            true,
 	}
 	var err error
-	db, err = sql.Open("mysql", cfg.FormatDSN())
+	DB, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
 		log.Fatal(err)
 	}
-	pingErr := db.Ping()
+	pingErr := DB.Ping()
 	if pingErr != nil {
 		log.Fatal(pingErr)
 	}
 	fmt.Println("Connected!")
-	http.HandleFunc("/register", registerHandler)
-	http.HandleFunc("/registerauth", registerAuthHandler)
-	http.HandleFunc("/login", loginHandler)
-	http.HandleFunc("/loginauth", loginAuthHandler)
-	http.HandleFunc("/logout", logoutHandler)
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/home", homeHandler)
-	http.HandleFunc("/subjectByTopic", selectPostTopicHandler)
-	http.HandleFunc("/post", postHandler)
-	http.HandleFunc("/addPost", addPostHandler)
-	http.HandleFunc("/team", teamHandler)
-	http.HandleFunc("/about", aboutHandler)
-	http.HandleFunc("/profile", profileHandler)
-	http.HandleFunc("/settingProfile", settingProfileHandler)
-	http.HandleFunc("/settingAccount", settingAccountHandler)
-	http.HandleFunc("/settingNotifications", settingNotificationsHandler)
-	http.HandleFunc("/postFeed", postFeedHandler)
+	http.HandleFunc("/register", RegisterHandler)
+	http.HandleFunc("/registerauth", RegisterAuthHandler)
+	http.HandleFunc("/login", LoginHandler)
+	http.HandleFunc("/loginauth", LoginAuthHandler)
+	http.HandleFunc("/logout", LogoutHandler)
+	http.HandleFunc("/", IndexHandler)
+	http.HandleFunc("/home", HomeHandler)
+	http.HandleFunc("/subjectByTopic", SelectPostTopicHandler)
+	http.HandleFunc("/post", PostHandler)
+	http.HandleFunc("/addPost", AddPostHandler)
+	http.HandleFunc("/team", TeamHandler)
+	http.HandleFunc("/about", AboutHandler)
+	http.HandleFunc("/profile", ProfileHandler)
+	http.HandleFunc("/settingProfile", SettingProfileHandler)
+	http.HandleFunc("/settingAccount", SettingAccountHandler)
+	http.HandleFunc("/settingNotifications", SettingNotificationsHandler)
+	http.HandleFunc("/postFeed", PostFeedHandler)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

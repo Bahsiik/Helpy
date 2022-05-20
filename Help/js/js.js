@@ -18,21 +18,21 @@ function search_topics() {
 
 document.querySelectorAll('.like').forEach(item => {
     item.addEventListener('click', event => {
-        if (item.src === "http://localhost:63342/Helpy/Dany/image/coeur(1).png") {  // to change
-            item.src = "http://localhost:63342/Helpy/Dany/image/coeur.png"
+        if (item.src === "../img/coeur(1).png") {  // to change
+            item.src = "../img/coeur.png"
         } else {
-            item.src = "http://localhost:63342/Helpy/Dany/image/coeur(1).png"
+            item.src = "../img/coeur(1).png"
         }
     })
 })
 
 document.querySelectorAll('.fav').forEach(item => {
     item.addEventListener('click', event => {
-        if (item.src == "http://localhost:63342/Helpy/Dany/image/etoile(1).png") { // to change
-            item.src = "http://localhost:63342/Helpy/Dany/image/etoile.png"
+        if (item.src == "../img/etoile(1).png") { // to change
+            item.src = "../img/etoile.png"
             return
         }
-        item.src = "http://localhost:63342/Helpy/Dany/image/etoile(1).png"
+        item.src = "../img/etoile(1).png"
     })
 })
 function nam(){
@@ -161,21 +161,21 @@ document.querySelectorAll('.aria3').forEach(item => {
 document.querySelectorAll('.avatar_pic').forEach(item => {
     item.addEventListener('click', event => {
         if (item.id==='blue'){
-            document.querySelector('#avatar').src = '../../image/profil.jpg'
+            document.querySelector('#avatar').src = '../img/profil.jpg'
         } else if (item.id === 'black') {
-            document.querySelector('#avatar').src = '../../image/profil_black.jpg'
+            document.querySelector('#avatar').src = '../img/profil_black.jpg'
 
         } else if (item.id === 'green') {
-            document.querySelector('#avatar').src = '../../image/profil_green.jpg'
+            document.querySelector('#avatar').src = '../img/profil_green.jpg'
 
         } else if (item.id === 'pink') {
-            document.querySelector('#avatar').src = '../../image/profil_pink.jpg'
+            document.querySelector('#avatar').src = '../img/profil_pink.jpg'
 
         } else if (item.id === 'red') {
-            document.querySelector('#avatar').src = '../../image/profil_red.jpg'
+            document.querySelector('#avatar').src = '../img/profil_red.jpg'
 
         } else if (item.id === 'yellow') {
-            document.querySelector('#avatar').src = '../../image/profil_yellow.jpg'
+            document.querySelector('#avatar').src = '../img/profil_yellow.jpg'
 
         }
 
