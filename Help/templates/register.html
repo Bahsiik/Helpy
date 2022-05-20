@@ -43,15 +43,20 @@
                     <div class="sign-up-htm">
                         <form action="/registerauth" method="POST">
                             <div class="group">
-                                <label for="user" class="label">Nom data'utilisateur</label>
-                                <input id="user" type="text" class="input" name="username">
+                                <label for="user" class="label">Nom d'utilisateur</label>
+                                <input onmouseenter="nam()" onmouseleave="leave_nam()" id="user" type="text" class="input" name="username">
+                            </div>
+                            <div class="rule" id="message_name">
+                                <p>
+                                    Le nom d'utilisateur doit faire minimum 5 caractères
+                                </p>
                             </div>
                             <div class="group">
                                 <label for="pass" class="label">Mot de passe </label>
                                 <input onmouseenter="password()" onmouseleave="leave_password()" id="pass" type="firstPassword" class="input" data-type="password"
                                        name="firstPassword">
                             </div>
-                            <div class="message_group">
+                            <div class="rule" id="message_group">
                                 <p>
                                     Le mot de passe doit contenir au moins : une minuscule, une majuscule, un chiffre, un caractère spécial et minimum 12 caractères
                                 </p>

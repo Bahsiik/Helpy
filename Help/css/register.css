@@ -192,8 +192,7 @@ a {
     color: red;
 }
 
-.message_group{
-    display: none;
+.rule{
     width: 200px;
     font-size: 0.7em;
     text-align: center;
@@ -204,4 +203,12 @@ a {
     background-color: lightgray;
     opacity: 50%;
     transition: 0.5s;
+}
+#message_group{
+    display: none;
+    margin-top: -22%;
+}
+#message_name{
+    margin-top: -17.5%;
+    display: none;
 }
