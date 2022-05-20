@@ -154,6 +154,25 @@ func SelectReplyFromPostID(postID string) []Reply {
 	return reply
 }
 
+func SelectPostIDByName(postName string) string {
+	fmt.Println("*** SelectPostIDByName ***")
+	var postID string
+	rows, err := DB.Query("SELECT Post_id FROM post WHERE Title = ?", postName)
+	if err != nil {
+		fmt.Println(err)
+		return postID
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&postID)
+		if err != nil {
+			fmt.Println(err)
+			return postID
+		}
+	}
+	return postID
+}
+
 func SelectRepliesByPostName(postName string) []Reply {
 	fmt.Println("*** SelectRepliesByPostName ***")
 	var reply []Reply
@@ -171,6 +190,7 @@ func SelectRepliesByPostName(postName string) []Reply {
 			fmt.Println(err)
 			return reply
 		}
+		r.UserName = SelectUsernameFromID(r.UserID)
 		reply = append(reply, r)
 	}
 	return reply

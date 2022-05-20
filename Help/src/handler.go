@@ -220,8 +220,10 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	userName := SelectUsernameFromID(post.UserID)
 	post.UserName = userName
 	d.FirstPost = post
-	replies := SelectRepliesByPostName(PostName)
+	postID := SelectPostIDByName(PostName)
+	replies := SelectRepliesByPostName(postID)
 	d.Replies = replies
+	fmt.Println("replies: ", replies)
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
