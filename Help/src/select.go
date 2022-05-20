@@ -278,3 +278,41 @@ func SelectContentFromReplyID(replyID int) string {
 	}
 	return content
 }
+
+func SelectPostIDByReplyID(replyID string) int {
+	fmt.Println("*** SelectPostIDByReplyID ***")
+	var postID int
+	rows, err := DB.Query("SELECT Post_id FROM replies WHERE Reply_id = ?", replyID)
+	if err != nil {
+		fmt.Println(err)
+		return postID
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&postID)
+		if err != nil {
+			fmt.Println(err)
+			return postID
+		}
+	}
+	return postID
+}
+
+func SelectReplyIDFromStringID(replyID string) int {
+	fmt.Println("*** SelectReplyIDFromStringID ***")
+	var replyID2 int
+	rows, err := DB.Query("SELECT Reply_id FROM replies WHERE Reply_id = ?", replyID)
+	if err != nil {
+		fmt.Println(err)
+		return replyID2
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&replyID2)
+		if err != nil {
+			fmt.Println(err)
+			return replyID2
+		}
+	}
+	return replyID2
+}

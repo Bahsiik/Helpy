@@ -245,6 +245,7 @@ func ReplyHandler(w http.ResponseWriter, r *http.Request) {
 	Content := SelectContentFromReplyID(FirstReplyID)
 	d.FirstPost.UserName = Username
 	d.FirstPost.Content = Content
+	d.ReplyID = FirstReplyID
 	err = TMPL.ExecuteTemplate(w, "reply.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -261,6 +262,11 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	value := r.FormValue("ReplyID")
+	replyID := SelectReplyIDFromStringID(value)
+	replyContent := r.FormValue("content")
+	postID := SelectPostIDByReplyID(value)
+	AddReply(replyContent, d.UserID, postID, replyID)
 	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
