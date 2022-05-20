@@ -57,10 +57,16 @@ func main() {
 	http.HandleFunc("/team", TeamHandler)
 	http.HandleFunc("/about", AboutHandler)
 	http.HandleFunc("/profile", ProfileHandler)
+	http.HandleFunc("/profileCom", ProfileComHandler)
+	http.HandleFunc("/profileLike", ProfileLikeHandler)
+	http.HandleFunc("/profileFav", ProfileFavHandler)
+	http.HandleFunc("/profilePub", ProfilePubHandler)
+
 	http.HandleFunc("/settingProfile", SettingProfileHandler)
 	http.HandleFunc("/settingAccount", SettingAccountHandler)
 	http.HandleFunc("/settingNotifications", SettingNotificationsHandler)
 	http.HandleFunc("/postFeed", PostFeedHandler)
+	http.HandleFunc("/thematiques", ThematiquesHandler)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
