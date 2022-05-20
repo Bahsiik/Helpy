@@ -51,7 +51,8 @@ func main() {
 	http.HandleFunc("/post", PostHandler)
 	http.HandleFunc("/addPost", AddPostHandler)
 
-	http.HandleFunc("/reply", ReplyHandler)
+	http.HandleFunc("/replyToPost", ReplyToPostHandler)
+	http.HandleFunc("/replyToReply", ReplyToReplyHandler)
 	http.HandleFunc("/addReply", AddReplyToPostHandler)
 	http.HandleFunc("/team", TeamHandler)
 	http.HandleFunc("/about", AboutHandler)

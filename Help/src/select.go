@@ -316,3 +316,22 @@ func SelectReplyIDFromStringID(replyID string) int {
 	}
 	return replyID2
 }
+
+func SelectUsernameFromReplyID(replyID int) string {
+	fmt.Println("*** SelectUsernameFromReplyID ***")
+	var username string
+	rows, err := DB.Query("SELECT username FROM users INNER JOIN replies ON users.User_id = replies.User_id WHERE Reply_id = ?", replyID)
+	if err != nil {
+		fmt.Println(err)
+		return username
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&username)
+		if err != nil {
+			fmt.Println(err)
+			return username
+		}
+	}
+	return username
+}

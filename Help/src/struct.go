@@ -11,6 +11,7 @@ type Data struct {
 	AddPostError PostError
 	Replies      []Reply
 	ReplyID      int
+	Type         ReplyType
 }
 
 type Session struct {
@@ -46,4 +47,9 @@ type Reply struct {
 	ReplyToID int
 	UserID    int
 	UserName  string
+}
+
+type ReplyType struct {
+	Post  bool
+	Reply bool
 }

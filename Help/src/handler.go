@@ -231,8 +231,8 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ReplyHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*** replyHandler ***")
+func ReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** replyToPostHandler ***")
 	d := GetUsernameFromSession(w, r)
 	err := r.ParseForm()
 	if err != nil {
@@ -246,6 +246,29 @@ func ReplyHandler(w http.ResponseWriter, r *http.Request) {
 	d.FirstPost.UserName = Username
 	d.FirstPost.Content = Content
 	d.ReplyID = FirstReplyID
+	err = TMPL.ExecuteTemplate(w, "reply.html", d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func ReplyToReplyHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** replyToReplyHandler ***")
+	d := GetUsernameFromSession(w, r)
+	d = GetUserIDFromSession(w, r)
+	d.Username = SelectUsernameFromID(d.UserID)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	value := r.FormValue("Topic")
+	ReplyID := SelectReplyIDFromStringID(value)
+	ReplyContent := SelectContentFromReplyID(ReplyID)
+	Username := SelectUsernameFromReplyID(ReplyID)
+	d.FirstPost.UserName = Username
+	d.FirstPost.Content = ReplyContent
+	d.ReplyID = ReplyID
 	err = TMPL.ExecuteTemplate(w, "reply.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

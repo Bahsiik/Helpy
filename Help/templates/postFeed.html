@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <p id="post">{{.FirstPost.Content}}</p>
-                        <form action="/reply" method="post">
+                        <form action="/replyToPost" method="post">
                                 <button name="Topic" value="{{.FirstPost.ID}}" type="submit">Répondre</button>
                           </form>
                     </blockquote>
@@ -126,6 +126,9 @@
                           </div>
                           </div>
                             <p id="post">{{$value.Message}}</p>
+                          <form action="/replyToReply" method="post">
+                                <button name="Topic" value="{{$value.ID}}" type="submit">Répondre</button>
+                          </form>
                       </blockquote>
                     </span>
                     {{end}}
