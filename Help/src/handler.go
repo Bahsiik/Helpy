@@ -156,7 +156,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("**** homeHandler ****")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	S := SelectAllPost()
 	d.Posts = S
 	for i := 0; i < len(d.Posts); i++ {
@@ -174,7 +174,29 @@ func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	topicID := r.FormValue("topicID")
 	topicID = TranslateTopicID(topicID)
 	postList := SelectPostByTopic(topicID)
-	d = Data{Posts: postList}
+	d.Posts = postList
+	for i := 0; i < len(d.Posts); i++ {
+		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+	}
+	err := TMPL.ExecuteTemplate(w, "home.html", d)
+	if err != nil {
+		return
+	}
+}
+
+func SortPostHandler(w http.ResponseWriter, r *http.Request) {
+	d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	sort := r.FormValue("sortType")
+	if sort == "Date ⬆️" {
+		d.Posts = SelectPostByDateUp()
+	} else if sort == "Date ⬇️" {
+		d.Posts = SelectPostByDateDown()
+	} else if sort == "Popularité ⬆️" {
+		d.Posts = SelectPostByRepliesUp()
+	} else if sort == "Popularité ⬇️" {
+		d.Posts = SelectPostByRepliesDown()
+	}
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 	}
@@ -216,16 +238,26 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func DeletePostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** deletePostHandler ***")
+	//d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	postID := r.FormValue("postID")
+	DeleteRepliesFromPostID(postID)
+	DeletePost(postID)
+	http.Redirect(w, r, "/index", http.StatusFound)
+}
+
 func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** postFeedHandler ***")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	err := r.ParseForm()
 	if err != nil {
 		return
 	}
 	PostName := r.FormValue("PostName")
 	post := SelectPostByName(PostName)
-	userName := SelectUsernameFromID(post.UserID)
+	userName := SelectUsernameFromID(post.PostUserID)
 	post.UserName = userName
 	post.Date = TranslateDate(post.RawDate)
 	d.FirstPost = post
@@ -314,6 +346,23 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 		AddReplyNumberToPost(postID)
 		http.Redirect(w, r, "/index", http.StatusFound)
 	}
+}
+
+func DeleteReplyHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** deleteReplyHandler ***")
+	d := GetUserInfoFromSession(w, r)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	value := r.FormValue("ReplyID")
+	fmt.Println("ReplyID: " + value)
+	d.ReplyID = SelectReplyIDFromStringID(value)
+	DeleteReplyFromReplyID(d.ReplyID)
+	UpdateReplyStatus(d.ReplyID)
+	postID := SelectPostIDByReplyID(value)
+	RemoveReplyNumberFromPost(postID)
+	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
 func SearchPostHandler(w http.ResponseWriter, r *http.Request) {
