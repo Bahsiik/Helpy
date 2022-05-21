@@ -23,16 +23,16 @@ type Session struct {
 }
 
 type Post struct {
-	ID        int
-	Title     string
-	Content   string
-	RawDate   *time.Time
-	Date      string
-	ReplyNbr  int
-	TopicID   int
-	TopicName string
-	UserID    int
-	UserName  string
+	ID         int
+	Title      string
+	Content    string
+	RawDate    *time.Time
+	Date       string
+	ReplyNbr   int
+	TopicID    int
+	TopicName  string
+	PostUserID int
+	UserName   string
 }
 
 type PostError struct {

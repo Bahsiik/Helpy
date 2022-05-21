@@ -26,7 +26,7 @@ func getPost(rows *sql.Rows, err error) []Post {
 	var postList []Post
 	for rows.Next() {
 		var post Post
-		err := rows.Scan(&post.ID, &post.Title, &post.RawDate, &post.ReplyNbr, &post.TopicID, &post.UserID)
+		err := rows.Scan(&post.ID, &post.Title, &post.RawDate, &post.ReplyNbr, &post.TopicID, &post.PostUserID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -67,7 +67,7 @@ func getPostAttributs(postList []Post) {
 			log.Fatal(err)
 		}
 		defer stmt.Close()
-		rows, err = stmt.Query(postList[i].UserID)
+		rows, err = stmt.Query(postList[i].PostUserID)
 		if err != nil {
 			log.Fatal(err)
 		}

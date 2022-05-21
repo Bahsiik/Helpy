@@ -156,12 +156,14 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("**** homeHandler ****")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	S := SelectAllPost()
 	d.Posts = S
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 	}
+	// print all the data
+	fmt.Println("d: ", d)
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -175,6 +177,28 @@ func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	topicID = TranslateTopicID(topicID)
 	postList := SelectPostByTopic(topicID)
 	d = Data{Posts: postList}
+	for i := 0; i < len(d.Posts); i++ {
+		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+	}
+	err := TMPL.ExecuteTemplate(w, "home.html", d)
+	if err != nil {
+		return
+	}
+}
+
+func SortPostHandler(w http.ResponseWriter, r *http.Request) {
+	d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	sort := r.FormValue("sortType")
+	if sort == "Date ⬆️" {
+		d.Posts = SelectPostByDateUp()
+	} else if sort == "Date ⬇️" {
+		d.Posts = SelectPostByDateDown()
+	} else if sort == "Popularité ⬆️" {
+		d.Posts = SelectPostByRepliesUp()
+	} else if sort == "Popularité ⬇️" {
+		d.Posts = SelectPostByRepliesDown()
+	}
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 	}
@@ -225,7 +249,7 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	PostName := r.FormValue("PostName")
 	post := SelectPostByName(PostName)
-	userName := SelectUsernameFromID(post.UserID)
+	userName := SelectUsernameFromID(post.PostUserID)
 	post.UserName = userName
 	post.Date = TranslateDate(post.RawDate)
 	d.FirstPost = post

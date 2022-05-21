@@ -97,7 +97,7 @@ func SelectPostByID(postID string) Post {
 	}
 	defer rows.Close()
 	for rows.Next() {
-		err = rows.Scan(&p.ID, &p.Title, &p.Content, &p.Date, &p.ReplyNbr, &p.TopicID, &p.UserID)
+		err = rows.Scan(&p.ID, &p.Title, &p.Content, &p.Date, &p.ReplyNbr, &p.TopicID, &p.PostUserID)
 		if err != nil {
 			return Post{}
 		}
@@ -119,7 +119,7 @@ func SelectPostByName(postName string) Post {
 	}
 	defer rows.Close()
 	for rows.Next() {
-		err = rows.Scan(&p.ID, &p.Title, &p.Content, &p.RawDate, &p.ReplyNbr, &p.TopicID, &p.UserID)
+		err = rows.Scan(&p.ID, &p.Title, &p.Content, &p.RawDate, &p.ReplyNbr, &p.TopicID, &p.PostUserID)
 		if err != nil {
 			return Post{}
 		}
@@ -355,5 +355,61 @@ func SelectPostBySearch(search string) []Post {
 	}
 	defer rows.Close()
 	postList := getPost(rows, err)
+	return postList
+}
+
+func SelectPostByDateUp() []Post {
+	fmt.Println("*** SelectPostByDateUp ***")
+	var posts []Post
+	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY creation_date DESC")
+	if err != nil {
+		fmt.Println(err)
+		return posts
+	}
+	defer rows.Close()
+	postList := getPost(rows, err)
+	getPostAttributs(postList)
+	return postList
+}
+
+func SelectPostByDateDown() []Post {
+	fmt.Println("*** SelectPostByDateDown ***")
+	var posts []Post
+	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY creation_date ASC")
+	if err != nil {
+		fmt.Println(err)
+		return posts
+	}
+	defer rows.Close()
+	postList := getPost(rows, err)
+	getPostAttributs(postList)
+	return postList
+}
+
+func SelectPostByRepliesUp() []Post {
+	fmt.Println("*** SelectPostByRepliesUp ***")
+	var posts []Post
+	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY reply_number DESC")
+	if err != nil {
+		fmt.Println(err)
+		return posts
+	}
+	defer rows.Close()
+	postList := getPost(rows, err)
+	getPostAttributs(postList)
+	return postList
+}
+
+func SelectPostByRepliesDown() []Post {
+	fmt.Println("*** SelectPostByRepliesDown ***")
+	var posts []Post
+	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY reply_number ASC")
+	if err != nil {
+		fmt.Println(err)
+		return posts
+	}
+	defer rows.Close()
+	postList := getPost(rows, err)
+	getPostAttributs(postList)
 	return postList
 }

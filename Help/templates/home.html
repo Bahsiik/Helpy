@@ -23,9 +23,15 @@
                     <span></span>
                     <span></span>
                     <ul id="menu">
-                        <a href="/profile"><li>Profil</li></a>
-                        <a href="/settingAccount"><li>Paramètres</li></a>
-                        <a href="/logout"><li>Déconnexion</li></a>
+                        <a href="/profile">
+                            <li>Profil</li>
+                        </a>
+                        <a href="/settingAccount">
+                            <li>Paramètres</li>
+                        </a>
+                        <a href="/logout">
+                            <li>Déconnexion</li>
+                        </a>
                     </ul>
                 </div>
             </nav>
@@ -50,6 +56,14 @@
         </div>
         <!--                Choix filière               -->
         <div id="right">
+            <div class="sort">
+                <form action="/sortPost">
+                    <input name="sortType" type="submit" value="Date ⬆️">
+                    <input name="sortType" type="submit" value="Date ⬇️">
+                    <input name="sortType" type="submit" value="Popularité ⬆️">
+                    <input name="sortType" type="submit" value="Popularité ⬇️">
+                </form>
+            </div>
             <div class="faculty">
                 <form id="formFaculty" action="/subjectByTopic" method="post">
                     <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
@@ -68,10 +82,18 @@
             <!--                Footer              -->
             <div class="footer">
                 <ul>
-                    <a href="https://www.ynov.com"><li>Ynov</li></a>
-                    <a href="/thematiques"><li>Thématiques</li></a>
-                    <a href="/about"><li>A propos</li></a>
-                    <a href="/team"><li>L'équipe</li></a>
+                    <a href="https://www.ynov.com">
+                        <li>Ynov</li>
+                    </a>
+                    <a href="/thematiques">
+                        <li>Thématiques</li>
+                    </a>
+                    <a href="/about">
+                        <li>A propos</li>
+                    </a>
+                    <a href="/team">
+                        <li>L'équipe</li>
+                    </a>
                 </ul>
                 <p>Helpy Inc © 2022. Tous droits réservés</p>
             </div>
@@ -176,12 +198,17 @@
         <!--                Post                -->
         <div class="post">
             <div class="message">
+                {{$UserID := .UserID}}
                 {{range $value := .Posts}}
                 <span lang="fr">
                       <blockquote>
                           <div class="replace">
                               <div class="profil">
-                                {{$value.UserName}}
+                                  {{if eq $value.PostUserID $UserID}}
+                                  Votre post
+                                  {{else}}
+                                    {{$value.UserName}}
+                                  {{end}}
                                   {{$value.ReplyNbr}}
                               <a href=""><img src="../img/profil.jpg" alt="profil"></a>
                             </div>
