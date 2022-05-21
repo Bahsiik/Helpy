@@ -10,10 +10,9 @@ body{
     justify-content: center;
     display: flex;
     height: 100px;
-    background: #BCA7D9;
     padding: 0;
     color: #e0e0d8;
-    background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+    background-color: #025e93;
 }
 .header #menuToggle
 {
@@ -120,18 +119,18 @@ body{
 .header #menu
 {
     position: absolute;
+    top: 0;
+    left: -600%;
     width: 150px;
+    height: 100px;
     margin: 150% 0 0 -160%;
     padding: 100% 100% 100% 100%;
     border-radius: 0% 30% 30% 0%;
     background: #ededed;
     list-style-type: none;
     -webkit-font-smoothing: antialiased;
-    /* to stop flickering of text in safari */
-
     transform-origin: 0% 0%;
     transform: translate(-100%, 0);
-
     transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
