@@ -110,6 +110,19 @@ func TranslateTopicID(topicID string) string {
 	return ""
 }
 
+func DeletePost(postID string) {
+	fmt.Println("DeletePost")
+	stmt, err := DB.Prepare("DELETE FROM post WHERE Post_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func PostErrorRedirect(w http.ResponseWriter, userID int, postError PostError) bool {
 	d := Data{
 		Username:     SelectUsernameFromID(userID),

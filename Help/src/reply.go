@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -60,5 +61,31 @@ func ReplyErrorRedirect(w http.ResponseWriter, d Data, ReplyError PostError) {
 	err := TMPL.ExecuteTemplate(w, "reply.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func DeleteRepliesFromPostID(postID string) {
+	fmt.Println("Delete replies from postID: ", postID)
+	stmt, err := DB.Prepare("DELETE FROM replies WHERE Post_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func DeleteReplyFromReplyID(replyID string) {
+	fmt.Println("Delete reply from replyID: ", replyID)
+	stmt, err := DB.Prepare("DELETE FROM replies WHERE Reply_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(replyID)
+	if err != nil {
+		log.Fatal(err)
 	}
 }

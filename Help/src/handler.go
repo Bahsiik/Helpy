@@ -240,9 +240,19 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func DeletePostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** deletePostHandler ***")
+	//d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	postID := r.FormValue("postID")
+	DeleteRepliesFromPostID(postID)
+	DeletePost(postID)
+	http.Redirect(w, r, "/index", http.StatusFound)
+}
+
 func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** postFeedHandler ***")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	err := r.ParseForm()
 	if err != nil {
 		return
@@ -259,6 +269,7 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(d.Replies); i++ {
 		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
 	}
+	fmt.Println("d: ", d)
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -88,9 +88,19 @@
             </div>
         </div>
         <!--<div class="topic">-->
-        <h5 class="title_topic">{{.FirstPost.Title}}</h5>
+        <h5 class="title_topic">{{.FirstPost.Title}}
+            {{if eq .UserID .FirstPost.PostUserID}}
+            <form action="/deletePost" method="post">
+                <div id="submitForm">
+                    <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
+                </div>
+            </form>
+            {{end}}
+        </h5>
+
 
         <div class="topic">
+
             <!--                Post                -->
             <div class="post">
                 <div class="message">
