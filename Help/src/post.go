@@ -154,3 +154,53 @@ func CheckPostError(title string, description string, topicID string) (PostError
 	}
 	return postError, checkError
 }
+
+type Notification struct {
+	UserID     int
+	Notif_name string
+	Notif_id   int
+}
+
+func notifPost(postID string) {
+	fmt.Println("notifPost")
+	stmt, err := DB.Prepare("SELECT User_id FROM post WHERE Post_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	rows, err := stmt.Query(postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for rows.Next() {
+		var userID int
+		err := rows.Scan(&userID)
+		if err != nil {
+			log.Fatal(err)
+		}
+		notif := Notification{
+			UserID:     userID,
+			Notif_name: "post",
+			Notif_id:   1,
+		}
+		InsertNotification(notif)
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func InsertNotification(notif Notification) {
+	fmt.Println("InsertNotification")
+	stmt, err := DB.Prepare("INSERT INTO notifications (User_id, Notif_type, Notif_id) VALUES (?, ?, ?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(notif.UserID, notif.Notif_name, notif.Notif_id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}

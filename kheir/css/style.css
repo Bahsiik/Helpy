@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+}
+
+.page-wrapper {
+    width: 100%;
+    height: auto;
+}
+
+.nav-wrapper {
+    width: 100%;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: #f6f1f1;
+}
+
+.grad-bar {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-size: 400% 400%;
+    -webkit-animation: gradbar 5s ease infinite;
+    -moz-animation: gradbar 5s ease infinite;
+    animation: gradbar 5s ease infinite;
+}
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    height: 50px;
+    overflow: hidden;
+}
+
+.navbar img {
+    height: 50px;
+    width: 35px;
+    justify-self: start;
+    margin-left: 20px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    display: flex;
+    justify-content: space-evenly;
+    align-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+.nav-item a {
+    color: #2b3373;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 0.3s ease-out;
+}
+
+.nav-item a:hover {
+    color: #3498db;
+}
+
+
+#search-icon {
+    font-size: 0.9rem;
+    margin-top: 3px;
+    margin-left: 15px;
+    transition: color 0.3s ease-out;
+}
+
+#search-icon:hover {
+    color: #3498db;
+    cursor: pointer;
+}
+
+.search {
+    transform: translate(-35%);
+    -webkit-transform: translate(-35%);
+    transition: transform 0.7s ease-in-out;
+    color: #3498db;
+}
+
+.no-search {
+    transform: translate(0);
+    transition: transform 0.7s ease-in-out;
+}
+
+.search-input {
+    position: absolute;
+    top: -4px;
+    right: -125px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.6s ease;
+}
+
+.search-active {
+    opacity: 1;
+    z-index: 0;
+}
+
+input {
+    border: 0;
+    border-left: 1px solid #ccc;
+    border-radius: 0; /* FOR SAFARI */
+    outline: 0;
+    padding: 5px;
+}
+
+.menu-toggle .bar{
+    width: 25px;
+    height: 3px;
+    background-color: #3f3f3f;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.menu-toggle {
+    justify-self: end;
+    margin-right: 25px;
+    display: none;
+}
+
+.menu-toggle:hover {
+    cursor: pointer;
+}
+
+#sort  {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    margin: 1% 0 0 5%;
+    max-width: fit-content;
+}
+
+ #sort input {
+     border-radius: 10px;
+     background: none;
+     border: none;
+     transition: 0.2s ease-in-out;
+     color : #2b3373;
+ }
+
+    #sort input:hover {
+        cursor: pointer;
+        background: #ededed;
+        color: #3498db;
+    }

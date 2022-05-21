@@ -33,7 +33,7 @@
     position: absolute;
     width: 29px;
     height: 15px;
-    top: 6.5%;
+    top: auto;
     left: 20px;
     cursor: pointer;
 }

@@ -1,0 +1,73 @@
+/*          Filière         */
+
+
+.faculty{
+    float: left;
+    text-align: center;
+    margin: 2em;
+    display: flex;
+    position: relative;
+    top: -220px;
+    left: 70%;
+    z-index: -2;
+    flex-direction: column;
+}
+
+#formFaculty{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.faculty input{
+    width: 290px;
+    border-radius: 10px;
+    height: 5vh;
+    font-size: 1.1em;
+    background: #ffffff;
+    color: #2b3373;
+    margin-bottom: 1%;
+    transition: all 0.3s;
+    border: 1px solid #2b3373;
+}
+.faculty input:hover {
+    cursor: pointer;
+    color: white;
+    border: none;
+    transform: translateX(-5%);
+}
+#Info:hover{
+    background: #5ec5ea;
+}
+#Crea:hover{
+    background: #85d134;
+}
+#Archi:hover{
+    background: #3ca55b;
+}
+#Audio:hover{
+    background: #e5b702;
+}
+#Market:hover{
+    background: #f07d1a;
+}
+#Digit:hover{
+    background: #ff0582;
+}
+#Jeux:hover{
+    background: #cf3cd3;
+}
+#Web:hover{
+    background: #2850b2;
+}
+#Life:hover{
+    background: red;
+}
+#Admin:hover{
+    background: dimgray;
+}
+a{
+    text-decoration: none;
+}
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Montserrat+Alternates');

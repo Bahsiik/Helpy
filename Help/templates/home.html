@@ -1,171 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>HELPY</title>
-        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-        <link rel="stylesheet" href="../css/main/index.css">
-        <link rel="stylesheet" href="../css/main/post.css">
-        <link rel="stylesheet" href="../css/main/faculty.css">
-        <link rel="stylesheet" href="../css/main/favoris.css">
-        <link rel="stylesheet" href="../css/main/footer.css">
-        <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/main/notification.css">
-        <script defer type="text/javascript" src="../js/js.js"></script>
-    </head>
-    <body>
-        <!--                Header                    -->
-        <div class="header">
-            <nav role="navigation">
-                <div id="menuToggle">
-                    <input type="checkbox"/>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <ul id="menu">
-                        <a href="/profile">
-                            <li>Profil</li>
-                        </a>
-                        <a href="/settingAccount">
-                            <li>Paramètres</li>
-                        </a>
-                        <a href="/logout">
-                            <li>Déconnexion</li>
-                        </a>
-                    </ul>
-                </div>
-            </nav>
-            <img id="logo" src="../img/Helpy_logo.png" alt="">
-            <p id="slogan">
-                <span>Helpy</span>
-                <br>
-                Il n'y a que Helpy qui a la réponse.
-                <br>
-                {{if .}}
-                {{.Username}}
-                {{end}}
-            </p>
-            <form action="/searchPost">
-                <input id="searchbar" type="text" name="search">
-                <input type="submit" value="🔍">
-            </form>
-            <p id="icon">
-                <a href="/post"><img src="../img/addpost.png"/></a>
-                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
-            </p>
+<head>
+    <meta charset="UTF-8">
+    <title>HELPY</title>
+    <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+    <link rel="stylesheet" href="../css/main/index.css">
+    <link rel="stylesheet" href="../css/main/post.css">
+    <link rel="stylesheet" href="../css/main/faculty.css">
+    <link rel="stylesheet" href="../css/main/favoris.css">
+    <link rel="stylesheet" href="../css/main/footer.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main/notification.css"><
+    <script defer type="text/javascript" src="../js/js.js"></script>
+</head>
+<body>
+<!--                Header                    -->
+<div class="header">
+    <nav role="navigation">
+        <div id="menuToggle">
+            <input type="checkbox"/>
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+                <a href="/profile">
+                    <li>Profil</li>
+                </a>
+                <a href="/settingAccount">
+                    <li>Paramètres</li>
+                </a>
+                <a href="/logout">
+                    <li>Déconnexion</li>
+                </a>
+            </ul>
         </div>
-        <!--                Choix filière               -->
-        <div id="right">
-            <div class="sort">
-                <form action="/sortPost">
-                    <input name="sortType" type="submit" value="Date ⬆️">
-                    <input name="sortType" type="submit" value="Date ⬇️">
-                    <input name="sortType" type="submit" value="Popularité ⬆️">
-                    <input name="sortType" type="submit" value="Popularité ⬇️">
-                </form>
-            </div>
-            <div class="faculty">
-                <form id="formFaculty" action="/subjectByTopic" method="post">
-                    <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
-                    <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
-                    <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
-                    <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
-                    <input id="Info" name="topicID" type="submit" value="Informatique">
-                    <input id="Web" name="topicID" type="submit" value="Web Management">
-                    <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
-                    <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
-                    <input id="Life" name="topicID" type="submit" value="Campus Life">
-                    <input id="Admin" name="topicID" type="submit" value="Administration">
-                </form>
-            </div>
+    </nav>
+    <img id="logo" src="../img/Helpy_logo.png" alt="">
+    <p id="slogan">
+        <span>Helpy</span>
+        <br>
+        Il n'y a que Helpy qui a la réponse.
+        <br>
+        {{if .}}
+            {{.Username}}
+        {{end}}
+    </p>
+    <form action="/searchPost">
+        <input id="searchbar" type="text" name="search">
+        <input id="searchbutton" type="submit" value="🔍">
+    </form>
+    <p id="icon">
+        <a href="/post"><img src="../img/addpost.png"/></a>
+        <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
+    </p>
+</div>
+<!--                Choix filière               -->
+<div id="right">
+    <div class="sort">
+        <form action="/sortPost">
+            <input class="sortbutton" name="sortType" type="submit" value="Date ⬆️">
+            <input class="sortbutton" name="sortType" type="submit" value="Date ⬇️">
+            <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬆️">
+            <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬇️">
+        </form>
+    </div>
+    <div class="faculty">
+        <form id="formFaculty" action="/subjectByTopic" method="post">
+            <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
+            <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
+            <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
+            <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
+            <input id="Info" name="topicID" type="submit" value="Informatique">
+            <input id="Web" name="topicID" type="submit" value="Web Management">
+            <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
+            <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
+            <input id="Life" name="topicID" type="submit" value="Campus Life">
+            <input id="Admin" name="topicID" type="submit" value="Administration">
+        </form>
+    </div>
 
-            <!--                Footer              -->
-            <div class="footer">
-                <ul>
-                    <a href="https://www.ynov.com">
-                        <li>Ynov</li>
-                    </a>
-                    <a href="/thematiques">
-                        <li>Thématiques</li>
-                    </a>
-                    <a href="/about">
-                        <li>A propos</li>
-                    </a>
-                    <a href="/team">
-                        <li>L'équipe</li>
-                    </a>
-                </ul>
-                <p>Helpy Inc © 2022. Tous droits réservés</p>
+    <!--                Footer              -->
+    <div class="footer">
+            <a href="https://www.ynov.com">Ynov</a>
+            <a href="/thematiques">Thématiques</a>
+            <a href="/about">A propos</a>
+            <a href="/team">L'équipe</a>
+        <p>Helpy Inc © 2022. Tous droits réservés</p>
+    </div>
+</div>
+
+<!--                Notifications               -->
+<div class="frame">
+    <div class="panel">
+        <!--        HeaderNotififications       -->
+        <div class="header flex">
+            <div class="menu-icon">
+                <div class="dash-top"></div>
+                <div class="dash-bottom"></div>
+                <div class="circle circle-1"></div>
             </div>
+            <span class="title">Notifications</span>
         </div>
-
-        <!--                Notifications               -->
-        <div class="frame">
-            <div class="panel">
-                <!--        HeaderNotififications       -->
-                <div class="header flex">
-                    <div class="menu-icon">
-                        <div class="dash-top"></div>
-                        <div class="dash-bottom"></div>
-                        <div class="circle circle-1"></div>
+        <!--            Section notification            -->
+        <div class="notifications clearfix">
+            <div class="line"></div>
+            <div class="notification">
+                <div class="notification-content">
+                    <div class="notification-title">
+                                <span class="notification-title-text">
+                                    <a href="/post/{{.ID}}">{{.Title}}</a>
+                                </span>
+                        <span class="notification-title-date">{{.Date}}</span>
                     </div>
-                    <span class="title">Notifications</span>
-                </div>
-                <!--            Section notification            -->
-                <div class="notifications clearfix">
-                    <div class="line"></div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">9:24 AM</span>
-                        <p><b>John Walker</b> posted a photo on your wall.</p>
-                    </div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">8:19 AM</span>
-                        <p><b>Alice Parker</b> commented your last post.</p>
-                    </div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">Yesterday</span>
-                        <p><b>Luke Wayne</b> posted a photo on your wall.</p>
-                    </div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">Yesterday</span>
-                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
-                    </div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">2 Days ago</span>
-                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
-                    </div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">2 Days ago</span>
-                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
-                    </div>
-                    <div class="notification">
-                        <div class="circle"></div>
-                        <span class="time">2 Days ago</span>
-                        <p><b>Mistral Olivier</b> posted a photo on your wall.</p>
+                    <div class="notification-text">
+                                <span class="notification-text-text">
+                                    {{.Content}}
+                                </span>
                     </div>
                 </div>
             </div>
-
         </div>
-        <!--                Post                -->
-        <div class="post">
-            <div class="message">
-                {{$UserID := .UserID}}
-                {{range $value := .Posts}}
+
+    </div>
+    <!--                Post                -->
+    <div class="post">
+        <div class="message">
+            {{$UserID := .UserID}}
+            {{range $value := .Posts}}
                 <span lang="fr">
                       <blockquote>
                           <div class="replace">
                               <div class="profil">
                                   {{if eq $value.PostUserID $UserID}}
-                                  Votre post
+                                      Votre post
                                   {{else}}
-                                    {{$value.UserName}}
+                                      {{$value.UserName}}
                                   {{end}}
                                   {{$value.ReplyNbr}}
                             </div>
@@ -183,8 +152,9 @@
                           </form>
                       </blockquote>
                     </span>
-                {{end}}
-            </div>
+            {{end}}
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

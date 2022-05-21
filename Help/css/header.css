@@ -164,15 +164,28 @@ body{
     width : 500px;
     height: 35px;
     border-radius: 10px;
-    border-color: darkgrey;
-    margin-top: 2%;
+    margin-top: 6%;
     text-align: center;
     font-size: 1.5em;
     background: #7c9db2;
     text-decoration: none;
-    margin-left: 10%;
+    margin-left: 6%;
     margin-right: 15%;
 }
+#searchbutton {
+    background-color: #7c9db2;
+    color: #fff;
+    border: 1px  #000000;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+    position: absolute;
+    top: 4%;
+    right: 27.3%;
+}
+
 .header #icon {
     width: 200px;
     display: flex;

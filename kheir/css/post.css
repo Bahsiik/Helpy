@@ -1,0 +1,14 @@
+#post-container {
+    border: black solid 1px;
+    border-radius: 10px;
+    max-width: fit-content;
+    margin: 1% 0 0 5%;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 2em;
+}
