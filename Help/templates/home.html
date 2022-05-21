@@ -39,7 +39,10 @@
                 {{.Username}}
                 {{end}}
             </p>
-            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
+            <form action="/searchPost">
+                <input id="searchbar" type="text" name="search">
+                <input type="submit" value="Chercher">
+            </form>
             <p id="icon">
                 <a href="/post"><img src="../img/addpost.png"/></a>
                 <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>

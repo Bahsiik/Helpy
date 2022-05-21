@@ -344,3 +344,16 @@ func SelectPostIDByTitle(title string) int {
 	}
 	return postID
 }
+
+func SelectPostBySearch(search string) []Post {
+	fmt.Println("*** SelectPostBySearch ***")
+	var posts []Post
+	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post WHERE Title LIKE ? OR Content LIKE ?", "%"+search+"%", "%"+search+"%")
+	if err != nil {
+		fmt.Println(err)
+		return posts
+	}
+	defer rows.Close()
+	postList := getPost(rows, err)
+	return postList
+}

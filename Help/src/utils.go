@@ -16,6 +16,17 @@ func LoginError(w http.ResponseWriter, err error, errMsg string) bool {
 	return false
 }
 
+func GetUserInfoFromSession(w http.ResponseWriter, r *http.Request) Data {
+	cookie := CheckCookie(w, r)
+	userID := SelectUserIDFromSessionID(cookie.Value)
+	username := SelectUsernameFromID(userID)
+	d := Data{
+		Username: username,
+		UserID:   userID,
+	}
+	return d
+}
+
 func GetUsernameFromSession(w http.ResponseWriter, r *http.Request) Data {
 	cookie := CheckCookie(w, r)
 	userID := SelectUserIDFromSessionID(cookie.Value)

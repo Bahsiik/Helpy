@@ -54,6 +54,7 @@ func main() {
 	http.HandleFunc("/replyToPost", ReplyToPostHandler)
 	http.HandleFunc("/replyToReply", ReplyToReplyHandler)
 	http.HandleFunc("/addReply", AddReplyToPostHandler)
+	http.HandleFunc("/searchPost", SearchPostHandler)
 	http.HandleFunc("/team", TeamHandler)
 	http.HandleFunc("/about", AboutHandler)
 	http.HandleFunc("/profile", ProfileHandler)
@@ -61,7 +62,6 @@ func main() {
 	http.HandleFunc("/profileLike", ProfileLikeHandler)
 	http.HandleFunc("/profileFav", ProfileFavHandler)
 	http.HandleFunc("/profilePub", ProfilePubHandler)
-
 	http.HandleFunc("/settingProfile", SettingProfileHandler)
 	http.HandleFunc("/settingAccount", SettingAccountHandler)
 	http.HandleFunc("/settingNotifications", SettingNotificationsHandler)

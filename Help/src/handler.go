@@ -316,6 +316,27 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func SearchPostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** searchPostHandler ***")
+	d := GetUserInfoFromSession(w, r)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	value := r.FormValue("search")
+	post := SelectPostBySearch(value)
+	d.Posts = post
+	for i := 0; i < len(d.Posts); i++ {
+		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+	}
+	getPostAttributs(d.Posts)
+	err = TMPL.ExecuteTemplate(w, "home.html", d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
 func AboutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** aboutHandler ***")
 	d := GetUsernameFromSession(w, r)

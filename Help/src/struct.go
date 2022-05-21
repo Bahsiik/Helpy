@@ -12,6 +12,7 @@ type Data struct {
 	Replies      []Reply
 	Reply        Reply
 	ReplyID      int
+	Search       string
 	Type         ReplyType
 }
 
