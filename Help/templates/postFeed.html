@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{Nom-topic}</title>
+        <title>Helpy - {{.FirstPost.Title}}</title>
         <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../css/main/index.css">
@@ -108,7 +108,11 @@
                     <blockquote>
                         <div class="replace">
                             <div class="profil">
+                                {{if eq .FirstPost.PostUserID .UserID}}
+                                Votre message
+                                {{else}}
                                 {{.FirstPost.UserName}}
+                                {{end}}
                                 <a href=""><img src="../img/profil.jpg" alt="profil"></a>
                             </div>
                             <div class="referencement">
@@ -120,7 +124,7 @@
                         <p id="post">{{.FirstPost.Content}}</p>
                         <form action="/replyToPost" method="post">
                                 <button name="Topic" value="{{.FirstPost.ID}}" type="submit">Répondre</button>
-                          </form>
+                        </form>
                     </blockquote>
                 </span>
                     {{$UserID := .UserID}}
@@ -130,11 +134,10 @@
                           <div class="replace">
                               <div class="profil">
                                   {{if eq $value.ReplyUserID $UserID}}
-                                  Votre réponse
+                                  Votre message
                                   {{else}}
                                     {{$value.UserName}}
                                   {{end}}
-                                  {{$value.ReplyNbr}}
                               <a href=""><img src="../img/profil.jpg" alt="profil"></a>
                             </div>
                           <div class="referencement">
