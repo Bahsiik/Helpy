@@ -256,14 +256,10 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	PostName := r.FormValue("PostName")
-	post := SelectPostByName(PostName)
-	userName := SelectUsernameFromID(post.PostUserID)
-	post.UserName = userName
-	post.Date = TranslateDate(post.RawDate)
-	d.FirstPost = post
-	postID := SelectPostIDByName(PostName)
-	replies := SelectRepliesByPostName(postID)
-	d.Replies = replies
+	d.Replies = SelectRepliesByPostIDString(SelectPostIDByName(PostName))
+	d.FirstPost = SelectPostByName(PostName)
+	d.FirstPost.UserName = SelectUsernameFromID(d.FirstPost.PostUserID)
+	d.FirstPost.Date = TranslateDate(d.FirstPost.RawDate)
 	for i := 0; i < len(d.Replies); i++ {
 		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
 	}
@@ -312,10 +308,6 @@ func ReplyToReplyHandler(w http.ResponseWriter, r *http.Request) {
 	d.FirstPost.UserName = Username
 	d.FirstPost.Content = ReplyContent
 	d.ReplyID = ReplyID
-	fmt.Println("D values:")
-	fmt.Println(d.FirstPost.UserName)
-	fmt.Println(d.FirstPost.Content)
-	fmt.Println(d.ReplyID)
 	err = TMPL.ExecuteTemplate(w, "reply.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -362,7 +354,15 @@ func DeleteReplyHandler(w http.ResponseWriter, r *http.Request) {
 	UpdateReplyStatus(d.ReplyID)
 	postID := SelectPostIDByReplyID(value)
 	RemoveReplyNumberFromPost(postID)
-	http.Redirect(w, r, "/index", http.StatusFound)
+
+	d.Replies = SelectRepliesByPostIDInt(postID)
+	d.FirstPost = SelectPostByPostIDInt(postID)
+	d.FirstPost.UserName = SelectUsernameFromID(d.FirstPost.PostUserID)
+	d.FirstPost.Date = TranslateDate(d.FirstPost.RawDate)
+	for i := 0; i < len(d.Replies); i++ {
+		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
+	}
+	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 }
 
 func SearchPostHandler(w http.ResponseWriter, r *http.Request) {

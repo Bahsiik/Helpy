@@ -131,6 +131,50 @@ func SelectPostByName(postName string) Post {
 	return p
 }
 
+func SelectPostByPostIDString(postID string) Post {
+	fmt.Println("*** SelectPostByPostIDString ***")
+	var p Post
+	rows, err := DB.Query("SELECT * FROM post WHERE Post_id = ?", postID)
+	if err != nil {
+		fmt.Println(err)
+		return p
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&p.ID, &p.Title, &p.Content, &p.RawDate, &p.ReplyNbr, &p.TopicID, &p.PostUserID)
+		if err != nil {
+			return Post{}
+		}
+		if err != nil {
+			fmt.Println(err)
+			return p
+		}
+	}
+	return p
+}
+
+func SelectPostByPostIDInt(postID int) Post {
+	fmt.Println("*** SelectPostByPostIDString ***")
+	var p Post
+	rows, err := DB.Query("SELECT * FROM post WHERE Post_id = ?", postID)
+	if err != nil {
+		fmt.Println(err)
+		return p
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&p.ID, &p.Title, &p.Content, &p.RawDate, &p.ReplyNbr, &p.TopicID, &p.PostUserID)
+		if err != nil {
+			return Post{}
+		}
+		if err != nil {
+			fmt.Println(err)
+			return p
+		}
+	}
+	return p
+}
+
 // SelectReplyFromPostID It takes a postID as a string, and returns a slice of Reply structs
 func SelectReplyFromPostID(postID string) []Reply {
 	fmt.Println("*** SelectReplyFromPostID ***")
@@ -174,11 +218,37 @@ func SelectPostIDByName(postName string) string {
 	return postID
 }
 
-// SelectRepliesByPostName It takes a post name as a string, and returns a slice of replies
-func SelectRepliesByPostName(postName string) []Reply {
-	fmt.Println("*** SelectRepliesByPostName ***")
+// SelectRepliesByPostIDString It takes a post id as a string, and returns a slice of replies
+func SelectRepliesByPostIDString(postID string) []Reply {
+	fmt.Println("*** SelectRepliesByPostIDString ***")
 	var reply []Reply
-	rows, err := DB.Query("SELECT * FROM replies WHERE Post_id = ?", postName)
+	rows, err := DB.Query("SELECT * FROM replies WHERE Post_id = ?", postID)
+	if err != nil {
+		fmt.Println(err)
+		return reply
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var r Reply
+		err := rows.Scan(&r.ID, &r.Message, &r.ReplyRawDate, &r.PostID, &r.ReplyToID, &r.ReplyUserID, &r.Deleted)
+		if err != nil {
+			fmt.Println(err)
+			return reply
+		}
+		r.UserName = SelectUsernameFromID(r.ReplyUserID)
+		reply = append(reply, r)
+	}
+	if len(reply) == 0 {
+		return reply
+	}
+	reply = reply[1:]
+	return reply
+}
+
+func SelectRepliesByPostIDInt(postID int) []Reply {
+	fmt.Println("*** SelectRepliesByPostIDString ***")
+	var reply []Reply
+	rows, err := DB.Query("SELECT * FROM replies WHERE Post_id = ?", postID)
 	if err != nil {
 		fmt.Println(err)
 		return reply
