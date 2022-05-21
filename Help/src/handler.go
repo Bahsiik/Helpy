@@ -162,8 +162,6 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 	}
-	// print all the data
-	fmt.Println("d: ", d)
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -176,7 +174,7 @@ func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	topicID := r.FormValue("topicID")
 	topicID = TranslateTopicID(topicID)
 	postList := SelectPostByTopic(topicID)
-	d = Data{Posts: postList}
+	d.Posts = postList
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 	}
@@ -269,7 +267,6 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(d.Replies); i++ {
 		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
 	}
-	fmt.Println("d: ", d)
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -349,6 +346,23 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 		AddReplyNumberToPost(postID)
 		http.Redirect(w, r, "/index", http.StatusFound)
 	}
+}
+
+func DeleteReplyHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** deleteReplyHandler ***")
+	d := GetUserInfoFromSession(w, r)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	value := r.FormValue("ReplyID")
+	fmt.Println("ReplyID: " + value)
+	d.ReplyID = SelectReplyIDFromStringID(value)
+	DeleteReplyFromReplyID(d.ReplyID)
+	UpdateReplyStatus(d.ReplyID)
+	postID := SelectPostIDByReplyID(value)
+	RemoveReplyNumberFromPost(postID)
+	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
 func SearchPostHandler(w http.ResponseWriter, r *http.Request) {

@@ -143,7 +143,7 @@ func SelectReplyFromPostID(postID string) []Reply {
 	defer rows.Close()
 	for rows.Next() {
 		var r Reply
-		rows.Scan(&r.ID, &r.Message, &r.ReplyDate, &r.PostID, &r.ReplyToID, &r.UserID)
+		rows.Scan(&r.ID, &r.Message, &r.ReplyDate, &r.PostID, &r.ReplyToID, &r.ReplyUserID)
 
 		if err != nil {
 			fmt.Println(err)
@@ -186,13 +186,12 @@ func SelectRepliesByPostName(postName string) []Reply {
 	defer rows.Close()
 	for rows.Next() {
 		var r Reply
-		rows.Scan(&r.ID, &r.Message, &r.ReplyRawDate, &r.PostID, &r.ReplyToID, &r.UserID)
-
+		err := rows.Scan(&r.ID, &r.Message, &r.ReplyRawDate, &r.PostID, &r.ReplyToID, &r.ReplyUserID, &r.Deleted)
 		if err != nil {
 			fmt.Println(err)
 			return reply
 		}
-		r.UserName = SelectUsernameFromID(r.UserID)
+		r.UserName = SelectUsernameFromID(r.ReplyUserID)
 		reply = append(reply, r)
 	}
 	if len(reply) == 0 {

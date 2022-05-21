@@ -77,9 +77,36 @@ func DeleteRepliesFromPostID(postID string) {
 	}
 }
 
-func DeleteReplyFromReplyID(replyID string) {
+func DeleteReplyFromReplyID(replyID int) {
 	fmt.Println("Delete reply from replyID: ", replyID)
-	stmt, err := DB.Prepare("DELETE FROM replies WHERE Reply_id = ?")
+	stmt, err := DB.Prepare("UPDATE replies SET Content = 'Message supprimé par son créateur.' WHERE Reply_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(replyID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func RemoveReplyNumberFromPost(postID int) {
+	fmt.Println("Remove reply number from postID: ", postID)
+	stmt, err := DB.Prepare("UPDATE post SET reply_number = reply_number - 1 WHERE Post_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(postID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func UpdateReplyStatus(replyID int) {
+	// set the reply Deleted to true
+	fmt.Println("Update reply status to true from replyID: ", replyID)
+	stmt, err := DB.Prepare("UPDATE replies SET Deleted = true WHERE Reply_id = ?")
 	if err != nil {
 		log.Fatal(err)
 	}

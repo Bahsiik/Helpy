@@ -49,7 +49,8 @@ type Reply struct {
 	ReplyNbr     int
 	PostID       int
 	ReplyToID    int
-	UserID       int
+	ReplyUserID  int
+	Deleted      bool
 	UserName     string
 }
 

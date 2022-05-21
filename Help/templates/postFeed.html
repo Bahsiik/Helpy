@@ -123,13 +123,18 @@
                           </form>
                     </blockquote>
                 </span>
+                    {{$UserID := .UserID}}
                     {{range $value := .Replies}}
-
                     <span lang="fr">
                       <blockquote>
                           <div class="replace">
                               <div class="profil">
-                                {{$value.UserName}}
+                                  {{if eq $value.ReplyUserID $UserID}}
+                                  Votre réponse
+                                  {{else}}
+                                    {{$value.UserName}}
+                                  {{end}}
+                                  {{$value.ReplyNbr}}
                               <a href=""><img src="../img/profil.jpg" alt="profil"></a>
                             </div>
                           <div class="referencement">
@@ -138,10 +143,18 @@
                           </div>
                               {{$value.ReplyDate}}
                           </div>
+
                             <p id="post">{{$value.Message}}</p>
+                          {{if not $value.Deleted}}
                           <form action="/replyToReply" method="post">
                                 <button name="Topic" value="{{$value.ID}}" type="submit">Répondre</button>
                           </form>
+                          {{end}}
+                          {{if and (eq $value.ReplyUserID $UserID) (not $value.Deleted)}}
+                            <form action="/deleteReply" method="post">
+                                    <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
+                            </form>
+                          {{end}}
                       </blockquote>
                     </span>
                     {{end}}
