@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // SelectReplyFromPostID It takes a postID as a string, and returns a slice of Reply structs
 func SelectReplyFromPostID(postID string) []Reply {
@@ -133,4 +136,23 @@ func SelectReplyIDFromStringID(replyID string) int {
 		}
 	}
 	return replyID2
+}
+
+func SelectReplyDateFromReplyID(replyID int) *time.Time {
+	fmt.Println("*** SelectReplyDateFromReplyID ***")
+	var replyDate *time.Time
+	rows, err := DB.Query("SELECT reply_date FROM replies WHERE Reply_id = ?", replyID)
+	if err != nil {
+		fmt.Println(err)
+		return replyDate
+	}
+	defer rows.Close()
+	for rows.Next() {
+		err = rows.Scan(&replyDate)
+		if err != nil {
+			fmt.Println(err)
+			return replyDate
+		}
+	}
+	return replyDate
 }

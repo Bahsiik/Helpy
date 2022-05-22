@@ -85,10 +85,10 @@
 
                     <div id="content-feed">
                         <div id="rep-man">
-                            <div id="rep-a">En réponse a : KheirdIDINE</div>
-                            <div id="reply-man"><p>Posté le {{$value.ReplyDate}} à {{$value.ReplyHour}}
-                                    par{{$value.UserName}}</p></div>
-                            <div id="reply-content">cacacacacac</div>
+                            <div id="rep-a">En réponse à :</div>
+                            <div id="reply-man"><p>Posté le {{$value.RepliedMsgDate}} à {{$value.RepliedMsgHour}}
+                                    par{{$value.RepliedMsgUserName}}</p></div>
+                            <div id="reply-content">{{$value.RepliedMsgContent}}</div>
                         </div>
                         <p id="content-one">{{$value.Message}}</p>
                     </div>

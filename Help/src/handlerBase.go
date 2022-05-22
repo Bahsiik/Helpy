@@ -163,7 +163,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 		d.Posts[i].Hour = TranslateHour(d.Posts[i].RawDate)
 	}
-	d.Topic = "Tout"
+	d.Topic = "Toutes les publications"
 	d.TopicShortName = "all"
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {

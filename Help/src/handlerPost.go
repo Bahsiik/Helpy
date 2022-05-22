@@ -107,6 +107,15 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	PostName := r.FormValue("PostName")
+	d = GetPostFeedFromString(d, PostName)
+	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func GetPostFeedFromString(d Data, PostName string) Data {
 	d.Replies = SelectRepliesByPostIDString(SelectPostIDByName(PostName))
 	d.FirstPost = SelectPostByName(PostName)
 	d.FirstPost.UserName = SelectUsernameFromID(d.FirstPost.PostUserID)
@@ -115,12 +124,13 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(d.Replies); i++ {
 		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
 		d.Replies[i].ReplyHour = TranslateHour(d.Replies[i].ReplyRawDate)
+		d.Replies[i].RepliedMsgUserName = SelectUsernameFromReplyID(d.Replies[i].ReplyToID)
+		d.Replies[i].RepliedMsgContent = SelectReplyContentFromReplyID(d.Replies[i].ReplyToID)
+		d.Replies[i].RepliedMsgRawDate = SelectReplyDateFromReplyID(d.Replies[i].ID)
+		d.Replies[i].RepliedMsgDate = TranslateDate(d.Replies[i].RepliedMsgRawDate)
+		d.Replies[i].RepliedMsgHour = TranslateHour(d.Replies[i].RepliedMsgRawDate)
 	}
-	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	return d
 }
 
 func SearchPostHandler(w http.ResponseWriter, r *http.Request) {
