@@ -1,76 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>HELPY</title>
-        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-        <link rel="stylesheet" href="../css/create.css">
-        <link rel="stylesheet" href="../css/main/index.css">
-        <link rel="stylesheet" href="../css/main/post.css">
-        <link rel="stylesheet" href="../css/main/faculty.css">
-        <link rel="stylesheet" href="../css/main/favoris.css">
-        <link rel="stylesheet" href="../css/main/footer.css">
-        <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/main/notification.css">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Reply</title>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css2/style.css">
+        <link rel="stylesheet" href="../css2/responsive.css">
+        <link rel="stylesheet" href="../css2/faculty.css">
+        <link rel="stylesheet" href="../css2/footer.css">
+        <link rel="stylesheet" href="../css2/post.css">
+        <link rel="stylesheet" href="../css2/create.css">
+        <link rel="stylesheet" href="../css2/reply.css">
+        <script defer href="../js/javascript.js"></script>
 
-        <script type="text/javascript" src="../js/js.js" defer></script>
     </head>
     <body>
-        <!--                Header                    -->
-        <div class="header">
-            <nav role="navigation">
-                <div id="menuToggle">
-                    <input type="checkbox"/>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <ul id="menu">
-                        <a href="/profile">
-                            <li>Profil</li>
-                        </a>
-                        <a href="/settingAccount">
-                            <li>Paramètres</li>
-                        </a>
-                        <a href="/logout">
-                            <li>Log Out</li>
-                        </a>
+        <div class="page-wrapper">
+            <div class="nav-wrapper">
+                <div class="grad-bar"></div>
+                <nav class="navbar">
+                    <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <ul class="nav no-search">
+                        <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                        <li class="nav-item">{{.Username}}</li>
+                        <li class="nav-item"><a href="/post">Poster</a></li>
+                        <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
+                        <li class="nav-item"><a href="/profile">Profil</a></li>
+                        <li class="nav-item"><a href="/index">Accueil</a></li>
+                        <li class="fa fa-search" id="search-icon"></li>
+                        <input class="search-input" type="text" placeholder="Search..">
                     </ul>
-                </div>
-            </nav>
-            <img id="logo" src="../img/Helpy_logo.png" alt="">
-            <p id="slogan">
-                <span>Helpy</span>
-                <br>
-                Il n'y a que Helpy qui a la réponse.
-                <br>
-                {{if .}}
-                Bonjour, {{.Username}} !
-                {{end}}
-            </p>
-            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
-            <p id="icon">
-                <a href="/post"><img src="../img/addpost.png"/></a>
-                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
-            </p>
+                </nav>
+            </div>
         </div>
         <span id="tit">Répondre à :</span>
-        <span lang="fr">
-                      <blockquote>
-                          <div class="replace">
-                              <div class="profil">
-                                {{.FirstPost.UserName}}
-                                <a href="">
-                                    <img src="../img/profil.jpg" alt="profil">
-                                </a>
-                              </div>
-                              <div class="referencement">
-                                  <img class="like" src="../img/coeur.png" alt="like">
-                                  <img class="fav" src="../img/etoile.png" alt="favoris">
-                              </div>
-                          </div>
-                          {{.FirstPost.Content}}
-                      </blockquote>
-                    </span>
+        <div id="respond-wrapper">
+            <div class="post-reponse">
+                <div class="left-part-reponse">
+                    <div id="picture-reponse"><img src="../img/davy.png" alt="Company Logo"></div>
+                </div>
+                <div class="right-part-reponse">
+                    <div id="title-reponse"><h1>Thiago a manger le perroquet</h1></div>
+                    <div id="description-reponse"><p>Posté par {{.FirstPost.UserName}}</p></div>
+                    <div id="content-reponse">{{.FirstPost.Content}}</div>
+                </div>
+                <div class="response-reponse">
+                    <div id="number-of-response-reponse">
+                        <button name="nombre-de-reponse" id="response-number-reponse"><span>2</span></button>
+                        <button name="responser" id="response-button-reponse">Répondre</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <form action="/addReply" method="post">
             <div id="create">
                 <span id="titre">Réponse</span>
@@ -84,22 +75,4 @@
                 <button id="submit" name="ReplyID" value="{{.ReplyID}}" type="submit">Créer</button>
             </div>
         </form>
-        <div class="footer">
-            <ul>
-                <a href="https://www.ynov.com">
-                    <li>Ynov</li>
-                </a>
-                <a href="/thematiques">
-                    <li>Thématiques</li>
-                </a>
-                <a href="/about">
-                    <li>A propos</li>
-                </a>
-                <a href="/team">
-                    <li>L'équipe</li>
-                </a>
-            </ul>
-            <p>Helpy Inc © 2022. Tous droits réservés</p>
-        </div>
     </body>
-</html>
