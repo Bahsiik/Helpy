@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/faculty.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/post.css">
+    <link rel="stylesheet" href="../css/settingNotif.css">
+    <script defer href="../js/javascript.js"></script>
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="nav-wrapper">
+        <div class="grad-bar"></div>
+        <nav class="navbar">
+            <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav no-search">
+                <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                <li class="nav-item">{{.Username}}</li>
+                <li class="nav-item"><a href="/post">Poster</a></li>
+                <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
+                <li class="nav-item"><a href="/profile">Profil</a></li>
+                <li class="nav-item"><a href="/index">Accueil</a></li>
+                <li class="fa fa-search" id="search-icon"></li>
+                <input class="search-input" type="text" placeholder="Search..">
+            </ul>
+        </nav>
+    </div>
+    <div class="choix_param">
+        <a href="/settingAccount"><span>Compte</span></a>
+        <a href="/settingNotifications"><span>Notifications</span></a>
+        <a href="/settingProfile"><span>Profil</span></a>
+    </div>
+    <div class="trait"></div>
+    <div class="trait2"></div>
+    <h3>Paramètres de notification</h3>
+    <h5>ACTIVITE</h5>
+    <div class="trait"></div>
+    <div class="param_notif">
+        <div class="option">
+            <h4>Mentions de u/pseudo</h4>
+            <div class="check">
+                <button aria-checked="false" class="aria" role="switch" type="button">
+                    <div class="round">
+                        <img src="https://procivis.fr/wp-content/uploads/2021/02/Promotion-immobiliere-2.png"
+                             alt="">
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="option">
+            <h4>Upvotes sur vos commentaires</h4>
+            <div class="check">
+                <button aria-checked="false" class="aria1" role="switch" type="button">
+                    <div class="round1">
+                        <img src="https://procivis.fr/wp-content/uploads/2021/02/Promotion-immobiliere-2.png"
+                             alt="">
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="option">
+            <h4>Mise en favoris sur vos commentaires</h4>
+            <div class="check">
+                <button aria-checked="false" class="aria2" role="switch" type="button">
+                    <div class="round2">
+                        <img src="https://procivis.fr/wp-content/uploads/2021/02/Promotion-immobiliere-2.png"
+                             alt="">
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="option">
+            <h4>Réponses à vos commentaires</h4>
+            <div class="check">
+                <button aria-checked="false" class="aria3" role="switch" type="button">
+                    <div class="round3">
+                        <img src="https://procivis.fr/wp-content/uploads/2021/02/Promotion-immobiliere-2.png"
+                             alt="">
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="../js/js.js"></script>
+</div>
+</body>
