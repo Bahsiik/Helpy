@@ -14,6 +14,7 @@ func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	d.Posts = postList
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+		d.Posts[i].Hour = TranslateHour(d.Posts[i].RawDate)
 	}
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
@@ -36,6 +37,7 @@ func SortPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+		d.Posts[i].Hour = TranslateHour(d.Posts[i].RawDate)
 	}
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
@@ -107,8 +109,10 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 	d.FirstPost = SelectPostByName(PostName)
 	d.FirstPost.UserName = SelectUsernameFromID(d.FirstPost.PostUserID)
 	d.FirstPost.Date = TranslateDate(d.FirstPost.RawDate)
+	d.FirstPost.Hour = TranslateHour(d.FirstPost.RawDate)
 	for i := 0; i < len(d.Replies); i++ {
 		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
+		d.Replies[i].ReplyHour = TranslateHour(d.Replies[i].ReplyRawDate)
 	}
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {

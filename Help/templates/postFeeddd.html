@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Helpy - {{.FirstPost.Title}}</title>
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/main/index.css">
+        <link rel="stylesheet" href="../css/main/footer.css">
+        <link rel="stylesheet" href="../css/main/faculty.css">
+        <link rel="stylesheet" href="../css/main/post.css">
+        <link rel="stylesheet" href="../css/postFeed.css">
+        <script type="text/javascript" src="../js/js.js" defer></script>
+
+    </head>
+    <body>
+        <!--                Header                    -->
+        <div class="header">
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox"/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <a href="/profile">
+                            <li>Profil</li>
+                        </a>
+                        <a href="/settingAccount">
+                            <li>Paramètres</li>
+                        </a>
+                        <a href="/logout">
+                            <li>Déconnexion</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+            <img id="logo" src="../img/Helpy_logo.png" alt="">
+            <p id="slogan">
+                <span>Helpy</span>
+                <br>
+                Il n'y a que Helpy qui a la réponse.
+                <br>
+                {{if .}}
+                {{.Username}}
+                {{end}}
+            </p>
+            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
+            <p id="icon">
+                <a href="/post"><img src="../img/addpost.png"/></a>
+                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
+            </p>
+        </div>
+        <!--                Choix filière               -->
+        <div id="right">
+            <div class="faculty">
+                <form id="formFaculty" action="/subjectByTopic" method="post">
+                    <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
+                    <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
+                    <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
+                    <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
+                    <input id="Info" name="topicID" type="submit" value="Informatique">
+                    <input id="Web" name="topicID" type="submit" value="Web Management">
+                    <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
+                    <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
+                    <input id="Life" name="topicID" type="submit" value="Campus Life">
+                    <input id="Admin" name="topicID" type="submit" value="Administration">
+                </form>
+            </div>
+
+            <!--                Footer              -->
+            <div class="footer">
+                <ul>
+                    <a href="https://www.ynov.com">
+                        <li>Ynov</li>
+                    </a>
+                    <a href="/thematiques">
+                        <li>Thématiques</li>
+                    </a>
+                    <a href="/about">
+                        <li>A propos</li>
+                    </a>
+                    <a href="/team">
+                        <li>L'équipe</li>
+                    </a>
+                </ul>
+                <p>Helpy Inc © 2022. Tous droits réservés</p>
+            </div>
+        </div>
+        <!--<div class="topic">-->
+        <h5 class="title_topic">{{.FirstPost.Title}}
+            {{if eq .UserID .FirstPost.PostUserID}}
+            <form action="/deletePost" method="post">
+                <div id="submitForm">
+                    <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
+                </div>
+            </form>
+            {{else if .IsAdmin}}
+            <form action="/deletePostAdmin" method="post">
+                <div id="submitForm">
+                    <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
+                </div>
+            </form>
+            {{end}}
+        </h5>
+
+
+        <div class="topic">
+
+            <!--                Post                -->
+            <div class="post">
+                <div class="message">
+                <span lang="fr">
+                    <blockquote>
+                        <div class="replace">
+                            <div class="profil">
+                                {{if eq .FirstPost.PostUserID .UserID}}
+                                Votre message
+                                {{else}}
+                                {{.FirstPost.UserName}}
+                                {{end}}
+                                <a href=""><img src="../img/profil.jpg" alt="profil"></a>
+                            </div>
+                            <div class="referencement">
+                                <img class="like" src="../img/coeur.png" alt="like">
+                                <img class="fav" src="../img/etoile.png" alt="favoris">
+                            </div>
+                            {{.FirstPost.Date}}
+                        </div>
+                        <p id="post">{{.FirstPost.Content}}</p>
+                        <form action="/replyToPost" method="post">
+                                <button name="Topic" value="{{.FirstPost.ID}}" type="submit">Répondre</button>
+                        </form>
+                    </blockquote>
+                </span>
+                    {{$UserID := .UserID}}
+                    {{$IsAdmin := .IsAdmin}}
+                    {{range $value := .Replies}}
+                    <span lang="fr">
+                      <blockquote>
+                          <div class="replace">
+                              <div class="profil">
+                                  {{if eq $value.ReplyUserID $UserID}}
+                                  Votre message
+                                  {{else}}
+                                    {{$value.UserName}}
+                                  {{end}}
+                              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
+                            </div>
+                          <div class="referencement">
+                              <img class="like" src="../img/coeur.png" alt="like">
+                              <img class="fav" src="../img/etoile.png" alt="favoris">
+                          </div>
+                              {{$value.ReplyDate}}
+                          </div>
+
+                            <p id="post">{{$value.Message}}</p>
+                          {{if not $value.Deleted}}
+                          <form action="/replyToReply" method="post">
+                                <button name="Topic" value="{{$value.ID}}" type="submit">Répondre</button>
+                          </form>
+                          {{end}}
+                          {{if and (eq $value.ReplyUserID $UserID) (not $value.Deleted)}}
+                            <form action="/deleteReply" method="post">
+                                    <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
+                            </form>
+                          {{else if and ($IsAdmin) (not $value.Deleted)}}
+                            <form action="/deleteReplyAdmin" method="post">
+                                    <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
+                            </form>
+                          {{end}}
+                      </blockquote>
+                    </span>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

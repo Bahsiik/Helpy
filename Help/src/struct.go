@@ -48,6 +48,7 @@ type Reply struct {
 	Message      string
 	ReplyRawDate *time.Time
 	ReplyDate    string
+	ReplyHour    string
 	ReplyNbr     int
 	PostID       int
 	ReplyToID    int

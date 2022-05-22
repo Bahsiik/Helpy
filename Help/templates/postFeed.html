@@ -1,179 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Helpy - {{.FirstPost.Title}}</title>
-        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-        <link rel="stylesheet" href="../css/header.css">
-        <link rel="stylesheet" href="../css/main/index.css">
-        <link rel="stylesheet" href="../css/main/footer.css">
-        <link rel="stylesheet" href="../css/main/faculty.css">
-        <link rel="stylesheet" href="../css/main/post.css">
-        <link rel="stylesheet" href="../css/postFeed.css">
-        <script type="text/javascript" src="../js/js.js" defer></script>
-
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Home</title>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css2/style.css">
+        <link rel="stylesheet" href="../css2/responsive.css">
+        <link rel="stylesheet" href="../css2/faculty.css">
+        <link rel="stylesheet" href="../css2/footer.css">
+        <link rel="stylesheet" href="../css2/post.css">
+        <link rel="stylesheet" href="../css2/postfeed.css">
+        <script defer href="../js/javascript.js"></script>
     </head>
     <body>
-        <!--                Header                    -->
-        <div class="header">
-            <nav role="navigation">
-                <div id="menuToggle">
-                    <input type="checkbox"/>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <ul id="menu">
-                        <a href="/profile">
-                            <li>Profil</li>
-                        </a>
-                        <a href="/settingAccount">
-                            <li>Paramètres</li>
-                        </a>
-                        <a href="/logout">
-                            <li>Déconnexion</li>
-                        </a>
+        <div class="page-wrapper">
+            <div class="nav-wrapper">
+                <div class="grad-bar"></div>
+                <nav class="navbar">
+                    <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <ul class="nav no-search">
+                        <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                        <li class="nav-item">{{.Username}}</li>
+                        <li class="nav-item"><a href="/post">Poster</a></li>
+                        <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
+                        <li class="nav-item"><a href="/profile">Profil</a></li>
+                        <li class="nav-item"><a href="/index">Accueil</a></li>
+                        <li class="fa fa-search" id="search-icon"></li>
+                        <input class="search-input" type="text" placeholder="Search..">
                     </ul>
-                </div>
-            </nav>
-            <img id="logo" src="../img/Helpy_logo.png" alt="">
-            <p id="slogan">
-                <span>Helpy</span>
-                <br>
-                Il n'y a que Helpy qui a la réponse.
-                <br>
-                {{if .}}
-                {{.Username}}
-                {{end}}
-            </p>
-            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
-            <p id="icon">
-                <a href="/post"><img src="../img/addpost.png"/></a>
-                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
-            </p>
-        </div>
-        <!--                Choix filière               -->
-        <div id="right">
-            <div class="faculty">
-                <form id="formFaculty" action="/subjectByTopic" method="post">
-                    <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
-                    <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
-                    <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
-                    <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
-                    <input id="Info" name="topicID" type="submit" value="Informatique">
-                    <input id="Web" name="topicID" type="submit" value="Web Management">
-                    <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
-                    <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
-                    <input id="Life" name="topicID" type="submit" value="Campus Life">
-                    <input id="Admin" name="topicID" type="submit" value="Administration">
+                </nav>
+            </div>
+            <h5 class="title_topic">{{.FirstPost.Title}}
+                {{if eq .UserID .FirstPost.PostUserID}}
+                <form action="/deletePost" method="post">
+                    <div id="submitForm">
+                        <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
+                    </div>
                 </form>
-            </div>
-
-            <!--                Footer              -->
-            <div class="footer">
-                <ul>
-                    <a href="https://www.ynov.com">
-                        <li>Ynov</li>
-                    </a>
-                    <a href="/thematiques">
-                        <li>Thématiques</li>
-                    </a>
-                    <a href="/about">
-                        <li>A propos</li>
-                    </a>
-                    <a href="/team">
-                        <li>L'équipe</li>
-                    </a>
-                </ul>
-                <p>Helpy Inc © 2022. Tous droits réservés</p>
-            </div>
-        </div>
-        <!--<div class="topic">-->
-        <h5 class="title_topic">{{.FirstPost.Title}}
-            {{if eq .UserID .FirstPost.PostUserID}}
-            <form action="/deletePost" method="post">
-                <div id="submitForm">
-                    <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
-                </div>
-            </form>
-            {{else if .IsAdmin}}
-            <form action="/deletePostAdmin" method="post">
-                <div id="submitForm">
-                    <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
-                </div>
-            </form>
-            {{end}}
-        </h5>
-
-
-        <div class="topic">
-
-            <!--                Post                -->
-            <div class="post">
-                <div class="message">
-                <span lang="fr">
-                    <blockquote>
-                        <div class="replace">
-                            <div class="profil">
-                                {{if eq .FirstPost.PostUserID .UserID}}
-                                Votre message
-                                {{else}}
-                                {{.FirstPost.UserName}}
-                                {{end}}
-                                <a href=""><img src="../img/profil.jpg" alt="profil"></a>
-                            </div>
-                            <div class="referencement">
-                                <img class="like" src="../img/coeur.png" alt="like">
-                                <img class="fav" src="../img/etoile.png" alt="favoris">
-                            </div>
-                            {{.FirstPost.Date}}
-                        </div>
-                        <p id="post">{{.FirstPost.Content}}</p>
+                {{end}}
+            </h5>
+            <div id="respond-wrapper">
+                <div class="post-feed">
+                    <div class="left-part-feed">
+                        <div id="picture-feed"><img src="../img/davy.png" alt="User logo"></div>
+                    </div>
+                    <div class="right-part-feed">
+                        <div id="description-feed"><p>Posté le {{.FirstPost.Date}} à {{.FirstPost.Hour}} par
+                            {{.FirstPost.UserName}}</p></div>
+                        <div id="content-feed">{{.FirstPost.Content}}</div>
                         <form action="/replyToPost" method="post">
-                                <button name="Topic" value="{{.FirstPost.ID}}" type="submit">Répondre</button>
+                            <button name="Topic" value="{{.FirstPost.ID}}">Répondre</button>
                         </form>
-                    </blockquote>
-                </span>
-                    {{$UserID := .UserID}}
-                    {{$IsAdmin := .IsAdmin}}
-                    {{range $value := .Replies}}
-                    <span lang="fr">
-                      <blockquote>
-                          <div class="replace">
-                              <div class="profil">
-                                  {{if eq $value.ReplyUserID $UserID}}
-                                  Votre message
-                                  {{else}}
-                                    {{$value.UserName}}
-                                  {{end}}
-                              <a href=""><img src="../img/profil.jpg" alt="profil"></a>
-                            </div>
-                          <div class="referencement">
-                              <img class="like" src="../img/coeur.png" alt="like">
-                              <img class="fav" src="../img/etoile.png" alt="favoris">
-                          </div>
-                              {{$value.ReplyDate}}
-                          </div>
 
-                            <p id="post">{{$value.Message}}</p>
-                          {{if not $value.Deleted}}
-                          <form action="/replyToReply" method="post">
-                                <button name="Topic" value="{{$value.ID}}" type="submit">Répondre</button>
-                          </form>
-                          {{end}}
-                          {{if and (eq $value.ReplyUserID $UserID) (not $value.Deleted)}}
-                            <form action="/deleteReply" method="post">
-                                    <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
-                            </form>
-                          {{else if and ($IsAdmin) (not $value.Deleted)}}
-                            <form action="/deleteReplyAdmin" method="post">
-                                    <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
-                            </form>
-                          {{end}}
-                      </blockquote>
-                    </span>
-                    {{end}}
+                    </div>
                 </div>
             </div>
+
+            {{$UserID := .UserID}}
+            {{$IsAdmin := .IsAdmin}}
+            {{range $value := .Replies}}
+            <div id="respond-wrapper">
+                <div class="post-feed">
+                    <div class="left-part-feed">
+                        <div id="picture-feed"><img src="../img/davy.png" alt="User logo"></div>
+                    </div>
+                    <div class="right-part-feed">
+
+                        {{if eq $value.ReplyUserID $UserID}}
+                        <div id="description-feed"><p>Posté le {{$value.ReplyDate}} à {{$value.ReplyHour}} par vous</p>
+                        </div>
+                        {{else}}
+                        <div id="description-feed"><p>Posté le {{$value.ReplyDate}} à {{$value.ReplyHour}} par
+                            {{$value.UserName}}</p></div>
+                        {{end}}
+
+                        <div id="content-feed">{{$value.Message}}</div>
+
+                        {{if not $value.Deleted}}
+                        <form action="/replyToReply" method="post">
+                            <button type="submit" name="Topic" value="{{$value.ID}}">Répondre</button>
+                        </form>
+                        {{end}}
+
+                        {{if and (eq $value.ReplyUserID $UserID) (not $value.Deleted)}}
+                        <form action="/deleteReply" method="post">
+                            <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
+                        </form>
+                        {{else if and ($IsAdmin) (not $value.Deleted)}}
+                        <form action="/deleteReplyAdmin" method="post">
+                            <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
+                        </form>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            {{end}}
         </div>
     </body>
-</html>
