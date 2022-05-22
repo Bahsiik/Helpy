@@ -2,7 +2,7 @@
     box-shadow: #c7c7cc 0px 0px 10px;
     border-radius: 10px;
     max-width: 1000px;
-    height: 650px;
+    height: 550px;
     margin: 0 0 0 5%;
     overflow: scroll;
     overflow-x: hidden;
@@ -18,7 +18,7 @@
 }
 
 #post-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(-45deg, #5ec5ea, #85d134);
+    background: #5ec5ea;
     box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
     width: 2px;
     border-radius: 100px;

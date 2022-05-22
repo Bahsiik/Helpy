@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+}
+*{
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+}
+.equipe{
+    display: flex;
+    align-items: center;
+    margin-top: 7.5%;
+    justify-content: space-evenly;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.tete{
+    width: 300px;
+}
+
+.equipe div a img {
+    width: 100px;
+}
