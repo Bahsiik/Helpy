@@ -50,13 +50,14 @@
                 </form>
             </div>
 
-            <div id="fillière">
-                <div id="pop-up"> Informatique</div>
+            <div class="{{.TopicShortName}}" id="fillière">
+                <div  id="pop-up">Post - {{.Topic}}</div>
             </div>
 
 
             <div id="post-container">
                 {{$UserID := .UserID}}
+                {{$TopicShortName := .TopicShortName}}
                 {{range $value := .Posts}}
 
                 <div class="post">
@@ -74,13 +75,12 @@
                         {{else}}
                         <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par {{$value.UserName}}</p></div>
                         {{end}}
-
                         <div id="content">{{$value.Content}}</div>
                     </div>
                     <div class="response">
                         <div id="number-of-response">
                             <button name="nombre-de-reponse" id="response-number"><span>{{$value.ReplyNbr}}</span></button>
-                            <button name="response" id="response-button"><i class="fa fa-comments-o" aria-hidden="true"></i></button>
+                            <button name="response" id="response-button"  class="{{$TopicShortName}}"><i class="fa fa-comments-o" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </div>

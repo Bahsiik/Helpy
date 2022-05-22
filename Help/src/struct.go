@@ -3,18 +3,20 @@ package main
 import "time"
 
 type Data struct {
-	UserID       int
-	Username     string
-	IsAdmin      bool
-	FirstPost    Post
-	Posts        []Post
-	PostID       int
-	AddPostError PostError
-	Replies      []Reply
-	Reply        Reply
-	ReplyID      int
-	Search       string
-	Type         ReplyType
+	UserID         int
+	Username       string
+	IsAdmin        bool
+	FirstPost      Post
+	Posts          []Post
+	PostID         int
+	AddPostError   PostError
+	Replies        []Reply
+	Reply          Reply
+	ReplyID        int
+	Search         string
+	Topic          string
+	TopicShortName string
+	Type           ReplyType
 }
 
 type Session struct {

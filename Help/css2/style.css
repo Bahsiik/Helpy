@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
     overflow: hidden;
 }
 
@@ -28,6 +28,7 @@
     -moz-animation: gradbar 20s ease infinite;
     animation: gradbar 20s ease infinite;
 }
+
 .navbar {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -46,7 +47,7 @@
 .navbar ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(7,1fr);
+    grid-template-columns: repeat(7, 1fr);
     display: flex;
     justify-content: space-evenly;
     align-content: flex-end;
@@ -112,7 +113,7 @@ input {
     padding: 5px;
 }
 
-.menu-toggle .bar{
+.menu-toggle .bar {
     width: 25px;
     height: 3px;
     background-color: #3f3f3f;
@@ -132,25 +133,25 @@ input {
     cursor: pointer;
 }
 
-#sort  {
+#sort {
     border: 1px solid #000000;
     border-radius: 5px;
     margin: 1% 0 0 5%;
     max-width: fit-content;
 }
 
- #sort input {
-     border-radius: 10px;
-     background: none;
-     border: none;
-     transition: 0.2s ease-in-out;
-     color : #2b3373;
- }
+#sort input {
+    border-radius: 10px;
+    background: none;
+    border: none;
+    transition: 0.2s ease-in-out;
+    color: #2b3373;
+}
 
 #sort input:hover {
-        cursor: pointer;
-        background: #ededed;
-        color: #3498db;
+    cursor: pointer;
+    background: #ededed;
+    color: #3498db;
 }
 
 #fillière {
@@ -158,9 +159,53 @@ input {
     width: 1000px;
     padding: 10px;
     margin: 1% 0 0 5%;
-    background-color: #5ec5ea;
+    /*background-color: #5ec5ea;*/
     color: #fff;
     font-size: 1.2rem;
     font-weight: 400;
     text-align: center;
+}
+
+.all {
+    background-color: #4c4c52;
+}
+
+.MarketCom {
+    background-color: #f07d1a;
+}
+
+.Audiovisuel {
+    background: #e5b702;
+}
+
+.CreaDesign {
+    background-color: #85d134;
+}
+
+.Architecture {
+    background-color: #3ca55b;
+}
+
+.Info {
+    background-color: #5ec5ea;
+}
+
+.WebMgmt {
+    background-color: #2850b2;
+}
+
+.Anim {
+    background-color: #cf3cd3;
+}
+
+.Illu {
+    background-color: #ff0582;
+}
+
+.CampusLife {
+    background-color: #ff0000;
+}
+
+.Admin {
+    background-color: #696969;
 }

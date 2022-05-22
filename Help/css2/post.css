@@ -18,7 +18,7 @@
 }
 
 #post-container::-webkit-scrollbar-thumb {
-    background: #5ec5ea;
+    /*background: #5ec5ea;*/
     box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
     width: 2px;
     border-radius: 100px;
@@ -126,5 +126,4 @@
     padding-left: 14px;
     font-size: 1em;
     cursor: pointer;
-    background: #5ec5ea;
 }

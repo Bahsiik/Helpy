@@ -84,7 +84,7 @@ func getPostAttributs(postList []Post) {
 	}
 }
 
-func TranslateTopicID(topicID string) string {
+func TranslateTopicNameToTopicID(topicID string) string {
 	switch topicID {
 	case "Marketing & Communication":
 		return "1"
@@ -106,6 +106,32 @@ func TranslateTopicID(topicID string) string {
 		return "9"
 	case "Administration":
 		return "10"
+	}
+	return ""
+}
+
+func TranslateTopicNameToTopicShortName(topicID string) string {
+	switch topicID {
+	case "Marketing & Communication":
+		return "MarketCom"
+	case "Audiovisuel":
+		return "Audiovisuel"
+	case "Création & Digital Design":
+		return "CreaDesign"
+	case "Architecture d'intérieur":
+		return "Architecture"
+	case "Informatique":
+		return "Info"
+	case "Web Management":
+		return "WebMgmt"
+	case "3D, Animation & Jeux-vidéo":
+		return "Anim"
+	case "2D & Illustration Digitale":
+		return "Illu"
+	case "Campus Life":
+		return "CampusLife"
+	case "Administration":
+		return "Admin"
 	}
 	return ""
 }

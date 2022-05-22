@@ -8,8 +8,10 @@ import (
 func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUsernameFromSession(w, r)
 	r.ParseForm()
-	topicID := r.FormValue("topicID")
-	topicID = TranslateTopicID(topicID)
+	topicName := r.FormValue("topicID")
+	d.TopicShortName = TranslateTopicNameToTopicShortName(topicName)
+	d.Topic = topicName
+	topicID := TranslateTopicNameToTopicID(topicName)
 	postList := SelectPostByTopic(topicID)
 	d.Posts = postList
 	for i := 0; i < len(d.Posts); i++ {
@@ -62,7 +64,7 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	title := r.FormValue("title")
 	topicID := r.FormValue("category")
-	topicID = TranslateTopicID(topicID)
+	topicID = TranslateTopicNameToTopicID(topicID)
 	description := r.FormValue("description")
 	postError, checkError := CheckPostError(title, description, topicID)
 	if checkError == true {
