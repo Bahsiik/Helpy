@@ -68,7 +68,6 @@
                         </form>
                         {{if eq $value.PostUserID $UserID}}
                         <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par vous</p></div>
-                        {{$value.TopicName}}
                         {{else}}
                         <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par {{$value.UserName}}</p></div>
                         {{end}}
