@@ -20,9 +20,11 @@ func GetUserInfoFromSession(w http.ResponseWriter, r *http.Request) Data {
 	cookie := CheckCookie(w, r)
 	userID := SelectUserIDFromSessionID(cookie.Value)
 	username := SelectUsernameFromID(userID)
+	admin := SelectAdminFromID(userID)
 	d := Data{
 		Username: username,
 		UserID:   userID,
+		IsAdmin:  admin,
 	}
 	return d
 }

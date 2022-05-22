@@ -59,6 +59,16 @@ func SelectUsernameFromID(userID int) string {
 	return username
 }
 
+func SelectAdminFromID(userID int) bool {
+	var admin bool
+	err := DB.QueryRow("SELECT Admin FROM users WHERE User_id = ?", userID).Scan(&admin)
+	if err != nil {
+		fmt.Println("err: ", err)
+		return false
+	}
+	return admin
+}
+
 // SelectAllPost We prepare a query to select all the posts from the database, then we execute the query and get the rows. We then call
 // the getPost function to get the postList and then we call the getPostAttributs function to get the post attributs
 func SelectAllPost() []Post {

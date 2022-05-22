@@ -90,6 +90,19 @@ func DeleteReplyFromReplyID(replyID int) {
 	}
 }
 
+func DeleteReplyFromReplyIDAdmin(replydID int) {
+	fmt.Println("Delete reply from replyID: ", replydID)
+	stmt, err := DB.Prepare("UPDATE replies SET Content = 'Message supprimé par un administrateur.' WHERE Reply_id = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(replydID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func RemoveReplyNumberFromPost(postID int) {
 	fmt.Println("Remove reply number from postID: ", postID)
 	stmt, err := DB.Prepare("UPDATE post SET reply_number = reply_number - 1 WHERE Post_id = ?")
