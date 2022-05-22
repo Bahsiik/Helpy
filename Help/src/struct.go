@@ -5,6 +5,7 @@ import "time"
 type Data struct {
 	UserID       int
 	Username     string
+	IsAdmin      bool
 	FirstPost    Post
 	Posts        []Post
 	PostID       int

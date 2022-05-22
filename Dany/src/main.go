@@ -24,7 +24,7 @@ package main
 //	Passwordo string `json:"passwordo"`
 //	LastName  string `json:"last_name"`
 //	Email     string `json:"email"`
-//	Admin     bool   `json:"admin"`
+//	IsAdmin     bool   `json:"admin"`
 //	Status    bool   `json:"status"`
 //	ProfilPic string `json:"profil_pic"`
 //}

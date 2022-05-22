@@ -163,6 +163,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 		d.Posts[i].Hour = TranslateHour(d.Posts[i].RawDate)
 	}
+	fmt.Println(d.IsAdmin)
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		return
@@ -247,6 +248,16 @@ func DeletePostHandler(w http.ResponseWriter, r *http.Request) {
 	DeleteRepliesFromPostID(postID)
 	DeletePost(postID)
 	http.Redirect(w, r, "/index", http.StatusFound)
+}
+
+func DeletePostAdminHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** deletePostAdminHandler ***")
+	//d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	postID := r.FormValue("postID")
+	DeleteRepliesFromPostID(postID)
+	DeletePost(postID)
+	http.Redirect(w, r, "/admin", http.StatusFound)
 }
 
 func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
@@ -352,6 +363,31 @@ func DeleteReplyHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("ReplyID: " + value)
 	d.ReplyID = SelectReplyIDFromStringID(value)
 	DeleteReplyFromReplyID(d.ReplyID)
+	UpdateReplyStatus(d.ReplyID)
+	postID := SelectPostIDByReplyID(value)
+	RemoveReplyNumberFromPost(postID)
+
+	d.Replies = SelectRepliesByPostIDInt(postID)
+	d.FirstPost = SelectPostByPostIDInt(postID)
+	d.FirstPost.UserName = SelectUsernameFromID(d.FirstPost.PostUserID)
+	d.FirstPost.Date = TranslateDate(d.FirstPost.RawDate)
+	for i := 0; i < len(d.Replies); i++ {
+		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
+	}
+	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
+}
+
+func DeleteReplyAdminHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** deleteReplyAdminHandler ***")
+	d := GetUserInfoFromSession(w, r)
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	value := r.FormValue("ReplyID")
+	fmt.Println("ReplyID: " + value)
+	d.ReplyID = SelectReplyIDFromStringID(value)
+	DeleteReplyFromReplyIDAdmin(d.ReplyID)
 	UpdateReplyStatus(d.ReplyID)
 	postID := SelectPostIDByReplyID(value)
 	RemoveReplyNumberFromPost(postID)

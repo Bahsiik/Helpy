@@ -28,7 +28,12 @@
                     </div>
                     <ul class="nav no-search">
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
-                        <li class="nav-item">{{.Username}}</li>
+                        <li class="nav-item">
+                            {{.Username}}
+                            {{if .IsAdmin}}
+                                <span class="admin-badge">IsAdmin</span>
+                            {{end}}
+                        </li>
                         <li class="nav-item"><a href="/post">Poster</a></li>
                         <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>

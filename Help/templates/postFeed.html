@@ -95,6 +95,12 @@
                     <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
                 </div>
             </form>
+            {{else if .IsAdmin}}
+            <form action="/deletePostAdmin" method="post">
+                <div id="submitForm">
+                    <button type="submit" name="postID" value="{{.FirstPost.ID}}">Supprimer</button>
+                </div>
+            </form>
             {{end}}
         </h5>
 
@@ -128,6 +134,7 @@
                     </blockquote>
                 </span>
                     {{$UserID := .UserID}}
+                    {{$IsAdmin := .IsAdmin}}
                     {{range $value := .Replies}}
                     <span lang="fr">
                       <blockquote>
@@ -155,6 +162,10 @@
                           {{end}}
                           {{if and (eq $value.ReplyUserID $UserID) (not $value.Deleted)}}
                             <form action="/deleteReply" method="post">
+                                    <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
+                            </form>
+                          {{else if and ($IsAdmin) (not $value.Deleted)}}
+                            <form action="/deleteReplyAdmin" method="post">
                                     <button type="submit" name="ReplyID" value="{{$value.ID}}">Supprimer</button>
                             </form>
                           {{end}}

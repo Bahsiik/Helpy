@@ -8,7 +8,7 @@ package main
 //	Password   string `json:"password"`
 //	LastName   string `json:"last_name"`
 //	Email      string `json:"email"`
-//	Admin      bool   `json:"admin"`
+//	IsAdmin      bool   `json:"admin"`
 //	Status     bool   `json:"status"`
 //	Profil_pic string `json:"profil_pic"`
 //}
