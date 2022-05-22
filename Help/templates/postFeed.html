@@ -58,7 +58,7 @@
                             {{.FirstPost.UserName}}</p></div>
                         <div id="content-feed">{{.FirstPost.Content}}</div>
                         <form action="/replyToPost" method="post">
-                            <button name="Topic" value="{{.FirstPost.ID}}">Répondre</button>
+                            <button id="rep" name="Topic" value="{{.FirstPost.ID}}">Répondre</button>
                         </form>
 
                     </div>
@@ -87,7 +87,7 @@
 
                         {{if not $value.Deleted}}
                         <form action="/replyToReply" method="post">
-                            <button type="submit" name="Topic" value="{{$value.ID}}">Répondre</button>
+                            <button id="rep" type="submit" name="Topic" value="{{$value.ID}}">Répondre</button>
                         </form>
                         {{end}}
 

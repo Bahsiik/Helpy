@@ -1,5 +1,29 @@
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #5ec5ea;
+    box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    width: 2px;
+    border-radius: 100px;
+    -webkit-animation: ease 0.5s infinite;
+    -moz-animation: ease 0.5s infinite;
+    animation: ease 0.5s infinite;
+}
+
 .title_topic {
-    font-size: 25px;
+    font-size: 35px;
     font-weight: bold;
     color: #000;
     margin-top : 2%;
@@ -9,6 +33,24 @@
 
 button {
     background: transparent;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top : 2%;
+    padding: 10px;
+}
+
+#rep {
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top : 2%;
+    padding: 10px;
+}
+
+#rep:hover {
+    background: #82d962;
     color: inherit;
     cursor: pointer;
     border-radius: 50px;
@@ -106,4 +148,8 @@ button:hover {
     font-size: 1em;
     cursor: pointer;
     background: #5ec5ea;
+}
+
+.post-feed {
+    margin: 1%;
 }
