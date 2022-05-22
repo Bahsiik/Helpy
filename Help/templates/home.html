@@ -1,160 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HELPY</title>
-    <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-    <link rel="stylesheet" href="../css/main/index.css">
-    <link rel="stylesheet" href="../css/main/post.css">
-    <link rel="stylesheet" href="../css/main/faculty.css">
-    <link rel="stylesheet" href="../css/main/favoris.css">
-    <link rel="stylesheet" href="../css/main/footer.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/main/notification.css"><
-    <script defer type="text/javascript" src="../js/js.js"></script>
-</head>
-<body>
-<!--                Header                    -->
-<div class="header">
-    <nav role="navigation">
-        <div id="menuToggle">
-            <input type="checkbox"/>
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
-                <a href="/profile">
-                    <li>Profil</li>
-                </a>
-                <a href="/settingAccount">
-                    <li>Paramètres</li>
-                </a>
-                <a href="/logout">
-                    <li>Déconnexion</li>
-                </a>
-            </ul>
-        </div>
-    </nav>
-    <img id="logo" src="../img/Helpy_logo.png" alt="">
-    <p id="slogan">
-        <span>Helpy</span>
-        <br>
-        Il n'y a que Helpy qui a la réponse.
-        <br>
-        {{if .}}
-            {{.Username}}
-        {{end}}
-    </p>
-    <form action="/searchPost">
-        <input id="searchbar" type="text" name="search">
-        <input id="searchbutton" type="submit" value="🔍">
-    </form>
-    <p id="icon">
-        <a href="/post"><img src="../img/addpost.png"/></a>
-        <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
-    </p>
-</div>
-<!--                Choix filière               -->
-<div id="right">
-    <div class="sort">
-        <form action="/sortPost">
-            <input class="sortbutton" name="sortType" type="submit" value="Date ⬆️">
-            <input class="sortbutton" name="sortType" type="submit" value="Date ⬇️">
-            <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬆️">
-            <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬇️">
-        </form>
-    </div>
-    <div class="faculty">
-        <form id="formFaculty" action="/subjectByTopic" method="post">
-            <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
-            <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
-            <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
-            <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
-            <input id="Info" name="topicID" type="submit" value="Informatique">
-            <input id="Web" name="topicID" type="submit" value="Web Management">
-            <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
-            <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
-            <input id="Life" name="topicID" type="submit" value="Campus Life">
-            <input id="Admin" name="topicID" type="submit" value="Administration">
-        </form>
-    </div>
-
-    <!--                Footer              -->
-    <div class="footer">
-            <a href="https://www.ynov.com">Ynov</a>
-            <a href="/thematiques">Thématiques</a>
-            <a href="/about">A propos</a>
-            <a href="/team">L'équipe</a>
-        <p>Helpy Inc © 2022. Tous droits réservés</p>
-    </div>
-</div>
-
-<!--                Notifications               -->
-<div class="frame">
-    <div class="panel">
-        <!--        HeaderNotififications       -->
-        <div class="header flex">
-            <div class="menu-icon">
-                <div class="dash-top"></div>
-                <div class="dash-bottom"></div>
-                <div class="circle circle-1"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Home</title>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css2/style.css">
+        <link rel="stylesheet" href="../css2/responsive.css">
+        <link rel="stylesheet" href="../css2/faculty.css">
+        <link rel="stylesheet" href="../css2/footer.css">
+        <link rel="stylesheet" href="../css2/post.css">
+        <script defer href="../js/javascript.js"></script>
+    </head>
+    <body>
+        <div class="page-wrapper">
+            <div class="nav-wrapper">
+                <div class="grad-bar"></div>
+                <nav class="navbar">
+                    <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <ul class="nav no-search">
+                        <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                        <li class="nav-item">{{.Username}}</li>
+                        <li class="nav-item"><a href="/post">Poster</a></li>
+                        <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
+                        <li class="nav-item"><a href="/profile">Profil</a></li>
+                        <li class="nav-item"><a href="/index">Accueil</a></li>
+                        <li class="fa fa-search" id="search-icon"></li>
+                        <input class="search-input" type="text" placeholder="Search..">
+                    </ul>
+                </nav>
             </div>
-            <span class="title">Notifications</span>
-        </div>
-        <!--            Section notification            -->
-        <div class="notifications clearfix">
-            <div class="line"></div>
-            <div class="notification">
-                <div class="notification-content">
-                    <div class="notification-title">
-                                <span class="notification-title-text">
-                                    <a href="/post/{{.ID}}">{{.Title}}</a>
-                                </span>
-                        <span class="notification-title-date">{{.Date}}</span>
+            <div id="sort">
+                <form action="/sortPost">
+                    <input class="sortbutton" name="sortType" type="submit" value="Date ⬆️">
+                    <input class="sortbutton" name="sortType" type="submit" value="Date ⬇️">
+                    <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬆️">
+                    <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬇️">
+                </form>
+            </div>
+
+            <div id="fillière">
+                <div id="pop-up"> Informatique</div>
+            </div>
+
+
+            <div id="post-container">
+                {{$UserID := .UserID}}
+                {{range $value := .Posts}}
+
+                <div class="post">
+                    <div class="left-part">
+                        <div id="picture"><img src="../img/davy.png" alt="Company Logo"></div>
                     </div>
-                    <div class="notification-text">
-                                <span class="notification-text-text">
-                                    {{.Content}}
-                                </span>
+                    <div class="right-part">
+                        <form action="/postFeed" method="post">
+                            <div id="title">
+                                <input id="post" type="submit" name="PostName" value="{{$value.Title}}"/>
+                            </div>
+                        </form>
+<!--                        <div id="title"><h1>Thiago a manger le perroquet</h1></div>-->
+                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}}</p></div>
+                        <div id="content">{{$value.Content}}</div>
                     </div>
+                    <div class="response">
+                        <div id="number-of-response">
+                            <button name="nombre-de-reponse" id="response-number"><span>{{$value.ReplyNbr}}</span></button>
+                            <button name="response" id="response-button"><i class="fa fa-comments-o" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                {{end}}
+            </div>
+            <div class="faculty">
+                <form id="formFaculty" action="/subjectByTopic" method="post">
+                    <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
+                    <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
+                    <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
+                    <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
+                    <input id="Info" name="topicID" type="submit" value="Informatique">
+                    <input id="Web" name="topicID" type="submit" value="Web Management">
+                    <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
+                    <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
+                    <input id="Life" name="topicID" type="submit" value="Campus Life">
+                    <input id="Admin" name="topicID" type="submit" value="Administration">
+                </form>
+                <div id="footer">
+                    <a href="https://www.ynov.com">Ynov</a>
+                    <a href="/thematiques">Thématiques</a>
+                    <a href="/about">A propos</a>
+                    <a href="/team">L'équipe</a>
+                    <p>Helpy Inc © 2022. Tous droits réservés</p>
                 </div>
             </div>
         </div>
-
-    </div>
-    <!--                Post                -->
-    <div class="post">
-        <div class="message">
-            {{$UserID := .UserID}}
-            {{range $value := .Posts}}
-                <span lang="fr">
-                      <blockquote>
-                          <div class="replace">
-                              <div class="profil">
-                                  {{if eq $value.PostUserID $UserID}}
-                                      Votre post
-                                  {{else}}
-                                      {{$value.UserName}}
-                                  {{end}}
-                                  {{$value.ReplyNbr}}
-                            </div>
-                          <div class="referencement">
-                              <img class="like" src="../img/coeur.png" alt="like">
-                              <img class="fav" src="../img/etoile.png" alt="favoris">
-
-                          </div>
-                              <p class="date">{{$value.Date}}</p>
-                          </div>
-                          <form action="/postFeed" method="post">
-                              <div id="submitForm">
-                                <input id="post" type="submit" name="PostName" value="{{$value.Title}}"/>
-                              </div>
-                          </form>
-                      </blockquote>
-                    </span>
-            {{end}}
-        </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

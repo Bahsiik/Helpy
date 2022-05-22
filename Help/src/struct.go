@@ -28,6 +28,7 @@ type Post struct {
 	Content    string
 	RawDate    *time.Time
 	Date       string
+	Hour       string
 	ReplyNbr   int
 	TopicID    int
 	TopicName  string
