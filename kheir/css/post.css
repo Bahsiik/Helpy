@@ -1,14 +1,115 @@
 #post-container {
-    border: black solid 1px;
+    box-shadow: #c7c7cc 0px 0px 10px;
     border-radius: 10px;
-    max-width: fit-content;
-    margin: 1% 0 0 5%;
+    max-width: 1000px;
+    height: 650px;
+    margin: 0 0 0 5%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#post-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+#post-container::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+
+#post-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(-45deg, #5ec5ea, #85d134);
+    box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+    width: 2px;
+    border-radius: 100px;
+    -webkit-animation: ease 0.5s infinite;
+    -moz-animation: ease 0.5s infinite;
+    animation: ease 0.5s infinite;
 }
 
 .post {
     display: flex;
+    flex-direction: row;
+    margin-top: 0.9em;
+    border: none;
+    background: #F6F1F1FF;
+    box-shadow: #4c4c52 0px 0px 3px;
+    border-radius: 10px;
+    max-width: 1000px;
+}
+
+.left-part {
+    width: 15%;
+    height: fit-content;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-part img {
+    width: 60%;
+    border-radius: 10px;
+    margin: 5%;
+}
+
+.right-part {
+    width: 70%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    margin-top: 2em;
+    align-items: flex-start;
+    padding: 1%;
+}
+
+.right-part div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2px;
+}
+
+.response {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+    font-size: 25px;
+}
+
+.response p  {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+#response-number {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    margin-left: 1.5em;
+    border: none;
+    cursor: pointer;
+    box-shadow: rgba(206, 201, 201, 0) 0px 0px 3px;
+    border: #23a6d5 1px solid;
+    border-radius: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#response-button {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.1em;
+    margin: 0.1em;
+    font-size: 1em;
+    cursor: pointer;
+    background: #5ec5ea;
 }

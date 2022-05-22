@@ -6,11 +6,12 @@
     text-align: center;
     margin: 2em;
     display: flex;
-    position: relative;
-    top: -220px;
+    position: absolute;
+    top: 10%;
     left: 70%;
-    z-index: -2;
+    z-index: 1;
     flex-direction: column;
+    width: 350px;
 }
 
 #formFaculty{

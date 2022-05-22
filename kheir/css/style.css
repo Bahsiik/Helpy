@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+    overflow: hidden;
 }
 
 .page-wrapper {
@@ -12,7 +13,7 @@
 
 .nav-wrapper {
     width: 100%;
-    position: -webkit-sticky; /* Safari */
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     background-color: #f6f1f1;
@@ -20,12 +21,12 @@
 
 .grad-bar {
     width: 100%;
-    height: 5px;
-    background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    height: 10px;
+    background: linear-gradient(-45deg, #5ec5ea, #85d134, #3ca55b, #e5b702, #f07d1a, #ff0582, #cf3cd3, #2850b2, red, dimgray);
     background-size: 400% 400%;
-    -webkit-animation: gradbar 5s ease infinite;
-    -moz-animation: gradbar 5s ease infinite;
-    animation: gradbar 5s ease infinite;
+    -webkit-animation: gradbar 20s ease infinite;
+    -moz-animation: gradbar 20s ease infinite;
+    animation: gradbar 20s ease infinite;
 }
 .navbar {
     display: grid;
@@ -106,7 +107,7 @@
 input {
     border: 0;
     border-left: 1px solid #ccc;
-    border-radius: 0; /* FOR SAFARI */
+    border-radius: 0;
     outline: 0;
     padding: 5px;
 }
@@ -146,8 +147,20 @@ input {
      color : #2b3373;
  }
 
-    #sort input:hover {
+#sort input:hover {
         cursor: pointer;
         background: #ededed;
         color: #3498db;
-    }
+}
+
+#fillière {
+    border-radius: 5px;
+    width: 1000px;
+    padding: 10px;
+    margin: 1% 0 0 5%;
+    background-color: #5ec5ea;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+}
