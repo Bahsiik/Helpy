@@ -62,7 +62,7 @@ func SelectUsernameFromID(userID int) string {
 // SelectAllPost We prepare a query to select all the posts from the database, then we execute the query and get the rows. We then call
 // the getPost function to get the postList and then we call the getPostAttributs function to get the post attributs
 func SelectAllPost() []Post {
-	stmt, err := DB.Prepare("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post")
+	stmt, err := DB.Prepare("SELECT * FROM post")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,7 +75,7 @@ func SelectAllPost() []Post {
 
 // SelectPostByTopic It selects all the posts from the database that have the same topic ID as the one passed in the function
 func SelectPostByTopic(topicID string) []Post {
-	stmt, err := DB.Prepare("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post WHERE Topic_id = ?")
+	stmt, err := DB.Prepare("SELECT * FROM post WHERE Topic_id = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -417,7 +417,7 @@ func SelectPostIDByTitle(title string) int {
 func SelectPostBySearch(search string) []Post {
 	fmt.Println("*** SelectPostBySearch ***")
 	var posts []Post
-	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post WHERE Title LIKE ? OR Content LIKE ?", "%"+search+"%", "%"+search+"%")
+	rows, err := DB.Query("SELECT * FROM post WHERE Title LIKE ? OR Content LIKE ?", "%"+search+"%", "%"+search+"%")
 	if err != nil {
 		fmt.Println(err)
 		return posts
@@ -430,7 +430,7 @@ func SelectPostBySearch(search string) []Post {
 func SelectPostByDateUp() []Post {
 	fmt.Println("*** SelectPostByDateUp ***")
 	var posts []Post
-	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY creation_date DESC")
+	rows, err := DB.Query("SELECT * FROM post ORDER BY creation_date DESC")
 	if err != nil {
 		fmt.Println(err)
 		return posts
@@ -444,7 +444,7 @@ func SelectPostByDateUp() []Post {
 func SelectPostByDateDown() []Post {
 	fmt.Println("*** SelectPostByDateDown ***")
 	var posts []Post
-	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY creation_date ASC")
+	rows, err := DB.Query("SELECT * FROM post ORDER BY creation_date ASC")
 	if err != nil {
 		fmt.Println(err)
 		return posts
@@ -458,7 +458,7 @@ func SelectPostByDateDown() []Post {
 func SelectPostByRepliesUp() []Post {
 	fmt.Println("*** SelectPostByRepliesUp ***")
 	var posts []Post
-	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY reply_number DESC")
+	rows, err := DB.Query("SELECT * FROM post ORDER BY reply_number DESC")
 	if err != nil {
 		fmt.Println(err)
 		return posts
@@ -472,7 +472,7 @@ func SelectPostByRepliesUp() []Post {
 func SelectPostByRepliesDown() []Post {
 	fmt.Println("*** SelectPostByRepliesDown ***")
 	var posts []Post
-	rows, err := DB.Query("SELECT Post_id, Title, creation_date, reply_number, Topic_id, User_id FROM post ORDER BY reply_number ASC")
+	rows, err := DB.Query("SELECT * FROM post ORDER BY reply_number ASC")
 	if err != nil {
 		fmt.Println(err)
 		return posts

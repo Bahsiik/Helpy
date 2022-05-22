@@ -26,7 +26,7 @@ func getPost(rows *sql.Rows, err error) []Post {
 	var postList []Post
 	for rows.Next() {
 		var post Post
-		err := rows.Scan(&post.ID, &post.Title, &post.RawDate, &post.ReplyNbr, &post.TopicID, &post.PostUserID)
+		err := rows.Scan(&post.ID, &post.Title, &post.Content, &post.RawDate, &post.ReplyNbr, &post.TopicID, &post.PostUserID)
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -15,6 +15,9 @@ func main() {
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
+	css2Folder := http.FileServer(http.Dir("css2"))
+	http.Handle("/css2/", http.StripPrefix("/css2/", css2Folder))
+
 	imgFolder := http.FileServer(http.Dir("img"))
 	http.Handle("/img/", http.StripPrefix("/img/", imgFolder))
 

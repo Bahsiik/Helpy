@@ -98,5 +98,9 @@ func CheckPassword(password string) (bool, bool, bool, bool, bool, bool) {
 }
 
 func TranslateDate(date *time.Time) string {
-	return date.Format("02/01/2006 15:04:05")
+	return date.Format("02/01/2006")
+}
+
+func TranslateHour(date *time.Time) string {
+	return date.Format("15:04:05")
 }

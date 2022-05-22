@@ -161,6 +161,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	d.Posts = S
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
+		d.Posts[i].Hour = TranslateHour(d.Posts[i].RawDate)
 	}
 	err := TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
