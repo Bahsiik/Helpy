@@ -99,20 +99,28 @@ button:hover {
     padding: 1%;
 }
 
-.right-part-feed div {
+#boutonflex {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin: 2px;
+    margin: 5px;
+}
+
+#delbut {
+    color: inherit;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top : 2%;
+    padding: 10px;
+    margin-left: 1em;
 }
 
 .response-feed {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 1em;
     font-size: 25px;
 }
 
@@ -152,4 +160,28 @@ button:hover {
 
 .post-feed {
     margin: 1%;
+}
+
+#rep-man {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-size: 14px;
+    background-color: #eae5e5;
+}
+
+#rep-man div {
+    margin: 0.5em;
+}
+
+#content-feed {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 16px;
+    margin-top: 1em;
 }
