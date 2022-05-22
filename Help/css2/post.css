@@ -36,6 +36,19 @@
     box-shadow: #4c4c52 0px 0px 3px;
     border-radius: 10px;
     max-width: 1000px;
+    margin: 0.5em;
+}
+
+#posttitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: #F6F1F1FF;
+}
+
+#posttitle:hover {
+    color: #5ec5ea;
 }
 
 .left-part {
@@ -107,8 +120,10 @@
     color: white;
     border: none;
     border-radius: 10px;
-    padding: 0.1em;
     margin: 0.1em;
+    margin-left: 1.5em;
+    padding-right: 10px;
+    padding-left: 14px;
     font-size: 1em;
     cursor: pointer;
     background: #5ec5ea;
