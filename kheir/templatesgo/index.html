@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/faculty.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/post.css">
+    <script defer href="../js/javascript.js"></script>
+
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="nav-wrapper">
+        <div class="grad-bar"></div>
+        <nav class="navbar">
+            <img id="logo" src="../../Help/img/Helpy_logo.png" alt="Company Logo">
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav no-search">
+                <li class="nav-item"><a href="#">Kheir-eddine</a></li>
+                <li class="nav-item"><a href="#">Poster</a></li>
+                <li class="nav-item"><a href="#">Parametres</a></li>
+                <li class="nav-item"><a href="#">Profil</a></li>
+                <li class="nav-item"><a href="#">Accueil</a></li>
+                <li class="fa fa-search" id="search-icon"></li>
+                <input class="search-input" type="text" placeholder="Search..">
+            </ul>
+        </nav>
+    </div>
+    <div id="sort">
+        <form action="/sortPost">
+            <input class="sortbutton" name="sortType" type="submit" value="Date ⬆️">
+            <input class="sortbutton" name="sortType" type="submit" value="Date ⬇️">
+            <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬆️">
+            <input class="sortbutton" name="sortType" type="submit" value="Popularité ⬇️">
+        </form>
+    </div>
+
+    <div id="fillière">
+        <div id="pop-up"> Informatique </div>
+    </div>
+
+    <div id="post-container">
+        <div class="post">
+            <div class="left-part">
+                <div id="picture"><img src="../../Help/img/davy.png" alt="Company Logo"></div>
+            </div>
+            <div class="right-part">
+                <div id="title"><h1>Thiago a manger le perroquet</h1></div>
+                <div id="description"><p>poster il y'a 12 min par ScorpioD2</p></div>
+                <div id="content">Eh thiago ce batard il a fumé le peroroquet</div>
+            </div>
+            <div class="response">
+                <div id="number-of-response">
+                    <button name="nombre-de-reponse" id="response-number"><span>2</span></button>
+                    <button name="response" id="response-button">Répondre</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="faculty">
+        <form id="formFaculty" action="/subjectByTopic" method="post">
+            <input id="Market" name="topicID" type="submit" value="Marketing & Communication">
+            <input id="Audio" name="topicID" type="submit" value="Audiovisuel">
+            <input id="Crea" name="topicID" type="submit" value="Création & Digital Design">
+            <input id="Archi" name="topicID" type="submit" value="Architecture d'intérieur">
+            <input id="Info" name="topicID" type="submit" value="Informatique">
+            <input id="Web" name="topicID" type="submit" value="Web Management">
+            <input id="Jeux" name="topicID" type="submit" value="3D, Animation & Jeux-vidéo">
+            <input id="Digit" name="topicID" type="submit" value="2D & Illustration Digitale">
+            <input id="Life" name="topicID" type="submit" value="Campus Life">
+            <input id="Admin" name="topicID" type="submit" value="Administration">
+        </form>
+        <div id="footer">
+            <a href="https://www.ynov.com">Ynov</a>
+            <a href="/thematiques">Thématiques</a>
+            <a href="/about">A propos</a>
+            <a href="/team">L'équipe</a>
+            <p>Helpy Inc © 2022. Tous droits réservés</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

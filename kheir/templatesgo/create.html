@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/faculty.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/post.css">
+    <link rel="stylesheet" href="../css/create.css">
+    <script defer href="../js/javascript.js"></script>
+
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="nav-wrapper">
+        <div class="grad-bar"></div>
+        <nav class="navbar">
+            <img id="logo" src="../../Help/img/Helpy_logo.png" alt="Company Logo">
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav no-search">
+                <li class="nav-item"><a href="#">Kheir-eddine</a></li>
+                <li class="nav-item"><a href="#">Poster</a></li>
+                <li class="nav-item"><a href="#">Parametres</a></li>
+                <li class="nav-item"><a href="#">Profil</a></li>
+                <li class="nav-item"><a href="#">Accueil</a></li>
+                <li class="fa fa-search" id="search-icon"></i>
+                <input class="search-input" type="text" placeholder="Search..">
+            </ul>
+        </nav>
+    </div>
+    <span id="tit">Créer une annonce</span>
+    <form action="/addPost" method="post">
+        <div id="create">
+            <span id="titre">Titre</span>
+            <span id="sous-titre">Soyez précis et imaginez que vous posez une question à une autre personne</span>
+            <textarea name="title" id="title" placeholder="Titre de l'annonce"></textarea>
+            {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Title}}
+                </div>
+            {{end}}
+            <span id="titre">Catégories</span>
+            <span id="sous-titre">Séléctioner une category</span>
+            <select name="category" id="category">
+                <option PostID="">Choisissez une catégorie</option>
+                <option PostID="1">Marketing & Communication</option>
+                <option PostID="2">Audiovisuel</option>
+                <option PostID="3">Création & Digital Design</option>
+                <option PostID="4">Architecture data'intérieur</option>
+                <option PostID="5">Informatique</option>
+                <option PostID="6">Web Management</option>
+                <option PostID="7">3D, Animation & Jeux-vidéo</option>
+                <option PostID="8">2D & Illustration Digitale</option>
+                <option PostID="9">Campus Life</option>
+                <option PostID="10">Administration</option>
+            </select>
+            {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Topic}}
+                </div>
+            {{end}}
+            <span id="titre">Description</span>
+            <span id="sous-titre">Incluez toutes les informations dont quelqu'un aurait besoin pour répondre à votre question</span>
+            <textarea name="description" id="description" placeholder="Description de l'annonce"></textarea>
+            {{if .AddPostError}}
+                <div class="alert">
+                    {{.AddPostError.Content}}
+                </div>
+            {{end}}
+            <button id="submit" type="submit">Créer</button>
+        </div>
+    </form>
+</div>
+</body>
