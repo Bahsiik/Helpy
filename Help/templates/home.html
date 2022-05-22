@@ -66,8 +66,12 @@
                                 <input id="post" type="submit" name="PostName" value="{{$value.Title}}"/>
                             </div>
                         </form>
-<!--                        <div id="title"><h1>Thiago a manger le perroquet</h1></div>-->
-                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}}</p></div>
+                        {{if eq $value.PostUserID $UserID}}
+                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par vous</p></div>
+                        {{else}}
+                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par {{$value.UserName}}</p></div>
+                        {{end}}
+
                         <div id="content">{{$value.Content}}</div>
                     </div>
                     <div class="response">
