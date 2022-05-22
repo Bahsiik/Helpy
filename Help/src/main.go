@@ -12,6 +12,7 @@ import (
 
 func main() {
 	TMPL, _ = template.ParseGlob("templates/*.html")
+
 	cssFolder := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", cssFolder))
 
