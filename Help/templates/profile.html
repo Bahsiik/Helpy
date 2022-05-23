@@ -71,15 +71,37 @@
 
     <div class="profilPub contentDiv hidden">
         <div class="TitleProfil">Publications</div>
-        <div class="post-reponse">
-            <div class="left-part-reponse">
-                <div id="picture-reponse"><img src="../img/davy.png" alt="Company Logo"></div>
+        {{$UserID := .UserID}}
+        {{$TopicShortName := .TopicShortName}}
+        {{range $value := .Posts}}
+        <div class="post">
+            <div class="left-part">
+                <div id="picture"><img src="../img/{{$value.UserAvatar}}" alt="Company Logo"></div>
             </div>
-            <div class="right-part-reponse">
-                <div id="description-reponse"><p>Posté par {{.FirstPost.UserName}}</p></div>
-                <div id="content-reponse">{{.FirstPost.Content}}</div>
+            <div class="right-part">
+                <form action="/postFeed" method="post">
+                    <div id="title">
+                        <input id="posttitle" type="submit" name="PostName" value="{{$value.Title}}"/>
+                    </div>
+                </form>
+                {{if eq $value.PostUserID $UserID}}
+                <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par vous</p></div>
+                {{else}}
+                <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par {{$value.UserName}}</p>
+                </div>
+                {{end}}
+                <div id="content">{{$value.Content}}</div>
+            </div>
+            <div class="response">
+                <div id="number-of-response">
+                    <button name="nombre-de-reponse" id="response-number"><span>{{$value.ReplyNbr}}</span>
+                    </button>
+                    <button name="response" id="response-button" class="{{$TopicShortName}}"><i
+                            class="fa fa-comments-o" aria-hidden="true"></i></button>
+                </div>
             </div>
         </div>
+        {{end}}
     </div>
 
     <div class="profilCom contentDiv hidden">
