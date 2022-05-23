@@ -1,268 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/main/footer.css">
-    <title>Profil</title>
-</head>
-<body>
-<!--                Header                    -->
-<div class="header">
-    <nav role="navigation">
-        <div id="menuToggle">
-            <input type="checkbox"/>
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
-                <a href="/profile"><li>Profil</li></a>
-                <a href="/settingAccount"><li>Paramètres</li></a>
-                <a href="/logout"><li>Log Out</li></a>
-            </ul>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+        <link rel="stylesheet" href="../css/profile.css">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/main/footer.css">
+        <title>Profil</title>
+    </head>
+    <body>
+        <!--                Header                    -->
+        <div class="header">
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox"/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <a href="/profile">
+                            <li>Profil</li>
+                        </a>
+                        <a href="/settingAccount">
+                            <li>Paramètres</li>
+                        </a>
+                        <a href="/logout">
+                            <li>Log Out</li>
+                        </a>
+                    </ul>
+                </div>
+            </nav>
+            <img id="logo" src="../img/Helpy_logo.png" alt="">
+            <p id="slogan">
+                <span>Helpy</span>
+                <br>
+                Il n'y a que Helpy qui a la réponse
+                <br>
+                {{if .}}
+                {{.Username}}
+                {{end}}
+            </p>
+            <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
+            <p id="icon">
+                <a href="/post"><img src="../img/addpost.png" alt=""></a>
+                <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
+            </p>
         </div>
-    </nav>
-    <img id="logo" src="../img/Helpy_logo.png" alt="">
-    <p id="slogan">
-        <span>Helpy</span>
-        <br>
-        Il n'y a que Helpy qui a la réponse
-        <br>
-        {{if .}}
-        {{.Username}}
-        {{end}}
-    </p>
-    <input id="searchbar" onkeyup="" type="text" name="" placeholder="">
-    <p id="icon">
-        <a href="/post"><img src="../img/addpost.png" alt=""></a>
-        <a href="/index"><img src="../img/reste-a-la-maison.png" alt=""></a>
-    </p>
-</div>
 
-<div class="choix_profil">
-    <span class="active" data-target="Main"> VUE D'ENSEMBLE </span>
-    <span data-target="Pub"> PUBLICATIONS </span>
-    <span data-target="Com">COMMENTAIRES</span>
-    <span data-target="Fav">FAVORIS</span>
-    <span data-target="Like">LIKE</span>
-</div>
-<!--<div class="sous_ligne"></div>-->
+        <div class="choix_profil">
+            <span class="active" data-target="Main"> VUE D'ENSEMBLE </span>
+            <span data-target="Pub"> PUBLICATIONS </span>
+            <span data-target="Com">COMMENTAIRES</span>
+            <span data-target="Fav">FAVORIS</span>
+            <span data-target="Like">LIKE</span>
+        </div>
+        <!--<div class="sous_ligne"></div>-->
 
-<div class="profilMain contentDiv">
-    <div class="recap">
-        <div class="title">
-            <p class="thematique">{THEME1}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
+        <div class="profilMain contentDiv">
+            <div class="recap">
+                <div class="title">
+                    <p class="thematique">{THEME1}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+            </div>
         </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-    </div>
-</div>
-
-
-<div class="profilCom contentDiv hidden">
-
-    <div class="recap">
-        <div class="title">
-            <p class="thematique">{THEME2}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-    </div>
-</div>
 
 
-<div class="profilFav contentDiv hidden">
+        <div class="profilCom contentDiv hidden">
+
+            <div class="recap">
+                <div class="title">
+                    <p class="thematique">{THEME2}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+            </div>
+        </div>
 
 
-    <div class="recap">
-        <div class="title">
-            <p class="thematique">{THEME3}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-    </div>
-</div>
+        <div class="profilFav contentDiv hidden">
 
 
-<div class="profilLike contentDiv hidden">
+            <div class="recap">
+                <div class="title">
+                    <p class="thematique">{THEME3}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+            </div>
+        </div>
 
 
-    <div class="recap">
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-    </div>
-</div>
+        <div class="profilLike contentDiv hidden">
 
 
-<div class="profilPub contentDiv hidden">
-
-    <div class="recap">
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
+            <div class="recap">
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+            </div>
         </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-        <div class="title">
-            <p class="thematique">{THEME}</p>
-            <p class="titre_topic">{TITRE TOPIC}</p>
-        </div>
-    </div>
-</div>
 
 
-<div class="right">
-    <!--        Pseudo      -->
-    <div class="pseudo_profil">
-        <img src="../img/profil.jpg" alt="profil">
-        <p>{PSEUDO}</p>
-    </div>
-    <!--        Footer      -->
-    <div class="footer">
-        <ul>
-            <a href="https://www.ynov.com"><li>Ynov</li></a>
-            <a href="/thematiques"><li>Thématiques</li></a>
-            <a href="/about"><li>A propos</li></a>
-            <a href="/team"><li>L'équipe</li></a>
-        </ul>
-        <p>Helpy Inc © 2022. Tous droits réservés</p>
-    </div>
-</div>
-<script src="../js/js.js"></script>
-</body>
+        <div class="profilPub contentDiv hidden">
+
+            <div class="recap">
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+                <div class="title">
+                    <p class="thematique">{THEME}</p>
+                    <p class="titre_topic">{TITRE TOPIC}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="right">
+            <!--        Pseudo      -->
+            <div class="pseudo_profil">
+                <img src="../img/profil.jpg" alt="profil">
+                <p>{PSEUDO}</p>
+            </div>
+            <!--        Footer      -->
+            <div class="footer">
+                <ul>
+                    <a href="https://www.ynov.com">
+                        <li>Ynov</li>
+                    </a>
+                    <a href="/thematiques">
+                        <li>Thématiques</li>
+                    </a>
+                    <a href="/about">
+                        <li>A propos</li>
+                    </a>
+                    <a href="/team">
+                        <li>L'équipe</li>
+                    </a>
+                </ul>
+                <p>Helpy Inc © 2022. Tous droits réservés</p>
+            </div>
+        </div>
+        <script src="../js/js.js"></script>
+    </body>
 </html>
