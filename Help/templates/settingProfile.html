@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="../css2/footer.css">
         <link rel="stylesheet" href="../css2/post.css">
         <link rel="stylesheet" href="../css2/profilSettings.css">
+        <link rel="stylesheet" href="../css/settingAccount.css">
         <script defer href="../js/js.js"></script>
-    </head>
     <body>
         <div class="page-wrapper">
             <div class="nav-wrapper">
@@ -40,19 +40,15 @@
                 </nav>
             </div>
             <div class="choix_param">
-                <a href="/settingAccount"><span>Compte</span></a>
-                <a href="/settingNotifications"><span>Notifications</span></a>
                 <a href="/settingProfile"><span>Profil</span></a>
             </div>
             <div class="trait"></div>
-            <div class="trait2"></div>
             <h3>Paramètres du profil</h3>
             <h5>INFORMATIONS DU PROFIL</h5>
             <div class="trait"></div>
-            <h4 id="p">Nom data'affichage (facultatif)</h4>
+            <h4 id="p">Nom d'affichage (facultatif)</h4>
             <div class="pseudo">
                 <div>
-                    <h4>Pseudo</h4>
                     <p id="pseudo">{{.Username}}</p>
                     <div class="pseudo2">
                         <p>Saisissez le nouveau pseudo</p>
@@ -64,7 +60,7 @@
                     <span id="change">Changer</span>
                 </button>
             </div>
-            <h4>Avatar</h4>
+            <h4 class="ava" >Avatar</h4>
             <div class="avatar">
                 <img id="avatar" src="../img/profil.jpg" alt="">
                 <button class="modif_avatar">
@@ -81,5 +77,14 @@
                     <img class="avatar_pic" onclick="avatar()" id="yellow" src="../img/profil_yellow.jpg" alt="">
                 </div>
             </div>
+            <div class="mail">
+                <div>
+                    <h4 id="mal" >Adresse mail</h4>
+                    <p id="e-mail">blabla@ynov.com</p>
+                </div>
+            </div>
+            <button class="delete">
+                🗑 DELETE ACCOUNT
+            </button>
         </div>
     </body>
