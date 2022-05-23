@@ -35,8 +35,10 @@
                         <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
                         <li class="nav-item"><a href="/index">Accueil</a></li>
-                        <li class="fa fa-search" id="search-icon"></li>
-                        <input class="search-input" type="text" placeholder="Search..">
+                        <button type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
+                        <form id="searchArea" action="/searchPost">
+                            <input class="searchArea" type="text" name="search"/>
+                        </form>
                     </ul>
                 </nav>
             </div>
