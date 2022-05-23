@@ -1,8 +1,11 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 func SettingProfileHandler(w http.ResponseWriter, r *http.Request) {
@@ -20,10 +23,33 @@ func ChangeUsernameHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUserInfoFromSession(w, r)
 	r.ParseForm()
 	username := r.FormValue("newUsername")
-	fmt.Println("username: ", username)
-	fmt.Println("d: ", d.UserID)
-	ChangeUsernameFromUserId(d.UserID, username)
-	http.Redirect(w, r, "/settingProfile", http.StatusFound)
+	nameAlphaNumeric, nameLength := CheckUsername(username)
+	if !nameAlphaNumeric || !nameLength {
+		d.AddPostError.Title = "Le nom d'utilisateur doit contenir entre 5 et 20 caractères et ne doit pas contenir de caractères spéciaux."
+		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
+	} else if !CheckIfUsernameExist(w, username) {
+		d.AddPostError.Title = "Le nom d'utilisateur existe déjà."
+		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
+	} else {
+		ChangeUsernameFromUserId(d.UserID, username)
+		http.Redirect(w, r, "/settingProfile", http.StatusFound)
+	}
+}
+
+func CheckIfUsernameExist(w http.ResponseWriter, username string) bool {
+	fmt.Println("*** checkIfUsernameExist ***")
+	stmt := "SELECT Username FROM users WHERE Username = ?"
+	row := DB.QueryRow(stmt, username)
+	var uID string
+	err := row.Scan(&uID)
+	if err != sql.ErrNoRows {
+		if err != nil {
+			fmt.Println("err: ", err)
+			return false
+		}
+		return false
+	}
+	return true
 }
 
 func ChangeUsernameFromUserId(userId int, username string) {
@@ -77,22 +103,65 @@ func TranslateAvatarIdToString(avatarId string) string {
 	return avatar
 }
 
-func SettingNotificationsHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*** settingNotificationsHandler ***")
-	d := GetUsernameFromSession(w, r)
-	err := TMPL.ExecuteTemplate(w, "settingNotifications.html", d)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+func ChangePasswordHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** changePasswordHandler ***")
+	d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	oldPassword := r.FormValue("oldPassword")
+	newPassword := r.FormValue("newPassword")
+	fmt.Println("oldPassword: ", oldPassword)
+	fmt.Println("newPassword: ", newPassword)
+	if CheckPasswordFromUserId(d.UserID, oldPassword) {
+		if ChangePasswordFromUserId(w, d.UserID, newPassword) {
+			http.Redirect(w, r, "/settingProfile", http.StatusFound)
+		} else {
+			d.AddPostError.Content = "Les critères de sécurité ne sont pas respectés"
+			TMPL.ExecuteTemplate(w, "settingProfile.html", d)
+		}
+	} else {
+		d.AddPostError.Content = "Les mots de passe ne correspondent pas"
+		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
 	}
 }
 
-func SettingAccountHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*** settingAccountHandler ***")
-	d := GetUsernameFromSession(w, r)
-	err := TMPL.ExecuteTemplate(w, "settingAccount.html", d)
+func CheckPasswordFromUserId(userId int, password string) bool {
+	var passwordFromDB string
+	err := DB.QueryRow("SELECT Password FROM users WHERE User_id = ?", userId).Scan(&passwordFromDB)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		panic(err.Error())
 	}
+	err = bcrypt.CompareHashAndPassword([]byte(passwordFromDB), []byte(password))
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func ChangePasswordFromUserId(w http.ResponseWriter, userId int, password string) bool {
+	passwordLowercase, passwordUppercase, passwordNumber, passwordSpecial, passwordLength, passwordNoSpaces := CheckPassword(password)
+	if !passwordLowercase || !passwordUppercase || !passwordNumber || !passwordSpecial || !passwordLength || !passwordNoSpaces {
+		return false
+	}
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		panic(err.Error())
+	}
+	stmt, err := DB.Prepare("UPDATE users SET Password = ? WHERE User_id = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+	_, err = stmt.Exec(hashedPassword, userId)
+	if err != nil {
+		panic(err.Error())
+	}
+	return true
+}
+
+func CheckIfEmailExist(email string) bool {
+	var emailFromDB string
+	err := DB.QueryRow("SELECT Email FROM users WHERE Email = ?", email).Scan(&emailFromDB)
+	if err != nil {
+		return false
+	}
+	return true
 }

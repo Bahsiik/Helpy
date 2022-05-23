@@ -5,6 +5,13 @@
     font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
 }
 
+.searchArea{
+    border-radius: 5px;
+}
+.loupe{
+    border : none;
+    cursor: pointer;
+}
 .page-wrapper {
     width: 100%;
     height: auto;

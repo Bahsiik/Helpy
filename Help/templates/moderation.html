@@ -1,46 +1,48 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css2/style.css">
-    <link rel="stylesheet" href="../css2/responsive.css">
-    <link rel="stylesheet" href="../css2/faculty.css">
-    <link rel="stylesheet" href="../css2/footer.css">
-    <link rel="stylesheet" href="../css2/post.css">
-    <link rel="stylesheet" href="../css2/modération.css">
-    <script defer src="../js/js.js"></script>
-</head>
-<body>
-<div class="page-wrapper">
-    <div class="nav-wrapper">
-        <div class="grad-bar"></div>
-        <nav class="navbar">
-            <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Home</title>
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css2/style.css">
+        <link rel="stylesheet" href="../css2/responsive.css">
+        <link rel="stylesheet" href="../css2/faculty.css">
+        <link rel="stylesheet" href="../css2/footer.css">
+        <link rel="stylesheet" href="../css2/post.css">
+        <link rel="stylesheet" href="../css2/modération.css">
+        <script defer src="../js/js.js"></script>
+    </head>
+    <body>
+        <div class="page-wrapper">
+            <div class="nav-wrapper">
+                <div class="grad-bar"></div>
+                <nav class="navbar">
+                    <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+                    <input class="search" type="text" id="search" />
+
+                    <ul class="nav no-search">
+                        <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                        <li class="nav-item">{{.Username}}</li>
+                        {{if .IsAdmin}}
+                        <li class="nav-item"><a href="/admin">Modération</a></li>
+                        {{end}}
+                        <li class="nav-item"><a href="/post">Poster</a></li>
+                        <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
+                        <li class="nav-item"><a href="/profile">Profil</a></li>
+                        <li class="nav-item"><a href="/index">Accueil</a></li>
+                        <button type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
+                        <form id="searchArea" action="/searchPost">
+                            <input class="searchArea" type="text" name="search"/>
+                        </form>
+                    </ul>
+                </nav>
             </div>
-            <ul class="nav no-search">
-                <li class="nav-item"><a href="/logout">Déconnexion</a></li>
-                <li class="nav-item">{{.Username}}</li>
-                {{if .IsAdmin}}
-                    <li class="nav-item"><a href="/admin">Modération</a></li>
-                {{end}}
-                <li class="nav-item"><a href="/post">Poster</a></li>
-                <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
-                <li class="nav-item"><a href="/profile">Profil</a></li>
-                <li class="nav-item"><a href="/index">Accueil</a></li>
-                <li class="fa fa-search" id="search-icon"></li>
-                <input class="search-input" type="text" placeholder="Search..">
-            </ul>
-        </nav>
     </div>
     <div class="user-list">
         <div class="user-list-header">

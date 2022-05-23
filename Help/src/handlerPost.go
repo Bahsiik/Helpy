@@ -155,12 +155,15 @@ func SearchPostHandler(w http.ResponseWriter, r *http.Request) {
 	value := r.FormValue("search")
 	post := SelectPostBySearch(value)
 	d.Posts = post
+	getPostAttributs(d.Posts)
+	// make d.Topic = value with quotes
+	d.Topic = "\"" + value + "\""
+	d.TopicShortName = "all"
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
 		d.Posts[i].Hour = TranslateHour(d.Posts[i].RawDate)
 		d.Posts[i].UserAvatar = TranslateAvatarIdToString(SelectAvatarIdFromUsername(d.Posts[i].UserName))
 	}
-	getPostAttributs(d.Posts)
 	err = TMPL.ExecuteTemplate(w, "home.html", d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

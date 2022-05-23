@@ -5,6 +5,8 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+
         <title>Reply</title>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,11 +26,8 @@
                 <div class="grad-bar"></div>
                 <nav class="navbar">
                     <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
-                    <div class="menu-toggle" id="mobile-menu">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
+                    <input class="search" type="text" id="search" />
+
                     <ul class="nav no-search">
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
                         <li class="nav-item">{{.Username}}</li>
@@ -39,8 +38,10 @@
                         <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
                         <li class="nav-item"><a href="/index">Accueil</a></li>
-                        <li class="fa fa-search" id="search-icon"></li>
-                        <input class="search-input" type="text" placeholder="Search..">
+                        <button type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
+                        <form id="searchArea" action="/searchPost">
+                            <input class="searchArea" type="text" name="search"/>
+                        </form>
                     </ul>
                 </nav>
             </div>
