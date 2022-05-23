@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 23 mai 2022 à 22:08
+-- Généré le : lun. 23 mai 2022 à 22:19
 -- Version du serveur : 8.0.27
 -- Version de PHP : 7.4.26
 
@@ -20,38 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `forum`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `associate`
---
-
-DROP TABLE IF EXISTS `associate`;
-CREATE TABLE IF NOT EXISTS `associate` (
-  `Tags_id` varchar(50) NOT NULL,
-  `Subject_id` varchar(50) NOT NULL,
-  PRIMARY KEY (`Tags_id`,`Subject_id`),
-  KEY `Subject_id` (`Subject_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `notifications`
---
-
-DROP TABLE IF EXISTS `notifications`;
-CREATE TABLE IF NOT EXISTS `notifications` (
-  `Notif_id` varchar(50) NOT NULL,
-  `Notif_name` varchar(50) DEFAULT NULL,
-  `Notif_date` datetime DEFAULT NULL,
-  `Subject_id` varchar(50) NOT NULL,
-  `User_id` varchar(50) NOT NULL,
-  PRIMARY KEY (`Notif_id`),
-  KEY `Subject_id` (`Subject_id`),
-  KEY `User_id` (`User_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
