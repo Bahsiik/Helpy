@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -30,6 +31,17 @@ func RegisterAuthHandler(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("username")
 	firstPassword := r.FormValue("firstPassword")
 	secondPassword := r.FormValue("secondPassword")
+	email := r.FormValue("email")
+	fmt.Println("email: ", email)
+	if !strings.Contains(email, "@ynov.com") {
+		fmt.Println("email1: ", email)
+		err = TMPL.ExecuteTemplate(w, "register.html", "⚠ Le mail doit être de la forme \"exemple@ynov.com\"")
+		return
+	} else if CheckIfEmailExist(email) {
+		fmt.Println("email2: ", email)
+		err = TMPL.ExecuteTemplate(w, "register.html", "⚠ Cette adresse email est déjà utilisée")
+		return
+	}
 	nameAlphaNumeric, nameLength := CheckUsername(username)
 	if firstPassword != secondPassword {
 		fmt.Println("**** Passwords don't match ****")
@@ -49,6 +61,7 @@ func RegisterAuthHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
 	stmt := "SELECT Username FROM users WHERE Username = ?"
 	row := DB.QueryRow(stmt, username)
 	var uID string
@@ -74,7 +87,7 @@ func RegisterAuthHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var insertStmt *sql.Stmt
-	insertStmt, err = DB.Prepare("INSERT INTO users (Username, Password) VALUES (?, ?);")
+	insertStmt, err = DB.Prepare("INSERT INTO users (Username, Password, Email) VALUES (?, ?, ?);")
 	if err != nil {
 		fmt.Println("error preparing statement:", err)
 		err = TMPL.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")
@@ -85,7 +98,7 @@ func RegisterAuthHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer insertStmt.Close()
-	_, err = insertStmt.Exec(username, hash)
+	_, err = insertStmt.Exec(username, hash, email)
 	if err != nil {
 		fmt.Println("error inserting new user:", err)
 		err = TMPL.ExecuteTemplate(w, "register.html", "⚠ Il y a eu une erreur lors de la création du compte")

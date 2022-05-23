@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 
@@ -26,11 +27,29 @@ func ChangeUsernameHandler(w http.ResponseWriter, r *http.Request) {
 	if !nameAlphaNumeric || !nameLength {
 		d.AddPostError.Title = "Le nom d'utilisateur doit contenir entre 5 et 20 caractères et ne doit pas contenir de caractères spéciaux."
 		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
+	} else if !CheckIfUsernameExist(w, username) {
+		d.AddPostError.Title = "Le nom d'utilisateur existe déjà."
+		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
 	} else {
 		ChangeUsernameFromUserId(d.UserID, username)
 		http.Redirect(w, r, "/settingProfile", http.StatusFound)
 	}
+}
 
+func CheckIfUsernameExist(w http.ResponseWriter, username string) bool {
+	fmt.Println("*** checkIfUsernameExist ***")
+	stmt := "SELECT Username FROM users WHERE Username = ?"
+	row := DB.QueryRow(stmt, username)
+	var uID string
+	err := row.Scan(&uID)
+	if err != sql.ErrNoRows {
+		if err != nil {
+			fmt.Println("err: ", err)
+			return false
+		}
+		return false
+	}
+	return true
 }
 
 func ChangeUsernameFromUserId(userId int, username string) {
@@ -134,6 +153,15 @@ func ChangePasswordFromUserId(w http.ResponseWriter, userId int, password string
 	_, err = stmt.Exec(hashedPassword, userId)
 	if err != nil {
 		panic(err.Error())
+	}
+	return true
+}
+
+func CheckIfEmailExist(email string) bool {
+	var emailFromDB string
+	err := DB.QueryRow("SELECT Email FROM users WHERE Email = ?", email).Scan(&emailFromDB)
+	if err != nil {
+		return false
 	}
 	return true
 }
