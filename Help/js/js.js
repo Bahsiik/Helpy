@@ -14,27 +14,6 @@ function search_topics() {
 }
 
 
-
-
-document.querySelectorAll('.like').forEach(item => {
-    item.addEventListener('click', event => {
-        if (item.src === "../img/coeur(1).png") {  // to change
-            item.src = "../img/coeur.png"
-        } else {
-            item.src = "../img/coeur(1).png"
-        }
-    })
-})
-
-document.querySelectorAll('.fav').forEach(item => {
-    item.addEventListener('click', event => {
-        if (item.src == "../img/etoile(1).png") { // to change
-            item.src = "../img/etoile.png"
-            return
-        }
-        item.src = "../img/etoile(1).png"
-    })
-})
 function nam(){
     document.querySelector('#message_name').style.display = 'block';
 }
@@ -47,11 +26,11 @@ function password(){
 function leave_password() {
     document.querySelector('#message_group').style.display = 'none';
 }
-function mail() {
-    document.getElementById('e-mail').innerHTML = document.getElementById('mail').value;
-    document.querySelector('#change').innerHTML = 'Changer';
-    document.querySelector('.mail2').style.display = 'none';
-    document.querySelector('#change').style.color = 'black';
+function mdp() {
+    document.getElementById('mdp').innerHTML = document.getElementById('mail').value;
+    document.querySelector('#change_mdp').innerHTML = 'Changer';
+    document.querySelector('.Mdp2').style.display = 'none';
+    document.querySelector('#change_mdp').style.color = 'black';
 }
 function pseudo() {
     document.getElementById('pseudo').innerHTML = document.getElementById('p_seudo').value;
@@ -65,16 +44,16 @@ function avatar() {
     document.querySelector('.container').style.display = 'none';
     document.querySelector('#change_avatar').style.color = 'black';
 }
-document.querySelectorAll('.modif_email').forEach(item => {
+document.querySelectorAll('.modif_mdp').forEach(item => {
     item.addEventListener('click', event => {
-        if (document.querySelector('#change').innerHTML === 'Changer'){
-            document.querySelector('#change').innerHTML = 'Annuler';
-            document.querySelector('#change').style.color = 'red';
-            document.querySelector('.mail2').style.display = 'block';
+        if (document.querySelector('#change_mdp').innerHTML === 'Changer'){
+            document.querySelector('#change_mdp').innerHTML = 'Annuler';
+            document.querySelector('#change_mdp').style.color = 'red';
+            document.querySelector('.Mdp2').style.display = 'flex';
         } else {
-            document.querySelector('#change').innerHTML = 'Changer';
-            document.querySelector('.mail2').style.display = 'none';
-            document.querySelector('#change').style.color = 'black';
+            document.querySelector('#change_mdp').innerHTML = 'Changer';
+            document.querySelector('.Mdp2').style.display = 'none';
+            document.querySelector('#change_mdp').style.color = 'black';
         }
     })
 })
@@ -98,10 +77,12 @@ document.querySelectorAll('.modif_avatar').forEach(item => {
             document.querySelector('#change_avatar').innerHTML = 'Annuler';
             document.querySelector('#change_avatar').style.color = 'red';
             document.querySelector('.container').style.display = 'block';
+            document.querySelector('.mail').style.marginTop = '10%';
         } else {
             document.querySelector('#change_avatar').innerHTML = 'Changer';
             document.querySelector('.container').style.display = 'none';
             document.querySelector('#change_avatar').style.color = 'black';
+            document.querySelector('.mail').style.marginTop = '';
         }
     })
 })
