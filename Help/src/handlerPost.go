@@ -6,7 +6,7 @@ import (
 )
 
 func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	r.ParseForm()
 	topicName := r.FormValue("topicID")
 	d.TopicShortName = TranslateTopicNameToTopicShortName(topicName)
@@ -30,12 +30,20 @@ func SortPostHandler(w http.ResponseWriter, r *http.Request) {
 	sort := r.FormValue("sortType")
 	if sort == "Date ⬆️" {
 		d.Posts = SelectPostByDateUp()
+		d.Topic = "Date ⬆️"
+		d.TopicShortName = "all"
 	} else if sort == "Date ⬇️" {
 		d.Posts = SelectPostByDateDown()
+		d.Topic = "Date ⬇️"
+		d.TopicShortName = "all"
 	} else if sort == "Popularité ⬆️" {
 		d.Posts = SelectPostByRepliesUp()
+		d.Topic = "Popularité ⬆️"
+		d.TopicShortName = "all"
 	} else if sort == "Popularité ⬇️" {
 		d.Posts = SelectPostByRepliesDown()
+		d.Topic = "Popularité ⬇️"
+		d.TopicShortName = "all"
 	}
 	for i := 0; i < len(d.Posts); i++ {
 		d.Posts[i].Date = TranslateDate(d.Posts[i].RawDate)
@@ -49,8 +57,9 @@ func SortPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** postHandler ***")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	err := TMPL.ExecuteTemplate(w, "create.html", d)
+	fmt.Println(d.IsAdmin)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -59,8 +68,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 
 func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** addPostHandler ***")
-	cookie := CheckCookie(w, r)
-	userID := SelectUserIDFromSessionID(cookie.Value)
+	d := GetUserInfoFromSession(w, r)
 	r.ParseForm()
 	title := r.FormValue("title")
 	topicID := r.FormValue("category")
@@ -68,13 +76,13 @@ func AddPostHandler(w http.ResponseWriter, r *http.Request) {
 	description := r.FormValue("description")
 	postError, checkError := CheckPostError(title, description, topicID)
 	if checkError == true {
-		if PostErrorRedirect(w, userID, postError) {
+		if PostErrorRedirect(w, r, postError) {
 			return
 		}
 	} else {
-		AddPost(title, description, topicID, userID)
+		AddPost(title, description, topicID, d.UserID)
 		postID := SelectPostIDByTitle(title)
-		AddFirstReply(description, userID, postID)
+		AddFirstReply(description, d.UserID, postID)
 		http.Redirect(w, r, "/index", http.StatusFound)
 	}
 }

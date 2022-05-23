@@ -149,11 +149,9 @@ func DeletePost(postID string) {
 	}
 }
 
-func PostErrorRedirect(w http.ResponseWriter, userID int, postError PostError) bool {
-	d := Data{
-		Username:     SelectUsernameFromID(userID),
-		AddPostError: postError,
-	}
+func PostErrorRedirect(w http.ResponseWriter, r *http.Request, postError PostError) bool {
+	d := GetUserInfoFromSession(w, r)
+	d.AddPostError = postError
 	fmt.Println("Data : ", d)
 	err := TMPL.ExecuteTemplate(w, "create.html", d)
 	if err != nil {
