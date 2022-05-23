@@ -10,14 +10,7 @@
     color: black;
     /*font-size: 1.2em;*/
 }
-.sous_ligne{
-    position: absolute;
-    height: 4px;
-    background-color: skyblue;
-    width: 150px;
-    margin-left: 11%;
-    margin-top: -1.4%;
-}
+
 .pseudo_profil{
     width: 250px;
     padding-top: 2%;
@@ -59,6 +52,12 @@
     font-size: 1.5em;
     font-weight: bold;
 }
-.titre_topic{
 
+.hidden {
+    display: none;
+}
+.active{
+    height: 20px;
+    background-color: skyblue;
+    /*border-top: 4px;*/
 }
