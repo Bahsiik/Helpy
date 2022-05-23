@@ -95,7 +95,8 @@ func RegisterAuthHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	fmt.Fprint(w, "congrats, your account has been successfully created")
+	AddSessionCookie(w, r)
+	http.Redirect(w, r, "/index", http.StatusFound)
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
