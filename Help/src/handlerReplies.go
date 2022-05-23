@@ -13,6 +13,10 @@ func ReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("Topic")
+	if value == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	PostID := SelectPostIDFromStringID(value)
 	Username := SelectUsernameFromPostID(PostID)
 	FirstReplyID := SelectFirstReplyIDByPostID(value)
@@ -37,6 +41,10 @@ func ReplyToReplyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("Topic")
+	if value == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	ReplyID := SelectReplyIDFromStringID(value)
 	ReplyContent := SelectReplyContentFromReplyID(ReplyID)
 	Username := SelectUsernameFromReplyID(ReplyID)
@@ -58,6 +66,10 @@ func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("ReplyID")
+	if value == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	d.ReplyID = SelectReplyIDFromStringID(value)
 	d.FirstPost.Content = SelectReplyContentFromReplyID(d.ReplyID)
 	postID := SelectPostIDByReplyID(value)
@@ -82,6 +94,10 @@ func DeleteReplyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("ReplyID")
+	if value == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	d.ReplyID = SelectReplyIDFromStringID(value)
 	DeleteReplyFromReplyID(d.ReplyID)
 	UpdateReplyStatus(d.ReplyID)
@@ -100,7 +116,10 @@ func DeleteReplyAdminHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("ReplyID")
-	fmt.Println("ReplyID: " + value)
+	if value == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	d.ReplyID = SelectReplyIDFromStringID(value)
 	DeleteReplyFromReplyIDAdmin(d.ReplyID)
 	UpdateReplyStatus(d.ReplyID)

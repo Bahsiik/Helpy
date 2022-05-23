@@ -186,14 +186,3 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-
-func AdminHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("**** AdminHandler ****")
-	d := GetUserInfoFromSession(w, r)
-	Users := SelectAllUsers()
-	d.Users = Users
-	err := TMPL.ExecuteTemplate(w, "moderation.html", d)
-	if err != nil {
-		return
-	}
-}

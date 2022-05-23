@@ -5,6 +5,20 @@ import (
 	"net/http"
 )
 
+func AdminHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("**** AdminHandler ****")
+	d := GetUserInfoFromSession(w, r)
+	if d.IsAdmin == false {
+		http.Redirect(w, r, "/", http.StatusFound)
+	}
+	Users := SelectAllUsers()
+	d.Users = Users
+	err := TMPL.ExecuteTemplate(w, "moderation.html", d)
+	if err != nil {
+		return
+	}
+}
+
 func MuteUserHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** MuteUserHandler ***")
 	r.ParseForm()

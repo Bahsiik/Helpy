@@ -21,6 +21,7 @@ type Data struct {
 	Topic          string
 	TopicShortName string
 	Type           ReplyType
+	LastPost       Post
 }
 
 type User struct {

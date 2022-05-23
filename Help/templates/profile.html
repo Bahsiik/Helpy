@@ -55,11 +55,12 @@
         <div class="TitleProfil">Dernier Post</div>
         <div class="post-reponse">
             <div class="left-part-reponse">
-                <div id="picture-reponse"><img src="../img/davy.png" alt="Company Logo"></div>
+                <div id="picture-reponse"><img src="../img/{{.AvatarRoute}}" alt="Company Logo"></div>
             </div>
             <div class="right-part-reponse">
-                <div id="description-reponse"><p>Posté par {{.FirstPost.UserName}}</p></div>
-                <div id="content-reponse">{{.FirstPost.Content}}</div>
+                <div id="description-reponse"><p>Posté le {{.LastPost.Date}} à {{.LastPost.Hour}}</p></div>
+                <div id="content-reponse">{{.LastPost.Title}}</div>
+                {{.LastPost.Content}}
             </div>
         </div>
     </div>
@@ -93,8 +94,8 @@
 
     <div class="right">
         <div class="pseudo_profil">
-            <img src="../img/profil.jpg" alt="profil">
-            <p>{PSEUDO}</p>
+            <img src="../img/{{.AvatarRoute}}" alt="profil">
+            <p>{{.Username}}</p>
         </div>
     </div>
     <div id="footer-profil">

@@ -9,6 +9,10 @@ func SelectPostTopicHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUserInfoFromSession(w, r)
 	r.ParseForm()
 	topicName := r.FormValue("topicID")
+	if topicName == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	d.TopicShortName = TranslateTopicNameToTopicShortName(topicName)
 	d.Topic = topicName
 	topicID := TranslateTopicNameToTopicID(topicName)
@@ -29,7 +33,10 @@ func SortPostHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUserInfoFromSession(w, r)
 	r.ParseForm()
 	sort := r.FormValue("sortType")
-	if sort == "Date ⬆️" {
+	if sort == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	} else if sort == "Date ⬆️" {
 		d.Posts = SelectPostByDateUp()
 		d.Topic = "Date ⬆️"
 		d.TopicShortName = "all"
@@ -117,6 +124,10 @@ func PostFeedHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	PostName := r.FormValue("PostName")
+	if PostName == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	d = GetPostFeedFromString(d, PostName)
 	err = TMPL.ExecuteTemplate(w, "postFeed.html", d)
 	if err != nil {
@@ -153,6 +164,10 @@ func SearchPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	value := r.FormValue("search")
+	if value == "" {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
 	post := SelectPostBySearch(value)
 	d.Posts = post
 	getPostAttributs(d.Posts)
