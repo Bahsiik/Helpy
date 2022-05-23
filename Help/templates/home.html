@@ -23,7 +23,7 @@
                 <div class="grad-bar"></div>
                 <nav class="navbar">
                     <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
-                        <input class="search" type="text" id="search" />
+
                     <ul class="nav no-search">
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
                         <li class="nav-item">{{.Username}}</li>
@@ -34,8 +34,10 @@
                         <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
                         <li class="nav-item"><a href="/index">Accueil</a></li>
-                        <li class="fa fa-search" id="search-icon"></li>
-                        <input class="search-input" type="text" placeholder="Search..">
+                        <button type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
+                        <form id="searchArea" action="/searchPost">
+                            <input class="searchArea" type="text" name="search"/>
+                        </form>
                     </ul>
                 </nav>
             </div>
@@ -49,7 +51,7 @@
             </div>
 
             <div class="{{.TopicShortName}}" id="fillière">
-                <div  id="pop-up">Post - {{.Topic}}</div>
+                <div id="pop-up">Post - {{.Topic}}</div>
             </div>
 
 
@@ -70,14 +72,17 @@
                         {{if eq $value.PostUserID $UserID}}
                         <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par vous</p></div>
                         {{else}}
-                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par {{$value.UserName}}</p></div>
+                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}} par {{$value.UserName}}</p>
+                        </div>
                         {{end}}
                         <div id="content">{{$value.Content}}</div>
                     </div>
                     <div class="response">
                         <div id="number-of-response">
-                            <button name="nombre-de-reponse" id="response-number"><span>{{$value.ReplyNbr}}</span></button>
-                            <button name="response" id="response-button"  class="{{$TopicShortName}}"><i class="fa fa-comments-o" aria-hidden="true"></i></button>
+                            <button name="nombre-de-reponse" id="response-number"><span>{{$value.ReplyNbr}}</span>
+                            </button>
+                            <button name="response" id="response-button" class="{{$TopicShortName}}"><i
+                                    class="fa fa-comments-o" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </div>
