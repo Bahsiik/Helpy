@@ -4,6 +4,24 @@ import (
 	"fmt"
 )
 
+func SelectAllUsers() []User {
+	var users []User
+	rows, err := DB.Query("SELECT Username, Email FROM users")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var user User
+		err := rows.Scan(&user.Username, &user.Email)
+		if err != nil {
+			fmt.Println(err)
+		}
+		users = append(users, user)
+	}
+	return users
+}
+
 // SelectUserIDFromSessionID It takes a sessionID as a string, and returns the userID as an int
 func SelectUserIDFromSessionID(sessionID string) int {
 	stmt := "SELECT User_id FROM session WHERE Session_id = ?"
