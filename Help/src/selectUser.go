@@ -6,14 +6,14 @@ import (
 
 func SelectAllUsers() []User {
 	var users []User
-	rows, err := DB.Query("SELECT Username, Email FROM users")
+	rows, err := DB.Query("SELECT Username, Email, Muted FROM users")
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer rows.Close()
 	for rows.Next() {
 		var user User
-		err := rows.Scan(&user.Username, &user.Email)
+		err := rows.Scan(&user.Username, &user.Email, &user.IsMuted)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -133,4 +133,14 @@ func SelectAvatarIdFromUsername(username string) string {
 		return ""
 	}
 	return avatarId
+}
+
+func SelectMutedFromID(userID int) bool {
+	var muted bool
+	err := DB.QueryRow("SELECT Muted FROM users WHERE User_id = ?", userID).Scan(&muted)
+	if err != nil {
+		fmt.Println("err: ", err)
+		return false
+	}
+	return muted
 }

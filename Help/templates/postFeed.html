@@ -31,7 +31,7 @@
                 <li class="nav-item"><a href="/logout">Déconnexion</a></li>
                 <li class="nav-item">{{.Username}}</li>
                 {{if .IsAdmin}}
-                <li class="nav-item"><a href="#">Modération</a></li>
+                <li class="nav-item"><a href="/admin">Modération</a></li>
                 {{end}}
                 <li class="nav-item"><a href="/post">Poster</a></li>
                 <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
@@ -60,16 +60,18 @@
                 <div id="description-feed"><p>Posté le {{.FirstPost.Date}} à {{.FirstPost.Hour}} par
                         {{.FirstPost.UserName}}</p></div>
                 <div id="content-feed">{{.FirstPost.Content}}</div>
+                {{if not .IsMuted}}
                 <form action="/replyToPost" method="post">
                     <button id="rep" name="Topic" value="{{.FirstPost.ID}}">Répondre</button>
                 </form>
-
+                {{end}}
             </div>
         </div>
     </div>
 
     {{$UserID := .UserID}}
     {{$IsAdmin := .IsAdmin}}
+    {{$IsMuted := .IsMuted}}
     {{range $value := .Replies}}
         <div id="respond-wrapper">
             <div class="post-feed">
@@ -96,8 +98,9 @@
                         <p id="content-one">{{$value.Message}}</p>
                     </div>
 
+
                     <div id="boutonflex">
-                        {{if not $value.Deleted}}
+                        {{if and (not $value.Deleted) (not $IsMuted)}}
                             <form action="/replyToReply" method="post">
                                 <button id="rep" type="submit" name="Topic" value="{{$value.ID}}">Répondre</button>
                             </form>

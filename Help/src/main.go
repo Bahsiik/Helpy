@@ -74,6 +74,8 @@ func main() {
 	http.HandleFunc("/postFeed", PostFeedHandler)
 	http.HandleFunc("/thematiques", ThematiquesHandler)
 	http.HandleFunc("/admin", AdminHandler)
+	http.HandleFunc("/muteUser", MuteUserHandler)
+	http.HandleFunc("/unmuteUser", UnmuteUserHandler)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

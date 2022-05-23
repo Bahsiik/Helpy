@@ -31,10 +31,10 @@
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
                         <li class="nav-item">{{.Username}}</li>
                         {{if .IsAdmin}}
-                        <li class="nav-item"><a href="#">Modération</a></li>
+                        <li class="nav-item"><a href="/admin">Modération</a></li>
                         {{end}}
                         <li class="nav-item"><a href="/post">Poster</a></li>
-                        <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
+                        <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
                         <li class="nav-item"><a href="/index">Accueil</a></li>
                         <li class="fa fa-search" id="search-icon"></li>
@@ -56,6 +56,15 @@
                                     <p>{{$value.Email}}</p>
                                 </div>
                                 <div class="user-list-item-action">Voir le profil</div>
+                                {{if not $value.IsMuted}}
+                                <form action="/muteUser">
+                                    <button type="submit" name="username" value="{{$value.Username}}">Rendre muet</button>
+                                </form>
+                                {{else}}
+                                <form action="/unmuteUser">
+                                    <button type="submit" name="username" value="{{$value.Username}}">Rendre non muet</button>
+                                </form>
+                                {{end}}
                             </div>
                         </li>
                         {{end}}

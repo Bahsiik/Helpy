@@ -5,6 +5,7 @@ import "time"
 type Data struct {
 	UserID         int
 	Username       string
+	IsMuted        bool
 	Avatar         string
 	AvatarRoute    string
 	Users          []User
@@ -25,6 +26,7 @@ type Data struct {
 type User struct {
 	Username string
 	Email    string
+	IsMuted  bool
 }
 
 type Session struct {
