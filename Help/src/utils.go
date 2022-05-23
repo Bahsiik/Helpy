@@ -24,6 +24,7 @@ func GetUserInfoFromSession(w http.ResponseWriter, r *http.Request) Data {
 	avatar := SelectAvatarIdFromUsername(username)
 	avatarRoute := TranslateAvatarIdToString(avatar)
 	isMuted := SelectMutedFromID(userID)
+	email := SelectEmailFromID(userID)
 	d := Data{
 		Username:    username,
 		UserID:      userID,
@@ -31,6 +32,7 @@ func GetUserInfoFromSession(w http.ResponseWriter, r *http.Request) Data {
 		Avatar:      avatar,
 		AvatarRoute: avatarRoute,
 		IsMuted:     isMuted,
+		Email:       email,
 	}
 	return d
 }
@@ -52,6 +54,15 @@ func GetUserIDFromSession(w http.ResponseWriter, r *http.Request) Data {
 		UserID: userID,
 	}
 	return d
+}
+
+func SelectEmailFromID(userID int) string {
+	var email string
+	err := DB.QueryRow("SELECT Email FROM users WHERE User_id = ?", userID).Scan(&email)
+	if err != nil {
+		fmt.Println("err: ", err)
+	}
+	return email
 }
 
 func CheckCookie(w http.ResponseWriter, r *http.Request) *http.Cookie {

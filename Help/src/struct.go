@@ -5,6 +5,7 @@ import "time"
 type Data struct {
 	UserID         int
 	Username       string
+	Email          string
 	IsMuted        bool
 	Avatar         string
 	AvatarRoute    string
