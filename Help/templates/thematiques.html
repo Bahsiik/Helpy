@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/thematique.css">
-    <title>Thématiques</title>
-</head>
-<body>
-<div class="page-wrapper">
-    <div class="nav-wrapper">
-        <div class="grad-bar"></div>
-        <nav class="navbar">
-            <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
+        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="../css/thematique.css">
+        <title>Thématiques</title>
+    </head>
+    <body>
+        <div class="page-wrapper">
+            <div class="nav-wrapper">
+                <div class="grad-bar"></div>
+                <nav class="navbar">
+                    <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+                    <div class="menu-toggle" id="mobile-menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <ul class="nav no-search">
+                        <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                        <li class="nav-item">{{.Username}}</li>
+                        {{if .IsAdmin}}
+                        <li class="nav-item"><a href="/admin">Modération</a></li>
+                        {{end}}
+                        <li class="nav-item"><a href="/post">Poster</a></li>
+                        <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
+                        <li class="nav-item"><a href="/profile">Profil</a></li>
+                        <li class="nav-item"><a href="/index">Accueil</a></li>
+                        <li class="fa fa-search" id="search-icon"></li>
+                        <input class="search-input" type="text" placeholder="Search..">
+                    </ul>
+                </nav>
             </div>
-            <ul class="nav no-search">
-                <li class="nav-item"><a href="/logout">Déconnexion</a></li>
-                <li class="nav-item">{{.Username}}</li>
-                {{if .IsAdmin}}
-                <li class="nav-item"><a href="/admin">Modération</a></li>
-                {{end}}
-                <li class="nav-item"><a href="/post">Poster</a></li>
-                <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
-                <li class="nav-item"><a href="/profile">Profil</a></li>
-                <li class="nav-item"><a href="/index">Accueil</a></li>
-                <li class="fa fa-search" id="search-icon"></li>
-                <input class="search-input" type="text" placeholder="Search..">
-            </ul>
-        </nav>
-    </div>
-<!------------ THEME ------------>
-<div class="theme">
-    <a class="pic" href="https://www.ynov.com/formation/ynov-marketing-communication/">
-        <img src="../img/Theme/marketing.jpg" alt="">
-        <p>
-            Marketing & Communication
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-audiovisuel/">
-        <img src="../img/Theme/audiovisuel.jpg" alt="">
-        <p>
-            Audiovisuel
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-creation-design/">
-        <img src="../img/Theme/crea.jpeg" alt="">
-        <p>
-            Créa & Digital Design
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-architecture-interieur/">
-        <img src="../img/Theme/archi.jpg" alt="">
-        <p>
-            Architecture data'intérieur
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-informatique/">
-        <img src="../img/Theme/informatique.jpg" alt="">
-        <p>
-            Informatique
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-web-management/">
-        <img src="../img/Theme/website-management.jpg" alt="">
-        <p>
-            Web Management
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-animation-3d-jeux-video/">
-        <img src="../img/Theme/3D.jpg" alt="">
-        <p>
-            3D, Animation & Jeux-vidéo
-        </p>
-    </a>
-    <a class="pic" href="https://www.ynov.com/formation/ynov-2d-illustration/">
-        <img src="../img/Theme/2D.jpg" alt="">
-        <p>
-            2D & Illustration Digitale
-        </p>
-    </a>
-</div>
-</body>
+            <!------------ THEME ------------>
+            <div class="theme">
+                <a class="pic" href="https://www.ynov.com/formation/ynov-marketing-communication/">
+                    <img src="../img/Theme/marketing.jpg" alt="">
+                    <p>
+                        Marketing & Communication
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-audiovisuel/">
+                    <img src="../img/Theme/audiovisuel.jpg" alt="">
+                    <p>
+                        Audiovisuel
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-creation-design/">
+                    <img src="../img/Theme/crea.jpeg" alt="">
+                    <p>
+                        Créa & Digital Design
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-architecture-interieur/">
+                    <img src="../img/Theme/archi.jpg" alt="">
+                    <p>
+                        Architecture data'intérieur
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-informatique/">
+                    <img src="../img/Theme/informatique.jpg" alt="">
+                    <p>
+                        Informatique
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-web-management/">
+                    <img src="../img/Theme/website-management.jpg" alt="">
+                    <p>
+                        Web Management
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-animation-3d-jeux-video/">
+                    <img src="../img/Theme/3D.jpg" alt="">
+                    <p>
+                        3D, Animation & Jeux-vidéo
+                    </p>
+                </a>
+                <a class="pic" href="https://www.ynov.com/formation/ynov-2d-illustration/">
+                    <img src="../img/Theme/2D.jpg" alt="">
+                    <p>
+                        2D & Illustration Digitale
+                    </p>
+                </a>
+            </div>
+    </body>
 </html>
