@@ -7,7 +7,6 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Profil</title>
         <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
-
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="../css2/style.css">
@@ -26,7 +25,6 @@
                 <div class="grad-bar"></div>
                 <nav class="navbar">
                     <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
-                    <input class="search" type="text" id="search"/>
 
                     <ul class="nav no-search">
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
@@ -38,7 +36,7 @@
                         <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
                         <li class="nav-item"><a href="/index">Accueil</a></li>
-                        <button type="submit" form="searchArea">
+                        <button class="loupe" type="submit" form="searchArea">
                             <li class="fa fa-search" id="search-icon"></li>
                         </button>
                         <form id="searchArea" action="/searchPost">
@@ -47,59 +45,64 @@
                     </ul>
                 </nav>
             </div>
-            <div class="choix_profil">
-                <span class="active" data-target="Main"> VUE D'ENSEMBLE </span>
-                <span data-target="Pub"> PUBLICATIONS </span>
-                <span data-target="Com">COMMENTAIRES</span>
-            </div>
 
-            <div class="profilMain contentDiv">
-                <div class="TitleProfil">Dernier Post</div>
-                <div class="post-reponse">
-                    <div class="right-part-reponse">
-                        <div id="description-reponse"><p>Posté le {{.LastPost.Date}} à {{.LastPost.Hour}}</p></div>
-                        <form action="/postFeed" method="post">
-                            <div id="title">
-                                <input id="posttitle" type="submit" name="PostName" value="{{.LastPost.Title}}"/>
-                            </div>
-                        </form>
-                        {{.LastPost.Content}}
+        </div>
+        <div class="choix_profil">
+            <span class="active" data-target="Main"> VUE D'ENSEMBLE </span>
+            <span data-target="Pub"> PUBLICATIONS </span>
+        </div>
+
+        <div class="profilMain contentDiv">
+            <div class="TitleProfil">Dernier Post</div>
+            <div class="post-reponse">
+                <div class="right-part-reponse">
+                    <div id="description-reponse"><p>Posté le {{.LastPost.Date}} à
+                        {{.LastPost.Hour}}</p></div>
+                    <form action="/postFeed" method="post">
+                        <div id="title">
+                            <input id="posttitle" type="submit" name="PostName"
+                                   value="{{.LastPost.Title}}"/>
+                        </div>
+                    </form>
+                    {{.LastPost.Content}}
+                </div>
+            </div>
+        </div>
+
+        <div class="profilPub contentDiv hidden">
+            <div class="TitleProfil">Publications</div>
+            {{$TopicShortName := .TopicShortName}}
+            {{range $value := .Posts}}
+            <div class="post">
+                <div class="right-part">
+                    <form action="/postFeed" method="post">
+                        <div id="title">
+                            <input id="posttitle" type="submit" name="PostName"
+                                   value="{{$value.Title}}"/>
+                        </div>
+                    </form>
+                    <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}}</p>
                     </div>
+                    <div id="content">{{$value.Content}}</div>
                 </div>
             </div>
-
-            <div class="profilPub contentDiv hidden">
-                <div class="TitleProfil">Publications</div>
-                {{$TopicShortName := .TopicShortName}}
-                {{range $value := .Posts}}
-                <div class="post">
-                    <div class="right-part">
-                        <form action="/postFeed" method="post">
-                            <div id="title">
-                                <input id="posttitle" type="submit" name="PostName" value="{{$value.Title}}"/>
-                            </div>
-                        </form>
-                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}}</p></div>
-                        <div id="content">{{$value.Content}}</div>
-                    </div>
-                </div>
-                {{end}}
-            </div>
+            {{end}}
+        </div>
 
 
-            <div class="right">
-                <div class="pseudo_profil">
-                    <img src="../img/{{.AvatarRoute}}" alt="profil">
-                    <p>{{.Username}}</p>
-                </div>
+        <div class="right">
+            <div class="pseudo_profil">
+                <img src="../img/{{.AvatarRoute}}" alt="profil">
+                <p>{{.Username}}</p>
             </div>
-            <div id="footer-profil">
-                <a href="https://www.ynov.com">Ynov</a>
-                <a href="/thematiques">Thématiques</a>
-                <a href="/about">A propos</a>
-                <a href="/team">L'équipe</a>
-                <p>Helpy Inc © 2022. Tous droits réservés</p>
-            </div>
+        </div>
+        <div id="footer-profil">
+            <a href="https://www.ynov.com">Ynov</a>
+            <a href="/thematiques">Thématiques</a>
+            <a href="/about">A propos</a>
+            <a href="/team">L'équipe</a>
+            <p>Helpy Inc © 2022. Tous droits réservés</p>
+        </div>
         </div>
     </body>
 </html>
