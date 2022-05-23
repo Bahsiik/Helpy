@@ -37,6 +37,46 @@ func ChangeUsernameFromUserId(userId int, username string) {
 	}
 }
 
+func ChangeAvatarHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("*** changeAvatarHandler ***")
+	d := GetUserInfoFromSession(w, r)
+	r.ParseForm()
+	d.Avatar = r.FormValue("avatar")
+	ChangeAvatarFromUserId(d.UserID, d.Avatar)
+	d.AvatarRoute = TranslateAvatarIdToString(d.Avatar)
+	http.Redirect(w, r, "/settingProfile", http.StatusFound)
+}
+
+func ChangeAvatarFromUserId(userId int, avatar string) {
+	stmt, err := DB.Prepare("UPDATE users SET Profil_Pic = ? WHERE User_id = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+	_, err = stmt.Exec(avatar, userId)
+	if err != nil {
+		panic(err.Error())
+	}
+}
+
+func TranslateAvatarIdToString(avatarId string) string {
+	var avatar string
+	switch avatarId {
+	case "1":
+		avatar = "profil.jpg"
+	case "2":
+		avatar = "profil_black.jpg"
+	case "3":
+		avatar = "profil_green.jpg"
+	case "4":
+		avatar = "profil_pink.jpg"
+	case "5":
+		avatar = "profil_red.jpg"
+	case "6":
+		avatar = "profil_yellow.jpg"
+	}
+	return avatar
+}
+
 func SettingNotificationsHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** settingNotificationsHandler ***")
 	d := GetUsernameFromSession(w, r)

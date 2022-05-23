@@ -21,10 +21,14 @@ func GetUserInfoFromSession(w http.ResponseWriter, r *http.Request) Data {
 	userID := SelectUserIDFromSessionID(cookie.Value)
 	username := SelectUsernameFromID(userID)
 	admin := SelectAdminFromID(userID)
+	avatar := SelectAvatarIdFromUsername(username)
+	avatarRoute := TranslateAvatarIdToString(avatar)
 	d := Data{
-		Username: username,
-		UserID:   userID,
-		IsAdmin:  admin,
+		Username:    username,
+		UserID:      userID,
+		IsAdmin:     admin,
+		Avatar:      avatar,
+		AvatarRoute: avatarRoute,
 	}
 	return d
 }

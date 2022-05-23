@@ -54,7 +54,7 @@
     <div id="respond-wrapper">
         <div class="post-feed">
             <div class="left-part-feed">
-                <div id="picture-feed"><img src="../img/davy.png" alt="User logo"></div>
+                <div id="picture-feed"><img src="../img/{{.FirstPost.UserAvatar}}" alt="User logo"></div>
             </div>
             <div class="right-part-feed">
                 <div id="description-feed"><p>Posté le {{.FirstPost.Date}} à {{.FirstPost.Hour}} par
@@ -74,7 +74,7 @@
         <div id="respond-wrapper">
             <div class="post-feed">
                 <div class="left-part-feed">
-                    <div id="picture-feed"><img src="../img/davy.png" alt="User logo"></div>
+                    <div id="picture-feed"><img src="../img/{{$value.UserAvatar}}" alt="User logo"></div>
                 </div>
                 <div class="right-part-feed">
 

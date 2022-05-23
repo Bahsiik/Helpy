@@ -124,3 +124,13 @@ func SelectUsernameFromReplyID(replyID int) string {
 	}
 	return username
 }
+
+func SelectAvatarIdFromUsername(username string) string {
+	var avatarId string
+	err := DB.QueryRow("SELECT Profil_Pic FROM users WHERE Username = ?", username).Scan(&avatarId)
+	if err != nil {
+		fmt.Println("err: ", err)
+		return ""
+	}
+	return avatarId
+}

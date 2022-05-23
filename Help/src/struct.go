@@ -5,6 +5,8 @@ import "time"
 type Data struct {
 	UserID         int
 	Username       string
+	Avatar         string
+	AvatarRoute    string
 	Users          []User
 	IsAdmin        bool
 	FirstPost      Post
@@ -43,6 +45,7 @@ type Post struct {
 	TopicName  string
 	PostUserID int
 	UserName   string
+	UserAvatar string
 }
 
 type PostError struct {
@@ -63,6 +66,7 @@ type Reply struct {
 	ReplyUserID        int
 	Deleted            bool
 	UserName           string
+	UserAvatar         string
 	RepliedMsgUserName string
 	RepliedMsgContent  string
 	RepliedMsgRawDate  *time.Time
