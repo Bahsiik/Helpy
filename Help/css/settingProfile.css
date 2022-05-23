@@ -55,10 +55,15 @@ h5{
 .pseudo p{
     color: blue;
     text-align: center;
+    margin-left: 1%;
 }
 .pseudo2{
     display: none;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: stretch;
     position: absolute;
+    border: solid 2px black;
     margin-top: -5.7%;
     margin-left: 22.5%;
     text-align: center;
@@ -182,6 +187,101 @@ button{
     width: 100%;
 }
 .modif_avatar:hover span{
+    background: transparent;
+    color: white;
+}
+
+h5{
+    margin-top: 2%;
+    margin-left: 22%;
+}
+
+h3{
+    margin-top: -3.5%;
+    margin-left: 22%;
+}
+
+p {
+    margin-top: 1%;
+    margin-left: 22%;
+}
+
+
+.ava {
+    margin-top: 2%;
+    margin-left: 22%;
+}
+
+.avatar img {
+    margin: 15px;
+}
+
+.mail{
+    margin-top: 1.2%;
+}
+#mal {
+    margin-top: -10px;
+}
+
+.Mdp{
+    display: flex;
+    width: 56%;
+    margin-left: 22%;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.Mdp p{
+    color: blue;
+    text-align: center;
+}
+.Mdp2{
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: stretch;
+    background-color: white;
+    border: solid 2px black;
+    position: absolute;
+    margin-top: -3.5%;
+    margin-left: 22.5%;
+    text-align: center;
+}
+.Mdp2 p{
+    color: blue;
+    text-align: center;
+    margin-left: 1%;
+}
+.modif_mdp{
+    background-image: linear-gradient(135deg, #008aff, #86d472);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: block;
+    height: 30px;
+    font-size: 1em;
+    font-weight: 600;
+    padding: 4px;
+    position: relative;
+    text-decoration: none;
+    width: 7em;
+    z-index: 2;
+}
+.modif_mdp:hover{
+    color: #fff;
+}
+.modif_mdp span{
+    align-items: center;
+    background: #fff;
+    color: #18191b;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    transition: background 0.5s ease;
+    width: 100%;
+}
+.modif_mdp:hover span{
     background: transparent;
     color: white;
 }
