@@ -1,4 +1,6 @@
-
+#searchArea{
+    width: 1%;
+}
 .choix_profil{
     display:flex;
     justify-content: space-evenly;
