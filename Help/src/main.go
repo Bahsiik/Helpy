@@ -71,6 +71,7 @@ func main() {
 	http.HandleFunc("/profileFav", ProfileFavHandler)
 	http.HandleFunc("/profilePub", ProfilePubHandler)
 	http.HandleFunc("/settingProfile", SettingProfileHandler)
+	http.HandleFunc("/changeUsername", ChangeUsernameHandler)
 	http.HandleFunc("/settingAccount", SettingAccountHandler)
 	http.HandleFunc("/settingNotifications", SettingNotificationsHandler)
 	http.HandleFunc("/postFeed", PostFeedHandler)
