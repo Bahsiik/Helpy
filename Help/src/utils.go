@@ -23,12 +23,14 @@ func GetUserInfoFromSession(w http.ResponseWriter, r *http.Request) Data {
 	admin := SelectAdminFromID(userID)
 	avatar := SelectAvatarIdFromUsername(username)
 	avatarRoute := TranslateAvatarIdToString(avatar)
+	isMuted := SelectMutedFromID(userID)
 	d := Data{
 		Username:    username,
 		UserID:      userID,
 		IsAdmin:     admin,
 		Avatar:      avatar,
 		AvatarRoute: avatarRoute,
+		IsMuted:     isMuted,
 	}
 	return d
 }
