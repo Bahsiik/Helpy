@@ -4,8 +4,12 @@
     box-sizing: border-box;
     font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
 }
-.nav .no-search button{
-    border: none;
+
+.searchArea{
+    border-radius: 5px;
+}
+.loupe{
+    border : none;
     cursor: pointer;
 }
 .page-wrapper {
