@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    color: #6a6f8c;
-    background: #172337;
+    color: #ffffff;
+    background: #ffffff;
     font: 600 16px/18px 'Open Sans', sans-serif;
 }
 
@@ -39,7 +39,7 @@ a {
     height: 100%;
     position: absolute;
     padding: 90px 70px 50px 70px;
-    background: rgba(40, 57, 101, .9);
+    background: rgba(66, 171, 158, 0.76);
 }
 
 .login-html .sign-in-htm {
@@ -75,7 +75,7 @@ a {
 
 .login-html .sign-in:checked + .tab {
     color: #fff;
-    border-color: #1161ee;
+    border-color: rgba(66, 171, 158, 0.65);
 }
 
 .login-form {
@@ -111,12 +111,12 @@ a {
 }
 
 .login-form .group .label {
-    color: #aaa;
+    color: #ffffff;
     font-size: 12px;
 }
 
 .login-form .group .button {
-    background: #1161ee;
+    background: rgb(66, 171, 158);
 }
 
 .login-form .group label .icon {
