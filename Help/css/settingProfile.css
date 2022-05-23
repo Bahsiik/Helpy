@@ -285,3 +285,7 @@ p {
     background: transparent;
     color: white;
 }
+
+.alert {
+    color: red;
+}
