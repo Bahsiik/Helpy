@@ -76,7 +76,7 @@ func CheckUsername(username string) (bool, bool) {
 		}
 	}
 	var nameLength bool
-	if 5 <= len(username) && len(username) <= 50 {
+	if 5 <= len(username) && len(username) <= 20 {
 		nameLength = true
 	}
 	return nameAlphaNumeric, nameLength

@@ -22,10 +22,15 @@ func ChangeUsernameHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUserInfoFromSession(w, r)
 	r.ParseForm()
 	username := r.FormValue("newUsername")
-	fmt.Println("username: ", username)
-	fmt.Println("d: ", d.UserID)
-	ChangeUsernameFromUserId(d.UserID, username)
-	http.Redirect(w, r, "/settingProfile", http.StatusFound)
+	nameAlphaNumeric, nameLength := CheckUsername(username)
+	if !nameAlphaNumeric || !nameLength {
+		d.AddPostError.Title = "Le nom d'utilisateur doit contenir entre 5 et 20 caractères et ne doit pas contenir de caractères spéciaux."
+		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
+	} else {
+		ChangeUsernameFromUserId(d.UserID, username)
+		http.Redirect(w, r, "/settingProfile", http.StatusFound)
+	}
+
 }
 
 func ChangeUsernameFromUserId(userId int, username string) {
