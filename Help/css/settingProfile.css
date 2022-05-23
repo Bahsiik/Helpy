@@ -63,6 +63,7 @@ h5{
     align-items: stretch;
     align-content: stretch;
     position: absolute;
+    border: solid 2px black;
     margin-top: -5.7%;
     margin-left: 22.5%;
     text-align: center;
@@ -242,7 +243,7 @@ p {
     background-color: white;
     border: solid 2px black;
     position: absolute;
-    margin-top: -5.7%;
+    margin-top: -3.5%;
     margin-left: 22.5%;
     text-align: center;
 }
