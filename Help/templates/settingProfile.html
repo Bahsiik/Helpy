@@ -30,6 +30,9 @@
                     <ul class="nav no-search">
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
                         <li class="nav-item">{{.Username}}</li>
+                        {{if .IsAdmin}}
+                        <li class="nav-item"><a href="#">Modération</a></li>
+                        {{end}}
                         <li class="nav-item"><a href="/post">Poster</a></li>
                         <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
@@ -56,11 +59,15 @@
                         <button id="close" onclick="pseudo()">VALIDER</button>
                     </div>
                 </div>
-                <button class="modif_pseudo">
-                    <span id="change">Changer</span>
-                </button>
+                <form action="/changeUsername">
+                    <input name="newUsername" type="text" id="p_name" placeholder="Nom d'affichage">
+                    <button type="submit" class="modif_pseudo">
+                        <span id="change">Changer</span>
+                    </button>
+                </form>
+
             </div>
-            <h4 class="ava" >Avatar</h4>
+            <h4 class="ava">Avatar</h4>
             <div class="avatar">
                 <img id="avatar" src="../img/profil.jpg" alt="">
                 <button class="modif_avatar">
@@ -79,12 +86,10 @@
             </div>
             <div class="mail">
                 <div>
-                    <h4 id="mal" >Adresse mail</h4>
+                    <h4 id="mal">Adresse mail</h4>
                     <p id="e-mail">blabla@ynov.com</p>
                 </div>
             </div>
-            <button class="delete">
-                🗑 DELETE ACCOUNT
-            </button>
         </div>
     </body>
+</html>
