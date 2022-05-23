@@ -40,6 +40,11 @@
     justify-content: flex-start;
     align-items: center;
     margin: 2px;
+    font-size: 24px;
+}
+
+#content-reponse {
+    font-size: 28px;
 }
 
 .response-reponse {
