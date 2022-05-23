@@ -7,7 +7,7 @@ import (
 
 func ReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** replyToPostHandler ***")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	err := r.ParseForm()
 	if err != nil {
 		return
@@ -29,7 +29,7 @@ func ReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 
 func ReplyToReplyHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** replyToReplyHandler ***")
-	d := GetUsernameFromSession(w, r)
+	d := GetUserInfoFromSession(w, r)
 	d = GetUserIDFromSession(w, r)
 	d.Username = SelectUsernameFromID(d.UserID)
 	err := r.ParseForm()
@@ -52,9 +52,7 @@ func ReplyToReplyHandler(w http.ResponseWriter, r *http.Request) {
 
 func AddReplyToPostHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** addReplyToPostHandler ***")
-	d := GetUsernameFromSession(w, r)
-	d = GetUserIDFromSession(w, r)
-	d.Username = SelectUsernameFromID(d.UserID)
+	d := GetUserInfoFromSession(w, r)
 	err := r.ParseForm()
 	if err != nil {
 		return

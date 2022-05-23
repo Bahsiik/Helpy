@@ -32,6 +32,9 @@
                     <ul class="nav no-search">
                         <li class="nav-item"><a href="/logout">Déconnexion</a></li>
                         <li class="nav-item">{{.Username}}</li>
+                        {{if .IsAdmin}}
+                        <li class="nav-item"><a href="#">Modération</a></li>
+                        {{end}}
                         <li class="nav-item"><a href="/post">Poster</a></li>
                         <li class="nav-item"><a href="/settingAccount">Parametres</a></li>
                         <li class="nav-item"><a href="/profile">Profil</a></li>
