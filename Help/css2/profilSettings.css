@@ -185,3 +185,38 @@ button{
     background: transparent;
     color: white;
 }
+
+h5{
+    margin-top: 2%;
+    margin-left: 22%;
+}
+
+h3{
+    margin-top: -3.5%;
+    margin-left: 22%;
+}
+
+p {
+    margin-top: 6%;
+    margin-left: 22%;
+}
+
+
+.ava {
+    margin-top: 2%;
+    margin-left: 22%;
+}
+
+.avatar img {
+margin: 15px;
+}
+
+.mail {
+    margin-top: 2%;
+    margin-left: 18%;
+}
+
+#mal {
+    margin-top: 2%;
+}
+
