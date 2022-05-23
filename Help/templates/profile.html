@@ -59,7 +59,11 @@
             </div>
             <div class="right-part-reponse">
                 <div id="description-reponse"><p>Posté le {{.LastPost.Date}} à {{.LastPost.Hour}}</p></div>
-                <div id="content-reponse">{{.LastPost.Title}}</div>
+                <form action="/postFeed" method="post">
+                    <div id="title">
+                        <input id="posttitle" type="submit" name="PostName" value="{{.LastPost.Title}}"/>
+                    </div>
+                </form>
                 {{.LastPost.Content}}
             </div>
         </div>
