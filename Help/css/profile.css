@@ -49,7 +49,7 @@
 }
 .right{
     position: fixed;
-    margin-top: -12.5%;
+    margin-top: -5%;
     margin-left: 80%;
     display: flex;
     flex-direction: column;
