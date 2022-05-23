@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>{{.FirstPost.Title}}</title>
     <link rel="icon" type="image/png" sizes="5x5" href="../img/beemo.ico">
 
     <link rel="stylesheet"
@@ -24,7 +24,6 @@
         <div class="grad-bar"></div>
         <nav class="navbar">
             <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
-            <input class="search" type="text" id="search" />
 
             <ul class="nav no-search">
                 <li class="nav-item"><a href="/logout">Déconnexion</a></li>
@@ -36,7 +35,7 @@
                 <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
                 <li class="nav-item"><a href="/profile">Profil</a></li>
                 <li class="nav-item"><a href="/index">Accueil</a></li>
-                <button type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
+                <button class="loupe" type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
                 <form id="searchArea" action="/searchPost">
                     <input class="searchArea" type="text" name="search"/>
                 </form>
