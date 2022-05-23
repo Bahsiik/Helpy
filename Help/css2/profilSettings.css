@@ -1,286 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:ital,wght@1,300&family=Roboto:wght@300;400;700&family=Teko:wght@300&display=swap');
-
-a{
-    text-decoration: none;
-}
-
-.choix_param{
-    margin-top: 5%;
+.choix_profil{
     display:flex;
     justify-content: space-evenly;
     margin-bottom: 1.2%;
+    background-color: lightgray;
+    padding: 5px 0 5px 0;
 }
-.choix_param span {
+.choix_profil span {
     font-family: 'Teko', sans-serif;
     color: black;
-    font-size: 1.5em;
+    font-size: 0.9em;
 }
-.trait{
-    margin-top: -1.2%;
-    margin-left: 22%;
-    width: 56%;
-    height: 1px;
-    background-color: #4c4c52;
-    margin-bottom: 7.5%;
+
+.choix_profil span:hover{
+    cursor: pointer;
 }
-.trait2{
-    position: absolute;
-    height: 4px;
-    background-color: skyblue;
-    width: 45px;
-    margin-left: 75.1%;
-    margin-top: -7.7%;
-}
-h3{
-    margin-top: -3.5%;
-    margin-left: 22%;
-}
-h4{
-    margin-left: 22%;
-}
-h5{
-    margin-left: 22%;
-    color: darkgrey;
-}
-#p{
-    margin-top: -2%;
-}
-.pseudo{
+
+.pseudo_profil{
+    width: 250px;
+    padding-top: 2%;
+    padding-bottom: 1%;
     display: flex;
-    width: 56%;
-    margin-left: 22%;
-    justify-content: space-between;
-    align-items: center;
-}
-.pseudo p{
-    color: blue;
-    text-align: center;
-    margin-left: 1%;
-}
-.pseudo2{
-    display: none;
     flex-direction: column;
-    align-items: stretch;
-    align-content: stretch;
+    align-items: center;
+    margin-right: 3%;
+    background-color: lightgray;
+    border: solid 1px black;
+}
+.pseudo_profil img{
+    width: 100px;
+    border-radius: 20px;
+}
+.recap{
     position: absolute;
-    margin-top: -5.7%;
-    margin-left: 22.5%;
-    text-align: center;
-}
-#p_seudo{
-    border-radius: 50px;
-    text-align: center;
-}
-button{
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    border-radius: 50px;
-    border: 1px solid rgba(22, 76, 167, 0.6)
-}
-#close{
-    font-family: 'Teko', sans-serif;
-    font-size: 1.2em;
-}
-.modif_pseudo{
-    background-image: linear-gradient(135deg, #008aff, #86d472);
-    border-radius: 6px;
-    box-sizing: border-box;
-    color: #ffffff;
-    display: block;
-    height: 30px;
-    font-size: 1em;
-    font-weight: 600;
-    padding: 4px;
-    position: relative;
-    text-decoration: none;
-    width: 7em;
-    z-index: 2;
-}
-.modif_pseudo:hover{
-    color: #fff;
-}
-.modif_pseudo span{
-    align-items: center;
-    background: #fff;
-    color: #18191b;
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    transition: background 0.5s ease;
-    width: 100%;
-}
-.modif_pseudo:hover span{
-    background: transparent;
-    color: white;
-}
-#avatar{
-    max-width: 100px;
-    width: 100px;
-    border-radius: 20px;
-    margin-left: 22%;
-}
-#avatar:hover{
-    cursor: pointer;
-}
-.avatar{
-    display: flex;
-    width: 72%;
-    margin-left: 6%;
-    justify-content: space-between;
-    align-items: center;
-}
-.container{
-    display: none;
-    position: relative;
-    z-index: 5;
-    margin-top: -25%;
-    border: 5px solid rgba(84,58,183,1);
-    background-color: white;
-    width: 22%;
-    height: 250px;
-    margin-left: 38%;
-}
-.avatar2{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-.avatar2 img{
-    max-width: 100px;
-    width: 100px;
-    border-radius: 20px;
+    width: 60%;
     margin-top: 5%;
+    margin-left: 10%;
 }
-.avatar2 img:hover{
-    cursor: pointer;
-}
-.modif_avatar{
-    background-image: linear-gradient(135deg, #008aff, #86d472);
-    border-radius: 6px;
-    box-sizing: border-box;
-    color: #ffffff;
-    display: block;
-    height: 30px;
-    font-size: 1em;
-    font-weight: 600;
-    padding: 4px;
-    position: relative;
-    text-decoration: none;
-    width: 7em;
-    z-index: 2;
-}
-.modif_avatar:hover{
-    color: #fff;
-}
-.modif_avatar span{
-    align-items: center;
-    background: #fff;
-    color: #18191b;
-    border-radius: 6px;
+.title{
     display: flex;
-    justify-content: center;
-    height: 100%;
-    transition: background 0.5s ease;
-    width: 100%;
-}
-.modif_avatar:hover span{
-    background: transparent;
-    color: white;
-}
-
-h5{
-    margin-top: 2%;
-    margin-left: 22%;
-}
-
-h3{
-    margin-top: -3.5%;
-    margin-left: 22%;
-}
-
-p {
-    margin-top: 1%;
-    margin-left: 22%;
-}
-
-
-.ava {
-    margin-top: 2%;
-    margin-left: 22%;
-}
-
-.avatar img {
-margin: 15px;
-}
-
-.mail {
-    margin-top: 1.2%;
-}
-
-#mal {
-    margin-top: -10px;
-}
-.Mdp{
-    display: flex;
-    width: 56%;
-    margin-left: 22%;
-    justify-content: space-between;
+    height: 100px;
+    background-color: lightgray;
+    justify-content: space-evenly;
     align-items: center;
-
 }
-.Mdp p{
-    color: blue;
-    text-align: center;
+.title:hover{
+    border: solid 1px black;
 }
-.Mdp2{
-    display: none;
+.right{
+    margin-top: 6.5%;
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
-    align-content: stretch;
-    background-color: white;
-    border: solid 2px black;
-    position: absolute;
-    margin-top: -5.7%;
-    margin-left: 22.5%;
-    text-align: center;
+    align-items: flex-end;
 }
-.Mdp2 p{
-    color: blue;
-    text-align: center;
+.thematique{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+.active{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 6px;
+}
+
+.TitleProfil {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1%;
     margin-left: 1%;
-}
-.modif_mdp{
-    background-image: linear-gradient(135deg, #008aff, #86d472);
-    border-radius: 6px;
-    box-sizing: border-box;
-    color: #ffffff;
-    display: block;
-    height: 30px;
-    font-size: 1em;
-    font-weight: 600;
-    padding: 4px;
-    position: relative;
-    text-decoration: none;
-    width: 7em;
-    z-index: 2;
-}
-.modif_mdp:hover{
-    color: #fff;
-}
-.modif_mdp span{
-    align-items: center;
-    background: #fff;
-    color: #18191b;
-    border-radius: 6px;
     display: flex;
-    justify-content: center;
-    height: 100%;
-    transition: background 0.5s ease;
-    width: 100%;
 }
-.modif_mdp:hover span{
-    background: transparent;
-    color: white;
+
+#footer-profil {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(211, 211, 211, 0);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#footer-profil a, #footer-profil p {
+    color: #2b3373;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 0.3s ease-out;
+    margin: 0.1em;
+}
+#footer-profil a:hover {
+    color: #3498db;
 }
