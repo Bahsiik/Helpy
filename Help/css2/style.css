@@ -4,7 +4,12 @@
     box-sizing: border-box;
     font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
 }
-
+.search{
+    width: 275px;
+    position: absolute;
+    margin-left: 14%;
+    border-radius: 5px;
+}
 .page-wrapper {
     width: 100%;
     height: auto;
