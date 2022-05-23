@@ -47,8 +47,10 @@
             <div class="trait"></div>
             <h3>Paramètres du profil</h3>
             <h5>INFORMATIONS DU PROFIL</h5>
+
             <div class="trait"></div>
             <h4 id="p">Nom d'affichage (facultatif)</h4>
+            <h4 class="alert">{{.AddPostError.Content}}</h4>
             <div class="pseudo">
                 <div>
                     <p id="pseudo">{{.Username}}</p>
@@ -59,15 +61,13 @@
                             <button type="submit" id="close" onclick="pseudo()">VALIDER</button>
                         </div>
                     </form>
-
                 </div>
-
                 <button class="modif_pseudo">
                     <span id="change">Changer</span>
                 </button>
-
             </div>
             <h4>Mot de passe</h4>
+            <h4 class="alert">{{.AddPostError.Content}}</h4>
             <div class="Mdp">
                 <div>
                     <p id="mdp"></p>

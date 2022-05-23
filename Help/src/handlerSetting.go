@@ -88,10 +88,15 @@ func ChangePasswordHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("oldPassword: ", oldPassword)
 	fmt.Println("newPassword: ", newPassword)
 	if CheckPasswordFromUserId(d.UserID, oldPassword) {
-		ChangePasswordFromUserId(w, d.UserID, newPassword)
-		http.Redirect(w, r, "/settingProfile", http.StatusFound)
+		if ChangePasswordFromUserId(w, d.UserID, newPassword) {
+			http.Redirect(w, r, "/settingProfile", http.StatusFound)
+		} else {
+			d.AddPostError.Content = "Les critères de sécurité ne sont pas respectés"
+			TMPL.ExecuteTemplate(w, "settingProfile.html", d)
+		}
 	} else {
-		http.Redirect(w, r, "/settingProfile", http.StatusFound)
+		d.AddPostError.Content = "Les mots de passe ne correspondent pas"
+		TMPL.ExecuteTemplate(w, "settingProfile.html", d)
 	}
 }
 
@@ -108,24 +113,22 @@ func CheckPasswordFromUserId(userId int, password string) bool {
 	return true
 }
 
-func ChangePasswordFromUserId(w http.ResponseWriter, userId int, password string) {
+func ChangePasswordFromUserId(w http.ResponseWriter, userId int, password string) bool {
 	passwordLowercase, passwordUppercase, passwordNumber, passwordSpecial, passwordLength, passwordNoSpaces := CheckPassword(password)
 	if !passwordLowercase || !passwordUppercase || !passwordNumber || !passwordSpecial || !passwordLength || !passwordNoSpaces {
-		fmt.Println("password not valid")
-		return
-	} else {
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-		if err != nil {
-			panic(err.Error())
-		}
-		stmt, err := DB.Prepare("UPDATE users SET Password = ? WHERE User_id = ?")
-		if err != nil {
-			panic(err.Error())
-		}
-		_, err = stmt.Exec(hashedPassword, userId)
-		if err != nil {
-			panic(err.Error())
-		}
+		return false
 	}
-
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		panic(err.Error())
+	}
+	stmt, err := DB.Prepare("UPDATE users SET Password = ? WHERE User_id = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+	_, err = stmt.Exec(hashedPassword, userId)
+	if err != nil {
+		panic(err.Error())
+	}
+	return true
 }
