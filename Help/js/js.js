@@ -181,3 +181,24 @@ document.querySelectorAll('.avatar_pic').forEach(item => {
 
     })
 })
+
+document.querySelectorAll('.choix_profil span').forEach(item =>{
+    item.addEventListener('click', event => {
+        let item = event.target;
+        let target = item.dataset.target;
+        let spans = document.querySelectorAll('.choix_profil span');
+        for (let i = 0; i < spans.length; i++) {
+            spans[i].classList.remove('active');
+        }
+        item.classList.add('active');
+        let divs = document.getElementsByClassName('contentDiv');
+        for (let i = 0; i < divs.length; i++) {
+            if(divs[i].classList.contains('profil'+target)) {
+                divs[i].classList.remove('hidden');
+            }
+            else {
+                divs[i].classList.add('hidden');
+            }
+        }
+    })
+})

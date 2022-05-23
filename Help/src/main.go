@@ -76,6 +76,7 @@ func main() {
 	http.HandleFunc("/settingNotifications", SettingNotificationsHandler)
 	http.HandleFunc("/postFeed", PostFeedHandler)
 	http.HandleFunc("/thematiques", ThematiquesHandler)
+	http.HandleFunc("/admin", AdminHandler)
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

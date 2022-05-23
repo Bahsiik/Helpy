@@ -5,6 +5,7 @@ import "time"
 type Data struct {
 	UserID         int
 	Username       string
+	Users          []User
 	IsAdmin        bool
 	FirstPost      Post
 	Posts          []Post
@@ -17,6 +18,11 @@ type Data struct {
 	Topic          string
 	TopicShortName string
 	Type           ReplyType
+}
+
+type User struct {
+	Username string
+	Email    string
 }
 
 type Session struct {
