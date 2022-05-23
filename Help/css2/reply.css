@@ -6,9 +6,11 @@
     box-shadow: #4c4c52 0px 0px 3px;
     border-radius: 10px;
     max-width: 1000px;
-    margin: 5%;
+    margin: 1%;
 }
-
+.pub_reponse{
+    margin-left: 1%;
+}
 .left-part-reponse {
     width: 15%;
     height: fit-content;
