@@ -142,7 +142,7 @@ func GetPostFeedFromInt(d Data, postID int) Data {
 		d.Replies[i].ReplyHour = TranslateHour(d.Replies[i].ReplyRawDate)
 		d.Replies[i].RepliedMsgUserName = SelectUsernameFromReplyID(d.Replies[i].ReplyToID)
 		d.Replies[i].RepliedMsgContent = SelectReplyContentFromReplyID(d.Replies[i].ReplyToID)
-		d.Replies[i].RepliedMsgRawDate = SelectReplyDateFromReplyID(d.Replies[i].ID)
+		d.Replies[i].RepliedMsgRawDate = SelectReplyDateFromReplyID(d.Replies[i].ReplyToID)
 		d.Replies[i].RepliedMsgDate = TranslateDate(d.Replies[i].RepliedMsgRawDate)
 		d.Replies[i].RepliedMsgHour = TranslateHour(d.Replies[i].RepliedMsgRawDate)
 		d.Replies[i].UserAvatar = TranslateAvatarIdToString(SelectAvatarIdFromUsername(d.Replies[i].UserName))

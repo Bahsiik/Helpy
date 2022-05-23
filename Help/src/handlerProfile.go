@@ -47,3 +47,18 @@ func SelectPostByUsername(username string) []Post {
 	}
 	return posts
 }
+
+func SelectRepliesByUsername(username string) []Reply {
+	fmt.Println("*** SelectRepliesByUsername ***")
+	var replies []Reply
+	rows, err := DB.Query("SELECT * FROM replies WHERE User_id = (SELECT User_id FROM users WHERE Username = ?)", username)
+	if err != nil {
+		fmt.Println(err)
+	}
+	for rows.Next() {
+		var reply Reply
+		rows.Scan(&reply.ID, &reply.Message, &reply.ReplyRawDate, &reply.PostID, &reply.ReplyToID, &reply.ReplyUserID, &reply.Deleted)
+		replies = append(replies, reply)
+	}
+	return replies
+}
