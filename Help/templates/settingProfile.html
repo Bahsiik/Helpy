@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="../css2/post.css">
         <link rel="stylesheet" href="../css2/profilSettings.css">
         <link rel="stylesheet" href="../css/settingAccount.css">
-        <script defer href="../js/js.js"></script>
+        <script defer src="../js/js.js"></script>
     <body>
         <div class="page-wrapper">
             <div class="nav-wrapper">
@@ -53,18 +53,19 @@
             <div class="pseudo">
                 <div>
                     <p id="pseudo">{{.Username}}</p>
-                    <div class="pseudo2">
-                        <p>Saisissez le nouveau pseudo</p>
-                        <input type="text" id="p_seudo" PostID="">
-                        <button id="close" onclick="pseudo()">VALIDER</button>
-                    </div>
+                    <form action="/changeUsername">
+                        <div class="pseudo2">
+                            <p>Saisissez le nouveau pseudo</p>
+                            <input name="newUsername" type="text" id="p_name" placeholder="Saisissez le nouveau pseudo">
+                            <button type="submit" id="close" onclick="pseudo()">VALIDER</button>
+                        </div>
+                    </form>
+
                 </div>
-                <form action="/changeUsername">
-                    <input name="newUsername" type="text" id="p_name" placeholder="Saisissez le nouveau pseudo">
-                    <button type="submit" class="modif_pseudo">
-                        <span id="change">Changer</span>
-                    </button>
-                </form>
+
+                <button class="modif_pseudo">
+                    <span id="change">Changer</span>
+                </button>
 
             </div>
             <h4 class="ava">Avatar</h4>
