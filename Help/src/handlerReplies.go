@@ -117,6 +117,7 @@ func GetPostFeedFromInt(d Data, postID int) Data {
 	d.FirstPost.UserName = SelectUsernameFromID(d.FirstPost.PostUserID)
 	d.FirstPost.Date = TranslateDate(d.FirstPost.RawDate)
 	d.FirstPost.Hour = TranslateHour(d.FirstPost.RawDate)
+	d.FirstPost.UserAvatar = TranslateAvatarIdToString(SelectAvatarIdFromUsername(d.FirstPost.UserName))
 	for i := 0; i < len(d.Replies); i++ {
 		d.Replies[i].ReplyDate = TranslateDate(d.Replies[i].ReplyRawDate)
 		d.Replies[i].ReplyHour = TranslateHour(d.Replies[i].ReplyRawDate)
@@ -125,7 +126,7 @@ func GetPostFeedFromInt(d Data, postID int) Data {
 		d.Replies[i].RepliedMsgRawDate = SelectReplyDateFromReplyID(d.Replies[i].ID)
 		d.Replies[i].RepliedMsgDate = TranslateDate(d.Replies[i].RepliedMsgRawDate)
 		d.Replies[i].RepliedMsgHour = TranslateHour(d.Replies[i].RepliedMsgRawDate)
-		d.Posts[i].UserAvatar = TranslateAvatarIdToString(SelectAvatarIdFromUsername(d.Posts[i].UserName))
+		d.Replies[i].UserAvatar = TranslateAvatarIdToString(SelectAvatarIdFromUsername(d.Replies[i].UserName))
 	}
 	return d
 }

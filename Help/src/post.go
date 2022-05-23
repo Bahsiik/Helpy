@@ -176,6 +176,14 @@ func CheckPostError(title string, description string, topicID string) (PostError
 		postError.Topic = "Veuillez choisir une catégorie"
 		checkError = true
 	}
+	if len(title) > 50 {
+		postError.Title = "Votre titre est trop long"
+		checkError = true
+	}
+	if len(description) > 1000 {
+		postError.Content = "Votre description est trop longue"
+		checkError = true
+	}
 	return postError, checkError
 }
 
