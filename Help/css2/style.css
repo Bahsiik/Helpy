@@ -4,11 +4,9 @@
     box-sizing: border-box;
     font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
 }
-.search{
-    width: 275px;
-    position: absolute;
-    margin-left: 14%;
-    border-radius: 5px;
+.nav .no-search button{
+    border: none;
+    cursor: pointer;
 }
 .page-wrapper {
     width: 100%;
