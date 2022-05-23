@@ -176,7 +176,6 @@ func AdminHandler(w http.ResponseWriter, r *http.Request) {
 	d := GetUserInfoFromSession(w, r)
 	Users := SelectAllUsers()
 	d.Users = Users
-	fmt.Println("Users: ", d.Users)
 	err := TMPL.ExecuteTemplate(w, "moderation.html", d)
 	if err != nil {
 		return
