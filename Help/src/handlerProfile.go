@@ -9,6 +9,12 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("*** profileHandler ***")
 	d := GetUserInfoFromSession(w, r)
 	d.LastPost = SelectLastPost(d.UserID)
+	if d.LastPost.Title == "" {
+		d.LastPostExists = false
+		TMPL.ExecuteTemplate(w, "profile.html", d)
+	} else {
+		d.LastPostExists = true
+	}
 	d.LastPost.Date = TranslateDate(d.LastPost.RawDate)
 	d.LastPost.Hour = TranslateHour(d.LastPost.RawDate)
 	d.Posts = SelectPostByUsername(d.Username)

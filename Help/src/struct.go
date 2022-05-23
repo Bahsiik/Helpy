@@ -22,6 +22,7 @@ type Data struct {
 	TopicShortName string
 	Type           ReplyType
 	LastPost       Post
+	LastPostExists bool
 }
 
 type User struct {

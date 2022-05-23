@@ -20,86 +20,117 @@
         <script defer src="../js/js.js"></script>
     </head>
     <body>
-    <div class="page-wrapper">
-        <div class="nav-wrapper">
-            <div class="grad-bar"></div>
-            <nav class="navbar">
-                <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
+        <div class="page-wrapper">
+            <div class="nav-wrapper">
+                <div class="grad-bar"></div>
+                <nav class="navbar">
+                    <img id="logo" src="../img/Helpy_logo.png" alt="Company Logo">
 
-                <ul class="nav no-search">
-                    <li class="nav-item"><a href="/logout">Déconnexion</a></li>
-                    <li class="nav-item">{{.Username}}</li>
-                    {{if .IsAdmin}}
-                    <li class="nav-item"><a href="/admin">Modération</a></li>
-                    {{end}}
-                    <li class="nav-item"><a href="/post">Poster</a></li>
-                    <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
-                    <li class="nav-item"><a href="/profile">Profil</a></li>
-                    <li class="nav-item"><a href="/index">Accueil</a></li>
-                    <button class="loupe" type="submit" form="searchArea"><li class="fa fa-search" id="search-icon"></li></button>
-                    <form id="searchArea" action="/searchPost">
-                        <input class="searchArea" type="text" name="search"/>
-                    </form>
-                </ul>
-            </nav>
-        </div>
-        <div class="choix_profil">
-            <span class="active" data-target="Main"> VUE D'ENSEMBLE </span>
-            <span data-target="Pub"> PUBLICATIONS </span>
-        </div>
+                    <ul class="nav no-search">
+                        <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+                        <li class="nav-item">{{.Username}}</li>
+                        {{if .IsAdmin}}
+                        <li class="nav-item"><a href="/admin">Modération</a></li>
+                        {{end}}
+                        <li class="nav-item"><a href="/post">Poster</a></li>
+                        <li class="nav-item"><a href="/settingProfile">Parametres</a></li>
+                        <li class="nav-item"><a href="/profile">Profil</a></li>
+                        <li class="nav-item"><a href="/index">Accueil</a></li>
+                        <button class="loupe" type="submit" form="searchArea">
+                            <li class="fa fa-search" id="search-icon"></li>
+                        </button>
+                        <form id="searchArea" action="/searchPost">
+                            <input class="searchArea" type="text" name="search"/>
+                        </form>
+                    </ul>
+                </nav>
+            </div>
+            <div class="choix_profil">
+                <span class="active" data-target="Main"> VUE D'ENSEMBLE </span>
+                <span data-target="Pub"> PUBLICATIONS </span>
+            </div>
 
-        <div class="profilMain contentDiv">
-            <div class="TitleProfil">Dernier Post</div>
-            <div class="post-reponse">
-                <div class="right-part-reponse">
-                    <div id="description-reponse"><p>Posté le {{.LastPost.Date}} à
-                        {{.LastPost.Hour}}</p></div>
-                    <form action="/postFeed" method="post">
-                        <div id="title">
-                            <input id="posttitle" type="submit" name="PostName"
-                                   value="{{.LastPost.Title}}"/>
-                        </div>
-                    </form>
-                    {{.LastPost.Content}}
+            {{if .LastPostExists}}
+            <div class="profilMain contentDiv">
+                <div class="TitleProfil">Dernier Post</div>
+                <div class="post-reponse">
+                    <div class="right-part-reponse">
+                        <div id="description-reponse"><p>Posté le {{.LastPost.Date}} à
+                            {{.LastPost.Hour}}</p></div>
+                        <form action="/postFeed" method="post">
+                            <div id="title">
+                                <input id="posttitle" type="submit" name="PostName"
+                                       value="{{.LastPost.Title}}"/>
+                            </div>
+                        </form>
+                        {{.LastPost.Content}}
+                    </div>
                 </div>
             </div>
-        </div>
+            {{else}}
+            <div class="profilMain contentDiv">
+                <div class="TitleProfil">Dernier Post</div>
+                <div class="post-reponse">
+                    <div class="right-part-reponse">
+                        <div id="description-reponse"><p></p></div>
+                        <form action="/postFeed" method="post">
+                            <div id="title">
+                                <input id="posttitle" type="submit" name="PostName"
+                                       value="Aucun post"/>
+                            </div>
+                        </form>
 
-        <div class="profilPub contentDiv hidden">
-            <div class="TitleProfil">Publications</div>
-            {{$TopicShortName := .TopicShortName}}
-            {{range $value := .Posts}}
-            <div class="post">
-                <div class="right-part">
-                    <form action="/postFeed" method="post">
-                        <div id="title">
-                            <input id="posttitle" type="submit" name="PostName"
-                                   value="{{$value.Title}}"/>
-                        </div>
-                    </form>
-                    <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}}</p>
                     </div>
-                    <div id="content">{{$value.Content}}</div>
                 </div>
             </div>
             {{end}}
-        </div>
 
 
-        <div class="right">
-            <div class="pseudo_profil">
-                <img src="../img/{{.AvatarRoute}}" alt="profil">
-                <p>{{.Username}}</p>
+
+
+            <div class="profilPub contentDiv hidden">
+                <div class="TitleProfil">Publications</div>
+                {{$TopicShortName := .TopicShortName}}
+                {{if .Posts}}
+                {{range $value := .Posts}}
+                <div class="post">
+                    <div class="right-part">
+                        <form action="/postFeed" method="post">
+                            <div id="title">
+                                <input id="posttitle" type="submit" name="PostName"
+                                       value="{{$value.Title}}"/>
+                            </div>
+                        </form>
+                        <div id="description"><p>Posté le {{$value.Date}} à {{$value.Hour}}</p>
+                        </div>
+                        <div id="content">{{$value.Content}}</div>
+                    </div>
+                </div>
+                {{end}}
+                {{else}}
+                <div class="post">
+                    <div class="right-part">
+                        <div id="description"><p>Aucun post</p></div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+
+
+            <div class="right">
+                <div class="pseudo_profil">
+                    <img src="../img/{{.AvatarRoute}}" alt="profil">
+                    <p>{{.Username}}</p>
+                </div>
+            </div>
+            <div id="footer-profil">
+                <a href="https://www.ynov.com">Ynov</a>
+                <a href="/thematiques">Thématiques</a>
+                <a href="/about">A propos</a>
+                <a href="/team">L'équipe</a>
+                <p>Helpy Inc © 2022. Tous droits réservés</p>
             </div>
         </div>
-        <div id="footer-profil">
-            <a href="https://www.ynov.com">Ynov</a>
-            <a href="/thematiques">Thématiques</a>
-            <a href="/about">A propos</a>
-            <a href="/team">L'équipe</a>
-            <p>Helpy Inc © 2022. Tous droits réservés</p>
         </div>
-        </div>
-    </div>
     </body>
 </html>
